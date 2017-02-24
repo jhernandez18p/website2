@@ -1,0 +1,239 @@
+{% extends 'base.html' %}
+{% load staticfiles %}
+
+{% block css %}
+<style media="screen">
+    .testimonial-post {min-height: 100px;}
+    .testimonial-post-header {height: 250px;}
+    .testimonial-post-header img {}
+    .testimonial-post-header h3 {position: relative; background-color: rgba(54,69,69,0.5); width: 100%; margin: 0;bottom: 50px;height: 50px;padding-left: 15px;padding-top: 5px;color: #e9e5e5}
+    .testimonial-post-content {height: 200px;padding: 15px;}
+    .testimonial-post-content p {}
+    .testimonios {margin-top: 15px; margin-bottom: 15px}
+</style>
+{% endblock %}
+
+{% block content %}
+<!-- Carousel -->
+<div class="row">
+    <div class="container">
+        <div class="col-xs-12">
+            <div id="testimonialCarousel">
+                <h2 class="text-center">Ultimos testimonios</h2>
+                <div id="testimonials" class="carousel slide text-center" data-ride="carousel">
+                    <!-- Indicators -->
+                    <ol class="carousel-indicators">
+                        <li data-target="#myCarousel" data-slide-to="0" class="active"></li>
+                        <li data-target="#myCarousel" data-slide-to="1"></li>
+                        <li data-target="#myCarousel" data-slide-to="2"></li>
+                    </ol>
+
+                    <!-- Wrapper for slides -->
+                    <div class="carousel-inner" role="listbox">
+                        <div class="item active">
+                            <img src="http://placehold.it/1700x300" alt="">
+                            <h4>"This company is the best. I am so happy with the result!"<br><span style="font-style:normal;">Michael Roe, Vice President, Comment Box</span></h4>
+                        </div>
+                        <div class="item">
+                            <img src="http://placehold.it/1700x300" alt="">
+                            <h4>"One word... WOW!!"<br><span style="font-style:normal;">John Doe, Salesman, Rep Inc</span></h4>
+                        </div>
+                        <div class="item">
+                            <img src="http://placehold.it/1700x300" alt="">
+                            <h4>"Could I... BE any more happy with this company?"<br><span style="font-style:normal;">Chandler Bing, Actor, FriendsAlot</span></h4>
+                        </div>
+                    </div>
+
+                    <!-- Left and right controls -->
+                    <a class="left carousel-control" href="#testimonials" role="button" data-slide="prev">
+                        <span class="glyphicon glyphicon-chevron-left" aria-hidden="true"></span>
+                        <span class="sr-only">Anterior</span>
+                    </a>
+                    <a class="right carousel-control" href="#testimonials" role="button" data-slide="next">
+                        <span class="glyphicon glyphicon-chevron-right" aria-hidden="true"></span>
+                        <span class="sr-only">Siguiente</span>
+                    </a>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- Testimonials -->
+<div class="row testimonios">
+    <div class="container">
+        <div class="col-xs-12 col-sm-6">
+            <div class="testimonial-post material-shadow">
+                <div class="testimonial-post-header">
+                    <img id="" src="http://placehold.it/540x250" alt="">
+                    <h3>Titulo del post</h3>
+                </div>
+                <div class="testimonial-post-content">
+                    <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur.</p>
+                </div>
+                <div class="testimonial-post-footer">
+
+                </div>
+            </div>
+        </div>
+        <div class="col-xs-12 col-sm-6">
+            <div class="testimonial-post material-shadow">
+                <div class="testimonial-post-header">
+                    <img id="" src="http://placehold.it/540x250" alt="">
+                    <h3>Titulo del post</h3>
+                </div>
+                <div class="testimonial-post-content">
+                    <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur.</p>
+                </div>
+                <div class="testimonial-post-footer">
+
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="row testimonios">
+    <div class="container">
+        <div class="col-xs-12 col-sm-6">
+            <div class="testimonial-post material-shadow">
+                <div class="testimonial-post-header">
+                    <img id="" src="http://placehold.it/540x250" alt="">
+                    <h3>Titulo del post</h3>
+                </div>
+                <div class="testimonial-post-content">
+                    <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur.</p>
+                </div>
+                <div class="testimonial-post-footer">
+
+                </div>
+            </div>
+        </div>
+        <div class="col-xs-12 col-sm-6">
+            <div class="testimonial-post material-shadow">
+                <div class="testimonial-post-header">
+                    <img id="" src="http://placehold.it/540x250" alt="">
+                    <h3>Titulo del post</h3>
+                </div>
+                <div class="testimonial-post-content">
+                    <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur.</p>
+                </div>
+                <div class="testimonial-post-footer">
+
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="row testimonios">
+    <div class="container">
+        <div class="col-xs-12 col-sm-6">
+            <div class="testimonial-post material-shadow">
+                <div class="testimonial-post-header">
+                    <img id="" src="http://placehold.it/540x250" alt="">
+                    <h3>Titulo del post</h3>
+                </div>
+                <div class="testimonial-post-content">
+                    <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur.</p>
+                </div>
+                <div class="testimonial-post-footer">
+
+                </div>
+            </div>
+        </div>
+        <div class="col-xs-12 col-sm-6">
+            <div class="testimonial-post material-shadow">
+                <div class="testimonial-post-header">
+                    <img id="" src="http://placehold.it/540x250" alt="">
+                    <h3>Titulo del post</h3>
+                </div>
+                <div class="testimonial-post-content">
+                    <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur.</p>
+                </div>
+                <div class="testimonial-post-footer">
+
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="row testimonios">
+    <div class="container">
+        <div class="col-xs-12 col-sm-6">
+            <div class="testimonial-post material-shadow">
+                <div class="testimonial-post-header">
+                    <img id="" src="http://placehold.it/540x250" alt="">
+                    <h3>Titulo del post</h3>
+                </div>
+                <div class="testimonial-post-content">
+                    <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur.</p>
+                </div>
+                <div class="testimonial-post-footer">
+
+                </div>
+            </div>
+        </div>
+        <div class="col-xs-12 col-sm-6">
+            <div class="testimonial-post material-shadow">
+                <div class="testimonial-post-header">
+                    <img id="" src="http://placehold.it/540x250" alt="">
+                    <h3>Titulo del post</h3>
+                </div>
+                <div class="testimonial-post-content">
+                    <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur.</p>
+                </div>
+                <div class="testimonial-post-footer">
+
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- Pagination -->
+<div class="row testimonios">
+    <div class="container">
+        <div class="col-xs-12 text-center">
+            <nav aria-label="...">
+        <ul class="pagination">
+            <li class="disabled">
+                <a href="#" aria-label="Previous">
+                    <span aria-hidden="true">&laquo;</span>
+                </a>
+            </li>
+            <li class="active">
+                <a href="#">
+                    1<span class="sr-only">(current)</span>
+                </a>
+            </li>
+            <li class="">
+                <a href="#">
+                    2
+                </a>
+            </li>
+            <li class="">
+                <a href="#">
+                    3
+                </a>
+            </li>
+            <li class="">
+                <a href="#">
+                    4
+                </a>
+            </li>
+            <li class="">
+                <a href="#">
+                    5
+                </a>
+            </li>
+            <li>
+                <a href="#" aria-label="Next">
+                    <span aria-hidden="true">&raquo;</span>
+                </a>
+            </li>
+        </ul>
+    </nav>
+        </div>
+    </div>
+</div>
+{% endblock %}
+
+{% block js %}
+{% endblock %}

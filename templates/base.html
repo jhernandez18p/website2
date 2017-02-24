@@ -1,0 +1,241 @@
+<!DOCTYPE html>{% load staticfiles %}
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Iglesia Universal Del Reino de Dios</title>
+    {% include 'header.html' %}
+    {% block css %}{% endblock %}
+    <style media="screen">
+    </style>
+</head>
+<body>
+    <header>
+        <div class="hidden-xs row">
+            <div class="container-fluid">
+                <img src="{% static 'base/images/logo.png' %}" alt="Iglesia oración fuerte al Espiritu Santo" id="logoLarge">
+            </div>
+        </div>
+        <nav id="myMenu" class="navbar navbar-default navbar-top">
+            <div class="container">
+                <div class="navbar-header">
+                    <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1" aria-expanded="false">
+                        <span class="sr-only">Toggle navigation</span>
+                        <span class="icon-bar"></span>
+                        <span class="icon-bar"></span>
+                        <span class="icon-bar"></span>
+                    </button>
+                </div>
+                <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+                    <ul class="nav navbar-nav">
+                        <li class="{% if pg_title == 'home' %}active{% endif %}">
+                            <a href="{% url 'frontend:Home' %}">Inicio</a>
+                        </li>
+                        <li class="{% if pg_title == 'about' %}active{% endif %}" >
+                            <a href="{% url 'frontend:About' %}">¿Quienes somos?</a>
+                        </li>
+                        <li class="{% if pg_title == 'project' %}active{% endif %}">
+                            <a href="{% url 'frontend:Projects' %}">Proyectos</a>
+                        </li>
+                        <li class="dropdown dropdown-large {% if pg_title == 'reunion' %}active{% endif %}">
+                            <a href="#" class="dropdown-toggle" data-toggle="dropdown">
+                                Reuniones <b class="caret"></b>
+                            </a>
+                            <ul class="dropdown-menu dropdown-menu-large row">
+                                <li class="col-sm-3">
+                                    <ul>
+                                        <li class="dropdown-header">Ver reuniones</li>
+                                        <li>
+                                            <a href="{% url 'frontend:Reunions' %}">Todas las reuniones</a>
+                                        </li>
+                                        <li class="divider"></li>
+                                        <li class="dropdown-header">
+                                            Domingo
+                                        </li>
+                                        <li>
+                                            <a href="#">
+                                                Reunión espiritual y familiar
+                                            </a>
+                                        </li>
+                                        <li>
+                                            <a href="#">Cura de los vicios</a>
+                                        </li>
+                                        <li>
+                                            <a href="#">Estudio apocalipsis</a>
+                                        </li>
+                                    </ul>
+                                </li>
+                                <li class="col-sm-3">
+                                    <ul>
+                                        <li class="dropdown-header">Lunes</li>
+                                        <li>
+                                            <a href="#">Progreso economico</a>
+                                        </li>
+                                        <li class="divider"></li>
+                                        <li class="dropdown-header">
+                                            Martes
+                                        </li>
+                                        <li>
+                                            <a href="#">Liberación</a>
+                                        </li>
+                                    </ul>
+                                </li>
+                                <li class="col-sm-3">
+                                    <ul>
+                                        <li class="dropdown-header">Miércoles</li>
+                                        <li>
+                                            <a href="#">Noche de salvación</a>
+                                        </li>
+                                        <li class="divider"></li>
+                                        <li class="dropdown-header">Jueves</li>
+                                        <li>
+                                            <a href="#">Terapia del amor</a>
+                                        </li>
+                                    </ul>
+                                </li>
+                                <li class="col-sm-3">
+                                    <ul>
+                                        <li class="dropdown-header">Viernes</li>
+                                        <li>
+                                            <a href="#">Liberación espiritual</a>
+                                        </li>
+                                        <li class="divider"></li>
+                                        <li class="dropdown-header">Sabado</li>
+                                        <li>
+                                            <a href="#">Casos imposibles</a>
+                                        </li>
+                                    </ul>
+                                </li>
+                            </ul>
+                        </li>
+                        <li class="{% if pg_title == 'testimonial' %}active{% endif %}">
+                            <a href="{% url 'frontend:Testimonials' %}">Testimonios</a>
+                        </li>
+                        <li class="{% if pg_title == 'media' %}active{% endif %}">
+                            <a href="{% url 'frontend:Media' %}">Multimedia</a>
+                        </li>
+                        <li class="{% if pg_title == 'blog' %}active{% endif %}">
+                            <a href="{% url 'frontend:Blog' %}">Blog</a>
+                        </li>
+                        <li class="{% if pg_title == 'contact' %}active{% endif %}">
+                            <a href="{% url 'frontend:Contact' %}">Contacto</a>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </nav>
+    </header>
+    <section>{% block content %}{% endblock %}</section>
+    <footer>
+        <div id="footerRow1" class="row footer-row ident-color">
+            <div class="container">
+                <div class="col-xs-12 col-sm-3">
+                    <ul id="footerCol1Row" class="footer-list">
+                        <li class="" id="">Últimos artículos</li>
+                        <li class="" id="">lorem</li>
+                        <li class="" id="">lorem</li>
+                        <li class="" id="">lorem</li>
+                        <li class="" id="">lorem</li>
+                        <li class="" id="">lorem</li>
+                    </ul>
+                </div>
+                <div class="col-xs-12 col-sm-3">
+                    <ul id="footerCol2Row" class="footer-list">
+                        <li class="" id="">Blogs amigos</li>
+                        <li class="" id="">lorem</li>
+                        <li class="" id="">lorem</li>
+                        <li class="" id="">lorem</li>
+                        <li class="" id="">lorem</li>
+                        <li class="" id="">lorem</li>
+                    </ul>
+                </div>
+                <div class="col-xs-12 col-sm-3">
+                    <ul id="footerCol3Row" class="footer-list">
+                        <li class="" id="">Título</li>
+                        <li class="" id="">lorem</li>
+                        <li class="" id="">lorem</li>
+                        <li class="" id="">lorem</li>
+                        <li class="" id="">lorem</li>
+                        <li class="" id="">lorem</li>
+                    </ul>
+                </div>
+                <div class="col-xs-12 col-sm-3">
+                    <ul id="footerCol4Row" class="footer-list">
+                        <li class="" id="">Redes sociales</li>
+                        <li class="" id="">lorem</li>
+                        <li class="" id="">lorem</li>
+                        <li class="" id="">lorem</li>
+                        <li class="" id="">lorem</li>
+                        <li class="" id="">lorem</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+        <div id="footerRow2" class="row footer-row ident-color-dark">
+            <div class="container">
+                <div class="col-xs-12 col-sm-4 text-center">
+                    <p>Copyright 2017 Iglesia Oración Fuerte al Espiritu Santo</p>
+                </div>
+                <div class="col-xs-12 col-sm-4 text-center">
+                    <p></p>
+                </div>
+                <div class="col-xs-12 col-sm-4 text-center">
+                    <p class="dev2tech-logo">Powered by <span class=""><a target="_blank" href="https://dev2tech.xyz">Dev2tech</a></span></p>
+                </div>
+            </div>
+        </div>
+    </footer>
+    {% if user_rouge_for_pray %}
+    <div  id="prayModal" class="modal fade" tabindex="-1" role="dialog">
+        <div class="modal-dialog modal-lg" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true"><h5>&times;</h5></span></button>
+                    <h5 class="modal-title text-center" id="exampleModalLabel">
+                        Hola, Nos gustaría hacer una oración a su nombre
+                    </h5>
+                </div>
+                <div class="modal-body">
+                    <form>
+                        <div class="form-group">
+                            <label for="recipient-name" class="control-label">
+                                <h5>¿Cual es su nombre?</h5>
+                            </label>
+                            <input type="text" class="form-control" id="recipient-name">
+                        </div>
+                        <div class="form-group">
+                            <label for="recipient-name" class="control-label">
+                                <h5>¿Cuál es su correo electrónico?</h5>
+                            </label>
+                            <input type="text" class="form-control" id="recipient-name">
+                        </div>
+                        <div class="form-group">
+                            <label for="message-text" class="control-label">
+                                <h5>¿Por qué o quien quiere que oremos?</h5>
+                            </label>
+                            <textarea class="form-control" id="message-text"></textarea>
+                        </div>
+                    </form>
+                </div>
+                <div class="modal-footer">
+                    <form class="inline-form" action="{% url 'frontend:lang' %}" method="post">
+                        {# csrf_token #}
+                        <button type="submit" class="btn btn-link">
+                            <h5>Por ahora no</h5>
+                        </button>
+                        <button type="submit" class="btn btn-link">
+                            <h5>Enviar</h5>
+                        </button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+    {% endif %}
+    <script src="{% static 'base/js/jquery-3.1.1.min.js' %}" charset="utf-8"></script>
+    <script src="{% static 'base/js/bootstrap.min.js' %}" charset="utf-8"></script>
+    <script src="{% static 'base/js/app.js' %}" charset="utf-8"></script>
+    {% block js %}{% endblock %}
+</body>
+</html>

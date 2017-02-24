@@ -1,0 +1,128 @@
+<!DOCTYPE html>{% load staticfiles %}
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Dashboard</title>
+    {% include 'header.html' %}
+    {% block css %} {% endblock %}
+</head>
+<body>
+    <header>
+        <nav id="myMenu" class="navbar navbar-default navbar-top">
+            <div class="container">
+                <div class="navbar-header">
+                    <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1" aria-expanded="false">
+                        <span class="sr-only"></span>
+                        <span class="icon-bar"></span>
+                        <span class="icon-bar"></span>
+                        <span class="icon-bar"></span>
+                    </button>
+                </div>
+                <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+                    <ul class="nav navbar-nav">
+                        <li class="{% if pg_title == 'home' %}active{% endif %}">
+                            <a href="{% url 'dashboard:Home' %}">Inicio</a>
+                        </li>
+                        <li class="{% if pg_title == 'about' %}active{% endif %}" >
+                            <a href="{% url 'dashboard:About' %}">¿Quienes somos?</a>
+                        </li>
+                        <li class="{% if pg_title == 'project' %}active{% endif %}">
+                            <a href="{% url 'dashboard:Projects' %}">Proyectos</a>
+                        </li>
+                        <li class="dropdown dropdown-large {% if pg_title == 'reunion' %}active{% endif %}">
+                            <a href="#" class="dropdown-toggle" data-toggle="dropdown">
+                                Reuniones <b class="caret"></b>
+                            </a>
+                            <ul class="dropdown-menu dropdown-menu-large row">
+                                <li class="col-sm-3">
+                                    <ul>
+                                        <li class="dropdown-header">Ver reuniones</li>
+                                        <li>
+                                            <a href="{% url 'dashboard:Reunions' %}">Todas las reuniones</a>
+                                        </li>
+                                        <li class="divider"></li>
+                                        <li class="dropdown-header">
+                                            Domingo
+                                        </li>
+                                        <li>
+                                            <a href="#">
+                                                Reunión espiritual y familiar
+                                            </a>
+                                        </li>
+                                        <li>
+                                            <a href="#">Cura de los vicios</a>
+                                        </li>
+                                        <li>
+                                            <a href="#">Estudio apocalipsis</a>
+                                        </li>
+                                    </ul>
+                                </li>
+                                <li class="col-sm-3">
+                                    <ul>
+                                        <li class="dropdown-header">Lunes</li>
+                                        <li>
+                                            <a href="#">Progreso economico</a>
+                                        </li>
+                                        <li class="divider"></li>
+                                        <li class="dropdown-header">
+                                            Martes
+                                        </li>
+                                        <li>
+                                            <a href="#">Liberación</a>
+                                        </li>
+                                    </ul>
+                                </li>
+                                <li class="col-sm-3">
+                                    <ul>
+                                        <li class="dropdown-header">Miércoles</li>
+                                        <li>
+                                            <a href="#">Noche de salvación</a>
+                                        </li>
+                                        <li class="divider"></li>
+                                        <li class="dropdown-header">Jueves</li>
+                                        <li>
+                                            <a href="#">Terapia del amor</a>
+                                        </li>
+                                    </ul>
+                                </li>
+                                <li class="col-sm-3">
+                                    <ul>
+                                        <li class="dropdown-header">Viernes</li>
+                                        <li>
+                                            <a href="#">Liberación espiritual</a>
+                                        </li>
+                                        <li class="divider"></li>
+                                        <li class="dropdown-header">Sabado</li>
+                                        <li>
+                                            <a href="#">Casos imposibles</a>
+                                        </li>
+                                    </ul>
+                                </li>
+                            </ul>
+                        </li>
+                        <li class="{% if pg_title == 'testimonial' %}active{% endif %}">
+                            <a href="{% url 'dashboard:Testimonials' %}">Testimonios</a>
+                        </li>
+                        <li class="{% if pg_title == 'blog' %}active{% endif %}">
+                            <a href="{% url 'dashboard:Blog' %}">Multimedia</a>
+                        </li>
+                        <li class="{% if pg_title == 'blog' %}active{% endif %}">
+                            <a href="{% url 'dashboard:Blog' %}">Blog</a>
+                        </li>
+                        <li class="{% if pg_title == 'contact' %}active{% endif %}">
+                            <a href="{% url 'dashboard:Contact' %}">Contacto</a>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </nav>
+    </header>
+    <section>{% block content %} {% endblock %}</section>
+    <footer>
+
+    </footer>
+    {% block js %} {% endblock %}
+</body>
+</html>
