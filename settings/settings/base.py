@@ -93,7 +93,7 @@ AUTH_PASSWORD_VALIDATORS = [
 
 LANGUAGE_CODE = 'es'
 
-TIME_ZONE = 'Americas/Bogota'
+TIME_ZONE = 'Americas/Panama'
 
 USE_I18N = True
 
