@@ -5,10 +5,12 @@ from django.contrib.auth.models import User
 from django.db.models.signals import post_save
 from django.dispatch import receiver
 from django.utils import timezone
+from django.dispatch import receiver
 
 from ckeditor.fields import RichTextField
 
 from local_apps.iurd.models import Church
+
 
 def upload_location(instance, filename):
     #filebase, extension = filename.split(".")
@@ -87,3 +89,4 @@ class UserProfile(models.Model):
             ("can_delete_user", "Puede eliminar usuarios"),
             ("can_update_user", "Puede editar usuarios"),
         )
+

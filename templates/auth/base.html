@@ -1,0 +1,61 @@
+<!DOCTYPE html>{% load staticfiles %}
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>{{pg_title}} | Iglesia Universal Del Reino de Dios</title>
+	{% include 'header.html' %}
+	<!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
+    <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
+    <!--[if lt IE 9]>
+        <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
+        <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
+    <![endif]-->
+		<style>
+			@import url("https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css");
+			form{
+				margin:150px auto;
+			}
+			.btn-facebook{
+				background-color: #3b5998;
+				color: #fff;
+			}
+			.btn-facebook:hover{
+				background-color: #fff;
+				color: #3b5998;
+			}
+			.btn-google{
+				background-color: #c23321;
+				color: #fff;
+			}
+			.btn-google:hover{
+				background-color: #fff;
+				color: #c23321;
+			}
+		</style>
+	{% block css %}
+	{% endblock %}
+</head>
+<body>
+	<div id="authBox" class="row">
+		<div class="container">
+			<div class="col-xs-12 col-sm-offset-3 col-sm-6">
+				<div class="card-1 text-center">
+					<h1>{{pg_title}}</h1>
+					{% block content %}{% endblock %}
+				</div>
+			</div>
+			<div class="col-xs-6">
+			    <a class="btn btn-block btn-social btn-facebook" href="{% url 'social:begin' 'facebook-oauth2' %}">
+			        <span class="fa fa-facebook"></span> Sign Up
+			    </a>
+			</div>
+			<div class="col-xs-6">
+			    <a class="btn btn-block btn-social btn-google" href="{% url 'social:begin' 'google-oauth2' %}">
+			        <span class="fa fa-google"></span> Sign up
+			    </a>
+			</div>
+		</div>
+	</div>
+	{% block js %}{% endblock %}
+</body>
+</html>

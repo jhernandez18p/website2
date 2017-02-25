@@ -28,6 +28,7 @@ def upload_location(instance, filename):
 
 class Testimonial(models.Model):
 	title = models.CharField(max_length=144)
+	publisher = models.CharField(max_length=144, default='User')
 	description = RichTextField()
 	image = models.ImageField(upload_to=upload_location, 
 		null=True, 

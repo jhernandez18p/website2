@@ -1,0 +1,14 @@
+{% extends 'auth/base.html' %}
+
+{% block css %}{% endblock %}
+
+{% block content %}
+<form method="post" action="{% url 'Login' %}">
+	{% csrf_token %}
+	<input type="text" class="form-control" id="lg_username" name="username" placeholder="Escriba su correo eléctronico">
+	<input type="password" class="form-control" id="lg_password" name="password" placeholder="Escriba su contraseña">
+	<button type="submit" class="btn btn-block btn-primary">Entrar</button>
+</form>			
+{% endblock %}
+
+{% block js %}{% endblock %}

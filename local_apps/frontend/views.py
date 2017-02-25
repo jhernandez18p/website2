@@ -8,14 +8,58 @@ from local_apps.medias.models import *
 from local_apps.news.models import *
 from local_apps.testimonials.models import *
 # Create your views here.
+
 def home(request):
-	news = Post.objects.all()
-	latest_news = news.last()
+
 	template = 'base/index.html'
 	context = {
-		'pg_title':'',
-		'last_news':latest_news,
+		'pg_title':'Inicio',
 	}
+
+	try:
+		news = Post.objects.all()
+		last_new = {}
+		last_new['title'] = news.last()
+		last_new['image'] = news.last().image
+		last_new['slug'] = news.last().slug
+		if len(news)>6:
+			news = news[-1]
+		context['last_news'] = last_new
+		context['news'] = news
+	except Exception as e:
+		print('No hay noticias aún')
+
+	try:
+		feeds = Feed.objects.all()
+		context['feeds'] = feeds[:6]
+	except Exception as e:
+		print('No hay blogs amigos aún')
+
+	try:
+		video = Video.objects.all().filter(active=True)
+		context['videos'] = video
+	except Exception as e:
+		print('No hay videos aún')
+
+	try:
+		audio = Audio.objects.all().filter(active=True)
+		context['audios'] = audio
+	except Exception as e:
+		print('No hay audios aún')
+
+	try:
+		imagen = Image.objects.all().filter(active=True)
+		context['imagen'] = imagen
+	except Exception as e:
+		print('No hay imgen aún')
+
+	try:
+		testimonials = Testimonial.objects.all()
+		context['testimonials'] = testimonials
+	except Exception as e:
+		print('No hay Testimonios aún')
+
+
 	return render(request, template, context)
 
 

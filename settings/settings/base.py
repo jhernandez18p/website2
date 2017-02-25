@@ -7,7 +7,7 @@ SECRET_KEY = config('KEY')
 
 DEBUG = config('DEBUG')
 
-ALLOWED_HOSTS = ['*']
+ALLOWED_HOSTS = ['*','universal.org.pa','www.universal.org.pa']
 
 DJANGO_APPS = [
     'django.contrib.admin',
@@ -135,6 +135,8 @@ SESSION_COOKIE_AGE = 43200
 SESSION_COOKIE_NAME = 'iurd_session'
 
 SESSION_EXPIRE_AT_BROWSER_CLOSE = True
+
+EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend'
 
 CUSTOM_TEMPLATES = (
     ('BASE','base/index.html'),

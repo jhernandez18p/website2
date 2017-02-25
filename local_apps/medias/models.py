@@ -69,7 +69,7 @@ class Video(models.Model):
 	height_field="height_field")
 	height_field = models.IntegerField(default=0)
 	width_field = models.IntegerField(default=0)
-	video_url = models.CharField(validators=[URLValidator()],max_length=144,blank=True)
+	video_url = models.CharField(max_length=144,blank=True)
 	video_file = models.FileField(upload_to=upload_location,blank=True)
 	active = models.BooleanField(default=True)
 	publish = models.DateField(auto_now=False, auto_now_add=False)
