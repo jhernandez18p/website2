@@ -219,8 +219,6 @@ pip-log.txt
 
 
 .env
-staticfiles/admin/*
-staticfiles/ckeditor/*
 media/*
 */*.sqlite3
 */*/migrations/*
