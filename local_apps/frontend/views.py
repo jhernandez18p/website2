@@ -1,6 +1,10 @@
 from django.contrib.auth.models import User, Group
-from django.shortcuts import render
+from django.contrib.auth.decorators import login_required
+from django.contrib.auth.mixins import LoginRequiredMixin
+from django.http import Http404, HttpResponse, HttpResponseRedirect
+from django.shortcuts import get_object_or_404, render
 from settings.settings.serializers import UserSerializer, GroupSerializer
+import random
 
 from rest_framework import viewsets
 from local_apps.iurd.models import *
@@ -17,47 +21,64 @@ def home(request):
 	}
 
 	try:
-		news = Post.objects.all()
+		news = Post.objects.all()[:10]
 		last_new = {}
-		last_new['title'] = news.last()
-		last_new['image'] = news.last().image
-		last_new['slug'] = news.last().slug
+		last_new['title'] = news.first()
+		last_new['image'] = news.first().image
+		last_new['slug'] = news.first().slug
 		if len(news)>6:
 			news = news[-1]
 		context['last_news'] = last_new
 		context['news'] = news
 	except Exception as e:
-		print('No hay noticias aún')
+		print(e)
+		print('No hay noticias aún' + e)
 
 	try:
 		feeds = Feed.objects.all()
 		context['feeds'] = feeds[:6]
 	except Exception as e:
-		print('No hay blogs amigos aún')
+		print('No hay blogs amigos aún' + e)
 
 	try:
 		video = Video.objects.all().filter(active=True)
 		context['videos'] = video
 	except Exception as e:
-		print('No hay videos aún')
+		print('No hay videos aún' + e)
 
 	try:
 		audio = Audio.objects.all().filter(active=True)
 		context['audios'] = audio
 	except Exception as e:
-		print('No hay audios aún')
+		print('No hay audios aún' + e)
 
 	try:
 		imagen = Image.objects.all().filter(active=True)
 		context['imagen'] = imagen
 	except Exception as e:
-		print('No hay imgen aún')
+		print('No hay imgen aún' + e)
 
 	try:
 		testimonials = Testimonial.objects.all()
 		context['testimonials'] = testimonials
 	except Exception as e:
-		print('No hay Testimonios aún')
+		print('No hay Testimonios aún' + e)
+
+	try:
+		projects = Project.objects.all().filter(category='Projecs')
+		if len(projects):
+			print(projects[0].category)
+		context['projects'] = projects
+	except Exception as e:
+		print('No hay proyectos aún' + e)
+
+	try:
+		groups = Project.objects.all().filter(category='Groups')
+		if len(groups)>0:
+			print(groups[0].category)
+		context['groups'] = groups
+	except Exception as e:
+		print('No hay grupos aún' + e)
 
 
 	return render(request, template, context)

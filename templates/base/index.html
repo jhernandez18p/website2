@@ -3,6 +3,82 @@
 
 {% block css %}
 <style media="screen">
+    .project-slide .swiper-container {
+        width: 100%;
+        height: 300px;
+        margin: 20px auto;
+    }
+    .project-slide .swiper-slide {
+        text-align: center;
+        font-size: 18px;
+        background: #fff;
+        
+        /* Center slide text vertically */
+        display: -webkit-box;
+        display: -ms-flexbox;
+        display: -webkit-flex;
+        display: flex;
+        -webkit-box-pack: center;
+        -ms-flex-pack: center;
+        -webkit-justify-content: center;
+        justify-content: center;
+        -webkit-box-align: center;
+        -ms-flex-align: center;
+        -webkit-align-items: center;
+        align-items: center;
+    }
+    .project-slide .swiper-slide img,
+    .project-slide .swiper-slide p{position: absolute;}
+    .project-slide .swiper-slide img{
+        height: 100%;
+        width: 100%;
+    }
+    .project-slide .swiper-slide p{top:80% ; z-index: 2;}
+    .project-slide .swiper-slide p a{color: #0e0e0e;font-size: 1.7em}
+    .project-slide .append-buttons {
+        text-align: center;
+        margin-top: 20px;
+    }
+    .project-slide .append-buttons a {
+        display: inline-block;
+        border: 1px solid #007aff;
+        color: #007aff;
+        text-decoration: none;
+        padding: 4px 10px;
+        border-radius: 4px;
+        margin: 0 10px;
+        font-size: 13px;
+    }
+
+    .verticalCarousel {height: 600px}
+    .verticalCarousel .swiper-pagination-bullet{display: none}
+    .verticalCarousel .swiper-container {
+        width: 80%;
+        height: 300px;
+        display: inline;    
+    }
+    .swiper-slide {
+        background-size: cover;
+        background-position: center;
+    }
+    .verticalCarousel .gallery-top {
+        height: 100%;
+        width: 80%;
+        margin-left: 30%; 
+        margin-top: -10%;
+    }
+    .verticalCarousel .gallery-top .swiper-button-prev {left: 30%; }
+    .verticalCarousel .gallery-thumbs {
+        height: 20%;
+        box-sizing: border-box;
+        padding: 10px 0;
+    }
+    .verticalCarousel .gallery-thumbs .swiper-slide {
+        width: 25%;
+        height: 100%;
+        opacity: 0.4;
+    }
+    .verticalCarousel .gallery-thumbs .swiper-slide-active {opacity: 1;}
 </style>
 {% endblock %}
 
@@ -12,7 +88,7 @@
     <div class="container">
         {% if last_news %}
         <div class="col-sm-6">
-            <div id="lastNew" class="gray lastnew-imge">
+            <div id="" class="gray lastnew-imge lastnew">
                 <img src="{{last_news.image.url}}" alt="{{last_news.title}}">
                 <div class="footer">
                     <h3>
@@ -140,98 +216,54 @@
 </div>
 <!-- Our Groups -->
 <div class="row gray">
-    <div class="container our-groups">
+    {% if groups %}
+    <div class="container-fluid our-groups">
         <div class="col-xs-12 text-center">
             <h3>Conozca nuestros Grupos</h3>
         </div>
-        <div class="col-sm-4">
-            <div class="image-group material-shadow">
-                <img src="http://placehold.it/350x170" alt="">
-            </div>
-        </div>
-        <div class="col-sm-4">
-            <div class="image-group material-shadow">
-                <img src="http://placehold.it/350x170" alt="">
-            </div>
-        </div>
-        <div class="col-sm-4">
-            <div class="image-group material-shadow">
-                <img src="http://placehold.it/350x170" alt="">
-            </div>
-        </div>
-        <div class="col-sm-4">
-            <div class="image-group material-shadow">
-                <img src="http://placehold.it/350x170" alt="">
-            </div>
-        </div>
-        <div class="col-sm-4">
-            <div class="image-group material-shadow">
-                <img src="http://placehold.it/350x170" alt="">
-            </div>
-        </div>
-        <div class="col-sm-4">
-            <div class="image-group material-shadow">
-                <img src="http://placehold.it/350x170" alt="">
+        <div class="project-slide">
+            <div class="swiper-container">
+                <div class="swiper-wrapper">
+                    {% for group in groups %}
+                    <div class="swiper-slide material-shadow">
+                        <p><a href="#">{{group.title}}</a></p>
+                        <img src="http://placehold.it/350x170" alt="">
+                    </div>
+                    {% endfor %}
+                </div>
+                <!-- Add Arrows -->
+                <div class="swiper-button-next"></div>
+                <div class="swiper-button-prev"></div>
             </div>
         </div>
     </div>
+    {% endif %}
 </div>
 <!-- Latest News -->
 <div class="row">
+{# if news #}
     <div class="container">
-        <div class="col-sm-4">
-            <div id="verticalCarousel">
-                <div class="carousel thin" style="height: 300px;">
-                    <a class="prev"><span class="glyphicon glyphicon-chevron-up"></span></a>
-                    <div class="window">
-                        <ul class="clr">
-                            <li class="item">
-                                <a data-toggle="tab" href="slide1">
-                                    <img src="http://lorempixel.com/350/150/sports" alt="#Img desc#" width="350" height="150">
-                                </a>
-                            </li>
-                            <li class="item">
-                                <a data-toggle="tab" href="slide2">
-                                    <img src="http://lorempixel.com/350/150/sports" alt="#Img desc#" width="350" height="150">
-                                </a>
-                            </li>
-                            <li class="item">
-                                <a data-toggle="tab" href="slide3">
-                                    <img src="http://lorempixel.com/350/150/sports" alt="#Img desc#" width="350" height="150">
-                                </a>
-                            </li>
-                            <li class="item">
-                                <a data-toggle="tab" href="slide3">
-                                    <img src="http://lorempixel.com/350/150/sports" alt="#Img desc#" width="350" height="150">
-                                </a>
-                            </li>
-                        </ul>
-                    </div> <!-- .window -->
-                    <a class="next"><span class="glyphicon glyphicon-chevron-down"></span></a>
-            </div> <!-- .carousel -->
-            </div>
-        </div>
-        <div class="col-sm-8">
-            <div id="newsCarousel">
-                <div id="myCarousel" class="carousel slide text-center" data-ride="carousel">
-
-                    <!-- Wrapper for slides -->
-                    <div class="carousel-inner" role="listbox">
-                        <div id="slide1" class="item active">
-                            <h4>"This company is the best. I am so happy with the result!"<br><span style="font-style:normal;">Michael Roe, Vice President, Comment Box</span></h4>
-                        </div>
-                        <div id="slide2" class="item">
-                            <h4>"One word... WOW!!"<br><span style="font-style:normal;">John Doe, Salesman, Rep Inc</span></h4>
-                        </div>
-                        <div id="slide3" class="item">
-                            <h4>"Could I... BE any more happy with this company?"<br><span style="font-style:normal;">Chandler Bing, Actor, FriendsAlot</span></h4>
-                        </div>
-                    </div>
-
+        <div class="verticalCarousel swiper-container">
+            <div class="gallery-thumbs">
+                <div class="swiper-wrapper">
+                {% for new in news %}
+                    <div class="swiper-slide" style="background-image:url({{new.image.url}})"></div>
+                {% endfor %}
                 </div>
+            </div>
+            <div class="gallery-top">
+                <div class="swiper-wrapper">
+                {% for new in news %}
+                    <div class="swiper-slide" style="background-image:url({{new.image.url}})"></div>
+                {% endfor %}
+                </div>
+                <!-- Add Arrows -->
+                <div class="swiper-button-next swiper-button-white"></div>
+                <div class="swiper-button-prev swiper-button-white"></div>
             </div>
         </div>
     </div>
+{# endif #}
 </div>
 <!-- Last section -->
 <div class="row">
@@ -256,6 +288,38 @@
 {% endblock %}
 
 {% block js %}
+<script>
+    var swiper = new Swiper('.project-slide .swiper-container', {
+        pagination: '.swiper-pagination',
+        nextButton: '.swiper-button-next',
+        prevButton: '.swiper-button-prev',
+        slidesPerView: 3,
+        centeredSlides: true,
+        paginationClickable: true,
+        spaceBetween: 30,
+        autoplay: 2500,
+        grabCursor: true
+    });
+    var galleryTop = new Swiper('.verticalCarousel .gallery-top', {
+        nextButton: '.swiper-button-next',
+        prevButton: '.swiper-button-prev',
+        pagination: '.gallery-thumbs .swiper-wrapper .swiper-slide',
+        paginationClickable: true,
+        direction: 'vertical',
+        spaceBetween: 10,
+    });
+    var galleryThumbs = new Swiper('.verticalCarousel .gallery-thumbs', {
+        direction: 'vertical',
+        spaceBetween: 10,
+        centeredSlides: true,
+        paginationClickable: true,
+        slidesPerView: 'auto',
+        touchRatio: 0.2,
+        slideToClickedSlide: true
+    });
+    galleryTop.params.control = galleryThumbs;
+    galleryThumbs.params.control = galleryTop;
+</script>
 <script type="text/javascript">
     !function ($) {
 
