@@ -393,7 +393,7 @@ video,audio {width: 100%;}
 .testimonial-post {min-height: 100px;}
 .testimonial-post-header {height: 250px;}
 .testimonial-post-header img {height: 100%; width: 100%}
-.testimonial-post-header h3 {position: relative; background-color: rgba(54,69,69,0.5); width: 100%; margin: 0;bottom: 50px;height: 50px;padding-left: 15px;padding-top: 5px;color: #e9e5e5}
+.testimonial-post-header h3 {position: relative; background-color: rgba(54,69,69,0.5); width: 100%; margin: 0;bottom: 50px;height: 50px;padding-left: 15px;padding-top: 5px;color: #e9e5e5;font-size: 1.128em;}
 .testimonial-post-content {height: 0px;padding: 15px;}
 .testimonial-post-footer {padding: 20px 10px 1px 2px;}
 .testimonios {margin-top: 15px; margin-bottom: 15px}
