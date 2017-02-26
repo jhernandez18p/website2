@@ -93,5 +93,5 @@ class CategoryAdmin(admin.ModelAdmin):
 	list_filter = ["description", "name"]
 	search_fields = ["name", "description"]
 	
-	class Meta:
+	class Meta: 
 		model = Category
