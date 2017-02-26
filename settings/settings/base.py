@@ -71,24 +71,12 @@ TEMPLATES = [
 
 WSGI_APPLICATION = 'settings.wsgi.application'
 
-if DEBUG == True:
-    DATABASES = {
-        'default': {
-            'ENGINE': 'django.db.backends.sqlite3',
-            'NAME': os.path.join(BASE_DIR, 'db.sqlite3'),
-        }
+DATABASES = {
+    'default': {
+        'ENGINE': 'django.db.backends.sqlite3',
+        'NAME': os.path.join(BASE_DIR, 'db.sqlite3'),
     }
-else:
-    DATABASES = {
-        'default': {
-            'ENGINE': 'django.db.backends.postgresql_psycopg2',
-            'NAME': 'universal',
-            'USER': 'iurd',
-            'PASSWORD': 'da*Zy@LdBkkAT2@x',
-            'HOST': 'localhost',
-            'PORT': '',
-        }
-    }   
+}
 
 AUTH_PASSWORD_VALIDATORS = [
     {

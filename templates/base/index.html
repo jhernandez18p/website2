@@ -188,7 +188,7 @@
                     <div class="gallery-thumbs hidden-xs">
                         <div class="swiper-wrapper">
                         {% for new in news %}
-                            <div class="swiper-slide" style="background-image:url({{new.image.url}})"></div>
+                            <div class="swiper-slide" style="background-image:url({% if new.image %}{{new.image.url}}{%endif%})"></div>
                         {% endfor %}
                         </div>
                     </div>
