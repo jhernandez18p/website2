@@ -44,11 +44,13 @@
             <h2>Descarga gratis el periódico de la Iglesia Universal</h2>
         </div>
         {% for newspapper in newspaper_list %}
-            <div class="col-xs-12">
-                <div class="well well-lg">
-                    <h3>{{newspapper.title}}</h3>
-                    {{newspapper.description|safe}}
-                    <a class="" href="{{newspapper.newspapper_file}}"><img src="{% static 'base/images/pdf-icon.png' %}" width="55" alt="{{newspapper.title}}"></a>
+            <div class="col-xs-12 col-sm-4">
+                <div class="panel panel-default">
+                    <div class="panel-heading"><h3>{{newspapper.title}}</h3></div>
+                    <div class="panel-body">{{newspapper.description|safe}}</div>
+                    <div class="panel-footer">
+                        <a class="" href="{% if newspapper.newspapper_file %}{{newspapper.newspapper_file}}{% endif %}"><img src="{% static 'base/images/pdf-icon.png' %}" width="55" alt="{{newspapper.title}}"></a>
+                    </div>
                 </div>
             </div>
         {% endfor %}
