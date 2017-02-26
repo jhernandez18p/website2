@@ -23,7 +23,7 @@ def cookies(request):
             last_new['title'] = news.first()
             last_new['image'] = news.first().image
             last_new['slug'] = news.first().slug
-        context['last_news'] = last_new
+            context['last_news'] = last_new
         context['news'] = news
     except Exception as e:
         print(e)
