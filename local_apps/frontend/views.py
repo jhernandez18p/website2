@@ -23,9 +23,10 @@ def home(request):
 	try:
 		news = Post.objects.active()[:10]
 		last_new = {}
-		last_new['title'] = news.first()
-		last_new['image'] = news.first().image
-		last_new['slug'] = news.first().slug
+		if len(news)>0:
+			last_new['title'] = news.first()
+			last_new['image'] = news.first().image
+			last_new['slug'] = news.first().slug
 		if len(news)>6:
 			news = news[-1]
 		context['last_news'] = last_new
