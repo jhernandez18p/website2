@@ -17,7 +17,7 @@
         </div>
         <div class="col-xs-12 col-sm-6">
             <div id="" class="gray lastnew quote-image">
-                <img src="{{last_news.image.url}}" alt="{{last_news.title}}">
+                <img src="{% if last_news.image %}{{last_news.image.url}}{% endif %}" alt="{{last_news.title}}">
                 <div class="footer">
                     <h3>
                         <a href="{{last_news.slug}}">{{last_news.title}}</a>
@@ -31,7 +31,7 @@
             <div id="friendsFeeds" class="friendsfeeds">
                 {% for feed in feeds %}
                 <div class="items quote-image">
-                    <img src="{{feed.image.url}}" alt="">
+                    <img src="{% if feed.image %}{{feed.image.url}}{% endif %}" alt="">
                     <div class="footer">
                         <h3><a href="{{feed.url_feed}}" target="_blank">{{feed.title}}</a></h3>
                     </div>
@@ -90,7 +90,7 @@
             <div id="" class="">
                 {% for image in imagen %}
                 <div class="dailyimage">
-                    <img src="{{ image.image.url }}" alt="{{image.title}}">
+                    <img src="{% if image.image %}{{ image.image.url }}{% endif %}" alt="{{image.title}}">
                 </div>
                 {% endfor %}
             </div>
@@ -140,7 +140,7 @@
                     {% for group in groups %}
                     <div class="swiper-slide material-shadow">
                         <h3><a href="#">{{group.title}}</a></h3>
-                        <img src="http://placehold.it/350x170" alt="">
+                        <img src="{% if group.image %}{{group.image.url}}{% endif %}" alt="{{group.title}}">
                     </div>
                     {% endfor %}
                 </div>
@@ -164,7 +164,7 @@
                     {% for group in groups %}
                     <div class="swiper-slide material-shadow">
                         <h3><a href="#">{{group.title}}</a></h3>
-                        <img src="http://placehold.it/350x170" alt="">
+                        <img src="{% if group.image %}{{group.image.url}}{% endif %}" alt="{{group.title}}">
                     </div>
                     {% endfor %}
                 </div>
@@ -196,7 +196,7 @@
                         <div class="swiper-wrapper">
                         {% for new in news %}
                             <div class="swiper-slide quote-image">
-                                <img src="{{new.image.url}}" alt="{{new.title}}">
+                                <img src="{% if new.image != '' %}{{new.image.url}}{% else %}https://static.pexels.com/photos/325288/pexels-photo-325288.jpeg{% endif %}" alt="{{new.title}}">
                                 <div class="content">
                                     <h4>{{new.title}}</h4>
                                     <!-- <p><a data-toggle="modal" data-target="#{{news.id}}Modal">Leer artículo</a></p> -->
@@ -206,7 +206,7 @@
                                 <div class="modal-dialog modal-lg" role="document">
                                     <div class="modal-content">
                                         <div class="modal-body">
-                                           <img src="{% if new.image != '' %}{{new.image.url}}{% else %}https://static.pexels.com/photos/325288/pexels-photo-325288.jpeg{% endif %}" alt="">
+                                           <img src="{% if new.image != '' %}{{new.image.url}}{% else %}https://static.pexels.com/photos/325288/pexels-photo-325288.jpeg{% endif %}" alt="{{new.title}}">
                                            <h1>{{new.title}}</h1>
                                            {{new.content|safe}}
                                         </div>
