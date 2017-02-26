@@ -21,7 +21,7 @@ def home(request):
 	}
 
 	try:
-		news = Post.objects.all()[:10]
+		news = Post.objects.active()[:10]
 		last_new = {}
 		last_new['title'] = news.first()
 		last_new['image'] = news.first().image
@@ -80,14 +80,13 @@ def home(request):
 	except Exception as e:
 		print('No hay grupos aún' + e)
 
-
 	return render(request, template, context)
 
 
 def about(request):
 	template = 'base/about.html'
 	context = {
-		'pg_title':'',
+		'pg_title':'¿Quienes somos?',
 	}
 	return render(request, template, context)
 
@@ -95,7 +94,7 @@ def about(request):
 def projects(request):
 	template = 'base/project.html'
 	context = {
-		'pg_title':'',
+		'pg_title':'Proyectos universal',
 	}
 	return render(request, template, context)
 
@@ -125,7 +124,7 @@ def media(request):
 
 
 def blog(request):
-	template = 'base/media.html'
+	template = 'base/blog.html'
 	context = {
 		'pg_title':'',
 	}
