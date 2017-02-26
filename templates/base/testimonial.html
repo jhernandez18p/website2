@@ -3,237 +3,130 @@
 
 {% block css %}
 <style media="screen">
-    .testimonial-post {min-height: 100px;}
-    .testimonial-post-header {height: 250px;}
-    .testimonial-post-header img {}
-    .testimonial-post-header h3 {position: relative; background-color: rgba(54,69,69,0.5); width: 100%; margin: 0;bottom: 50px;height: 50px;padding-left: 15px;padding-top: 5px;color: #e9e5e5}
-    .testimonial-post-content {height: 200px;padding: 15px;}
-    .testimonial-post-content p {}
-    .testimonios {margin-top: 15px; margin-bottom: 15px}
+   
 </style>
 {% endblock %}
 
 {% block content %}
-<!-- Carousel -->
 <div class="row">
+    {% if testimonials %}
     <div class="container">
         <div class="col-xs-12">
-            <div id="testimonialCarousel">
                 <h2 class="text-center">Ultimos testimonios</h2>
-                <div id="testimonials" class="carousel slide text-center" data-ride="carousel">
-                    <!-- Indicators -->
-                    <ol class="carousel-indicators">
-                        <li data-target="#myCarousel" data-slide-to="0" class="active"></li>
-                        <li data-target="#myCarousel" data-slide-to="1"></li>
-                        <li data-target="#myCarousel" data-slide-to="2"></li>
-                    </ol>
-
-                    <!-- Wrapper for slides -->
-                    <div class="carousel-inner" role="listbox">
-                        <div class="item active">
-                            <img src="http://placehold.it/1700x300" alt="">
-                            <h4>"This company is the best. I am so happy with the result!"<br><span style="font-style:normal;">Michael Roe, Vice President, Comment Box</span></h4>
+        </div>
+        <div class="col-xs-12">
+            <div id="testimonialCarousel">
+                <div class="swiper-container">
+                    <div class="swiper-wrapper">
+                        {% for testimonial in testimonials %}
+                        <div id="quote{{testimonial.id}}" class="swiper-slide quote-image">
+                            <img src="{% if testimonial.image != '' %}{{testimonial.image.url}}{% else %}https://static.pexels.com/photos/325288/pexels-photo-325288.jpeg{% endif %}" alt="">
+                            <div class="content">
+                                <h4>{{testimonial.title}}</h4>
+                                <p><a data-toggle="modal" data-target="#{{testimonial.id}}Modal">Ver testimonio</a></p>
+                            </div>
                         </div>
-                        <div class="item">
-                            <img src="http://placehold.it/1700x300" alt="">
-                            <h4>"One word... WOW!!"<br><span style="font-style:normal;">John Doe, Salesman, Rep Inc</span></h4>
-                        </div>
-                        <div class="item">
-                            <img src="http://placehold.it/1700x300" alt="">
-                            <h4>"Could I... BE any more happy with this company?"<br><span style="font-style:normal;">Chandler Bing, Actor, FriendsAlot</span></h4>
-                        </div>
+                        
+                        {% endfor %}
                     </div>
-
-                    <!-- Left and right controls -->
-                    <a class="left carousel-control" href="#testimonials" role="button" data-slide="prev">
-                        <span class="glyphicon glyphicon-chevron-left" aria-hidden="true"></span>
-                        <span class="sr-only">Anterior</span>
-                    </a>
-                    <a class="right carousel-control" href="#testimonials" role="button" data-slide="next">
-                        <span class="glyphicon glyphicon-chevron-right" aria-hidden="true"></span>
-                        <span class="sr-only">Siguiente</span>
-                    </a>
+                    <!-- Add Pagination -->
+                    <div class="swiper-pagination"></div>
                 </div>
             </div>
         </div>
     </div>
+    {% endif %}
 </div>
 <!-- Testimonials -->
 <div class="row testimonios">
+    {% if testimonial_list %}
     <div class="container">
-        <div class="col-xs-12 col-sm-6">
+        {% for testimonial in testimonial_list %}
+        <div class="col-xs-12 col-sm-6 testimonial-block">
             <div class="testimonial-post material-shadow">
                 <div class="testimonial-post-header">
-                    <img id="" src="http://placehold.it/540x250" alt="">
-                    <h3>Titulo del post</h3>
+                    <a data-toggle="modal" data-target="#{{testimonial.id}}Modal">
+                        <img id="" src="{% if testimonial.image != '' %}{{testimonial.image.url}}{% else %}https://static.pexels.com/photos/325288/pexels-photo-325288.jpeg{% endif %}" alt="" height="250" width="540">
+                    </a>
+                    <h3>{{testimonial.title}}</h3>
                 </div>
-                <div class="testimonial-post-content">
-                    <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur.</p>
-                </div>
-                <div class="testimonial-post-footer">
-
+                <div class="testimonial-post-footer text-right">
+                    <p>
+                        <span class="">
+                            Publicado {{testimonial.timestamp|date:"D d M Y"}}
+                        </span>
+                    </p>
                 </div>
             </div>
         </div>
-        <div class="col-xs-12 col-sm-6">
-            <div class="testimonial-post material-shadow">
-                <div class="testimonial-post-header">
-                    <img id="" src="http://placehold.it/540x250" alt="">
-                    <h3>Titulo del post</h3>
-                </div>
-                <div class="testimonial-post-content">
-                    <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur.</p>
-                </div>
-                <div class="testimonial-post-footer">
-
+        <div  id="{{testimonial.id}}Modal" class="modal" tabindex="-1" role="dialog">
+            <div class="modal-dialog modal-lg" role="document">
+                <div class="modal-content">
+                    <div class="modal-body">
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true"><h5>&times;</h5></span></button>
+                        <iframe src="https://www.youtube.com/embed/{{testimonial.video_url}}" frameborder="0"></iframe>
+                    </div>
                 </div>
             </div>
-        </div>
+        </div>        
+        {% endfor %}
     </div>
-</div>
-<div class="row testimonios">
-    <div class="container">
-        <div class="col-xs-12 col-sm-6">
-            <div class="testimonial-post material-shadow">
-                <div class="testimonial-post-header">
-                    <img id="" src="http://placehold.it/540x250" alt="">
-                    <h3>Titulo del post</h3>
-                </div>
-                <div class="testimonial-post-content">
-                    <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur.</p>
-                </div>
-                <div class="testimonial-post-footer">
-
-                </div>
-            </div>
-        </div>
-        <div class="col-xs-12 col-sm-6">
-            <div class="testimonial-post material-shadow">
-                <div class="testimonial-post-header">
-                    <img id="" src="http://placehold.it/540x250" alt="">
-                    <h3>Titulo del post</h3>
-                </div>
-                <div class="testimonial-post-content">
-                    <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur.</p>
-                </div>
-                <div class="testimonial-post-footer">
-
-                </div>
-            </div>
-        </div>
-    </div>
-</div>
-<div class="row testimonios">
-    <div class="container">
-        <div class="col-xs-12 col-sm-6">
-            <div class="testimonial-post material-shadow">
-                <div class="testimonial-post-header">
-                    <img id="" src="http://placehold.it/540x250" alt="">
-                    <h3>Titulo del post</h3>
-                </div>
-                <div class="testimonial-post-content">
-                    <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur.</p>
-                </div>
-                <div class="testimonial-post-footer">
-
-                </div>
-            </div>
-        </div>
-        <div class="col-xs-12 col-sm-6">
-            <div class="testimonial-post material-shadow">
-                <div class="testimonial-post-header">
-                    <img id="" src="http://placehold.it/540x250" alt="">
-                    <h3>Titulo del post</h3>
-                </div>
-                <div class="testimonial-post-content">
-                    <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur.</p>
-                </div>
-                <div class="testimonial-post-footer">
-
-                </div>
-            </div>
-        </div>
-    </div>
-</div>
-<div class="row testimonios">
-    <div class="container">
-        <div class="col-xs-12 col-sm-6">
-            <div class="testimonial-post material-shadow">
-                <div class="testimonial-post-header">
-                    <img id="" src="http://placehold.it/540x250" alt="">
-                    <h3>Titulo del post</h3>
-                </div>
-                <div class="testimonial-post-content">
-                    <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur.</p>
-                </div>
-                <div class="testimonial-post-footer">
-
-                </div>
-            </div>
-        </div>
-        <div class="col-xs-12 col-sm-6">
-            <div class="testimonial-post material-shadow">
-                <div class="testimonial-post-header">
-                    <img id="" src="http://placehold.it/540x250" alt="">
-                    <h3>Titulo del post</h3>
-                </div>
-                <div class="testimonial-post-content">
-                    <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur.</p>
-                </div>
-                <div class="testimonial-post-footer">
-
-                </div>
-            </div>
-        </div>
-    </div>
+    {% endif %}
 </div>
 <!-- Pagination -->
 <div class="row testimonios">
     <div class="container">
         <div class="col-xs-12 text-center">
             <nav aria-label="...">
-        <ul class="pagination">
-            <li class="disabled">
-                <a href="#" aria-label="Previous">
-                    <span aria-hidden="true">&laquo;</span>
-                </a>
-            </li>
-            <li class="active">
-                <a href="#">
-                    1<span class="sr-only">(current)</span>
-                </a>
-            </li>
-            <li class="">
-                <a href="#">
-                    2
-                </a>
-            </li>
-            <li class="">
-                <a href="#">
-                    3
-                </a>
-            </li>
-            <li class="">
-                <a href="#">
-                    4
-                </a>
-            </li>
-            <li class="">
-                <a href="#">
-                    5
-                </a>
-            </li>
-            <li>
-                <a href="#" aria-label="Next">
-                    <span aria-hidden="true">&raquo;</span>
-                </a>
-            </li>
-        </ul>
-    </nav>
+                {% if testimonial_list.has_other_pages %}
+                <ul class="pagination">
+                    {% if testimonial_list.has_previous %}
+                    <li>
+                        <a href="?page={{ testimonial_list.previous_page_number }}" aria-label="Previous">
+                            <span aria-hidden="true">&laquo;</span>
+                        </a>
+                    </li>
+                    {% else %}
+                    <li class="disabled">
+                        <a href="#" aria-label="Previous">
+                            <span aria-hidden="true">&laquo;</span>
+                        </a>
+                    </li>
+                    {% endif %}
+                    {% for i in testimonial_list.paginator.page_range %}
+                        {% if testimonial_list.number == i %}
+                            <li class="active"><span>{{ i }} <span class="sr-only">(current)</span></span></li>
+                        {% else %}
+                            <li><a href="?page={{ i }}">{{ i }}</a></li>
+                        {% endif %}
+                    {% endfor %}
+                    {% if testimonial_list.has_next %}
+                    <li>
+                        <a href="?page={{ users.next_page_number }}" aria-label="Next">
+                            <span aria-hidden="true">&raquo;</span>
+                        </a>
+                    </li>
+                    {% else %}
+                        <li class="disabled"><span>&raquo;</span></li>
+                    {% endif %}
+                </ul>
+                {% endif %}
+            </nav>
         </div>
     </div>
 </div>
 {% endblock %}
 
 {% block js %}
+<script>
+    var swiper = new Swiper('#testimonialCarousel .swiper-container', {
+        pagination: '#testimonialCarousel .swiper-pagination',
+        paginationClickable: true,
+        nextButton: '#testimonialCarousel .swiper-button-next',
+        prevButton: '#testimonialCarousel .swiper-button-prev',
+        spaceBetween: 30,
+        autoplay: 2500,
+        grabCursor: true
+    });
+</script>
 {% endblock %}

@@ -42,10 +42,10 @@
                         <li class="{% if pg_title == 'about' %}active{% endif %}" >
                             <a href="{% url 'frontend:About' %}">¿Quienes somos?</a>
                         </li>
-                        <li class="{% if pg_title == 'project' %}active{% endif %}">
+                        <!-- <li class="{% if pg_title == 'project' %}active{% endif %}">
                             <a href="{% url 'frontend:Projects' %}">Proyectos</a>
-                        </li>
-                        <li class="dropdown dropdown-large {% if pg_title == 'reunion' %}active{% endif %}">
+                        </li> -->
+                        <!-- <li class="dropdown dropdown-large {% if pg_title == 'reunion' %}active{% endif %}">
                             <a href="#" class="dropdown-toggle" data-toggle="dropdown">
                                 Reuniones <b class="caret"></b>
                             </a>
@@ -115,7 +115,7 @@
                                     </ul>
                                 </li>
                             </ul>
-                        </li>
+                        </li> -->
                         <li class="{% if pg_title == 'testimonial' %}active{% endif %}">
                             <a href="{% url 'frontend:Testimonials' %}">Testimonios</a>
                         </li>
@@ -137,7 +137,7 @@
     <footer>
         {% include 'footer.html' %}
     </footer>
-    {% if user_rouge_for_pray %}
+    {% if user_rouge_for_pray == 'True' %}
     <div  id="prayModal" class="modal fade" tabindex="-1" role="dialog">
         <div class="modal-dialog modal-lg" role="document">
             <div class="modal-content">
@@ -147,39 +147,38 @@
                         Hola, Nos gustaría hacer una oración a su nombre
                     </h5>
                 </div>
-                <div class="modal-body">
-                    <form>
+                <form class="inline-form" action="{% url 'frontend:Pray' %}" method="post">
+                    {% csrf_token %}
+                    <div class="modal-body">
                         <div class="form-group">
                             <label for="recipient-name" class="control-label">
                                 <h5>¿Cual es su nombre?</h5>
                             </label>
-                            <input type="text" class="form-control" id="recipient-name">
+                            <input type="text" class="form-control" name="name" id="recipient-name">
+                            <input type="text" class="hidden" name="url" id="recipient-name" value="{{ request.get_full_path }}">
                         </div>
                         <div class="form-group">
                             <label for="recipient-name" class="control-label">
                                 <h5>¿Cuál es su correo electrónico?</h5>
                             </label>
-                            <input type="text" class="form-control" id="recipient-name">
+                            <input type="text" class="form-control" name="email" id="recipient-name">
                         </div>
                         <div class="form-group">
                             <label for="message-text" class="control-label">
                                 <h5>¿Por qué o quien quiere que oremos?</h5>
                             </label>
-                            <textarea class="form-control" id="message-text"></textarea>
+                            <textarea class="form-control" name="description" id="message-text"></textarea>
                         </div>
-                    </form>
-                </div>
-                <div class="modal-footer">
-                    <form class="inline-form" action="{% url 'frontend:lang' %}" method="post">
-                        {# csrf_token #}
-                        <button type="submit" class="btn btn-link">
+                    </div>
+                    <div class="modal-footer">
+                        <button type="submit" class="btn btn-link" name="submit" value="False">
                             <h5>Por ahora no</h5>
                         </button>
-                        <button type="submit" class="btn btn-link">
+                        <button type="submit" class="btn btn-link" name="submit" value="True">
                             <h5>Enviar</h5>
                         </button>
-                    </form>
-                </div>
+                    </div>
+                </form>
             </div>
         </div>
     </div>

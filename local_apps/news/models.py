@@ -12,6 +12,7 @@ from django.utils.text import slugify
 
 from .utils import get_read_time
 from ckeditor.fields import RichTextField
+from local_apps.iurd.models import Category
 
 
 class CommentManager(models.Manager):
@@ -117,6 +118,7 @@ class Post(models.Model):
     updated = models.DateTimeField(auto_now=True, auto_now_add=False)
     timestamp = models.DateTimeField(auto_now=False, auto_now_add=True)
     related = models.ManyToManyField('self', blank=True)
+    category = models.ForeignKey(Category)
 
     objects = PostManager()
 
@@ -127,7 +129,7 @@ class Post(models.Model):
         return self.title
 
     def get_absolute_url(self):
-        return reverse("posts:detail", kwargs={"slug": self.slug})
+        return reverse("frontrnd:Blog_detalle", kwargs={"slug": self.slug})
 
     class Meta:
         ordering = ["-timestamp", "-updated"]

@@ -1,25 +1,21 @@
 <div id="footerRow1" class="row footer-row ident-color">
     <div class="container hidden-xs">
+        {% if news %}
         <div class="col-xs-12 col-sm-4">
             <ul id="footerCol1Row" class="footer-list">
                 <li class="" id="">Últimos artículos</li>
-                <li class="" id="">lorem</li>
-                <li class="" id="">lorem</li>
-                <li class="" id="">lorem</li>
-                <li class="" id="">lorem</li>
-                <li class="" id="">lorem</li>
+                {% for new in news %}<li class="footer-anchor" id=""><a >{{new.title}}</a></li>{% endfor %}
             </ul>
         </div>
+        {%endif%}
+        {% if feeds %}
         <div class="col-xs-12 col-sm-4">
             <ul id="footerCol2Row" class="footer-list">
                 <li class="" id="">Blogs amigos</li>
-                <li class="" id="">lorem</li>
-                <li class="" id="">lorem</li>
-                <li class="" id="">lorem</li>
-                <li class="" id="">lorem</li>
-                <li class="" id="">lorem</li>
+                {% for feed in feeds %}<li class="footer-anchor" id=""><a href="{{feed.url_feed}}" target="_blank">{{feed.title}}</a></li>{% endfor %}
             </ul>
         </div>
+        {%endif%}
         <div class="col-xs-12 col-sm-4">
             <ul id="footerCol4Row" class="footer-list">
                 <li class="text-center" id="">Redes sociales</li>

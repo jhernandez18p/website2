@@ -2,13 +2,98 @@
 {% load staticfiles %}
 
 {% block css %}
-<style media="screen">
-    
+<style>
+	.testimonial-post-header img {height: 100%; width: 100%}
 </style>
 {% endblock %}
 
 {% block content %}
+<div class="row">
+    {% if events %}
+    <div class="container">
+        <div class="col-xs-12">
+            <h2 class="text-center">Ultimos eventos</h2>
+        </div>
+        <div class="col-xs-12">
+            <div id="testimonialCarousel">
+                <div class="swiper-container">
+                    <div class="swiper-wrapper">
+                        {% for event in events %}
+                        <div id="quote{{event.id}}" class="swiper-slide quote-image">
+                            <img src="{% if event.image != '' %}{{event.image.url}}{% else %}https://static.pexels.com/photos/325288/pexels-photo-325288.jpeg{% endif %}" alt="">
+                            <div class="content">
+                                <!-- <h4>{{event.title}}</h4> -->
+                            </div>
+                        </div>
+                        
+                        {% endfor %}
+                    </div>
+                    <!-- Add Pagination -->
+                    <div class="swiper-pagination"></div>
+                </div>
+            </div>
+        </div>
+    </div>
+    {% endif %}
+</div>
 
+<div class="row">
+    {% if newspapers %}
+    <div class="container">
+        <div class="col-xs-12 text-center">
+            <h2>Descarga gratis el periódico de la Iglesia Universal</h2>
+        </div>
+        {% for newspapper in newspaper_list %}
+            <div class="col-xs-12">
+                <div class="well well-lg">
+                    <h3>{{newspapper.title}}</h3>
+                    {{newspapper.description|safe}}
+                    <a class="" href="{{newspapper.newspapper_file}}"><img src="{% static 'base/images/pdf-icon.png' %}" width="55" alt="{{newspapper.title}}"></a>
+                </div>
+            </div>
+        {% endfor %}
+    </div>
+    {% endif %}
+</div>
+
+<div class="row testimonios">
+    {% if video_list %}
+    <div class="container">
+    	<div class="col-xs-12">
+    		<h2 class="text-center">Videos agregados recientemente</h2>
+    	</div>
+        {% for video in video_list %}
+        <div class="col-xs-12 col-sm-4 testimonial-block">
+            <div class="testimonial-post material-shadow">
+                <div class="testimonial-post-header">
+                    <a data-toggle="modal" data-target="#{{video.id}}Modal">
+                        <img id="" src="{% if video.image != '' %}{{video.image.url}}{% else %}https://static.pexels.com/photos/325288/pexels-photo-325288.jpeg{% endif %}" alt="">
+                    </a>
+                    <h3>{{video.title}}</h3>
+                </div>
+                <div class="testimonial-post-footer text-right">
+                    <p>
+                        <span class="">
+                            Publicado {{video.timestamp|date:"D d M Y"}}
+                        </span>
+                    </p>
+                </div>
+            </div>
+        </div>
+        <div  id="{{video.id}}Modal" class="modal" tabindex="-1" role="dialog">
+            <div class="modal-dialog modal-lg" role="document">
+                <div class="modal-content">
+                    <div class="modal-body">
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true"><h5>&times;</h5></span></button>
+                        <iframe src="https://www.youtube.com/embed/{{video.video_url}}" frameborder="0"></iframe>
+                    </div>
+                </div>
+            </div>
+        </div>        
+        {% endfor %}
+    </div>
+    {% endif %}
+</div>
 {% endblock %}
 
 {% block js %}

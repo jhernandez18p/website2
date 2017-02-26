@@ -256,3 +256,45 @@ class Reunion(models.Model):
 			("can_delete_reunions", "Puede eliminar reuniones"),
 			("can_update_reunions", "Puede editar reuniones"),
 		)
+
+
+class Subscriber(models.Model):
+	name = models.CharField(max_length=144)
+	email = models.EmailField(max_length=65)
+	description = RichTextField()
+	created = models.DateTimeField(auto_now=True,auto_now_add=False)
+	time_stamp = models.DateTimeField(auto_now=False,auto_now_add=True)
+	updated = models.DateTimeField(auto_now=True, auto_now_add=False)
+
+	def __str__(self):
+		return self.name
+
+	class Meta:
+		ordering = ['-time_stamp','-updated']
+		verbose_name = ('Nuevo Suscriptor')
+		verbose_name_plural = ('Suscriptores')
+		permissions = (
+			("can_create_subscribers", "Puede crear suscriptores"),
+			("can_delete_subscribers", "Puede eliminar suscriptores"),
+			("can_update_subscribers", "Puede editar suscriptores"),
+		)
+
+class Category(models.Model):
+	name = models.CharField(max_length=144)
+	description = RichTextField()
+	created = models.DateTimeField(auto_now=True,auto_now_add=False)
+	time_stamp = models.DateTimeField(auto_now=False,auto_now_add=True)
+	updated = models.DateTimeField(auto_now=True, auto_now_add=False)
+
+	def __str__(self):
+		return self.name
+
+	class Meta:
+		ordering = ['-time_stamp','-updated']
+		verbose_name = ('Nueva categoría')
+		verbose_name_plural = ('Categorías')
+		permissions = (
+			("can_create_category", "Puede crear caregorías"),
+			("can_delete_category", "Puede eliminar caregorías"),
+			("can_update_category", "Puede editar caregorías"),
+		)

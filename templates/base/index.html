@@ -199,7 +199,18 @@
                                 <img src="{{new.image.url}}" alt="{{new.title}}">
                                 <div class="content">
                                     <h4>{{new.title}}</h4>
-                                    <p><a href="#">Leer artículo</a></p>
+                                    <!-- <p><a data-toggle="modal" data-target="#{{news.id}}Modal">Leer artículo</a></p> -->
+                                </div>
+                            </div>
+                            <div  id="{{new.id}}Modal" class="modal" tabindex="-1" role="dialog">
+                                <div class="modal-dialog modal-lg" role="document">
+                                    <div class="modal-content">
+                                        <div class="modal-body">
+                                           <img src="{% if new.image != '' %}{{new.image.url}}{% else %}https://static.pexels.com/photos/325288/pexels-photo-325288.jpeg{% endif %}" alt="">
+                                           <h1>{{new.title}}</h1>
+                                           {{new.content|safe}}
+                                        </div>
+                                    </div>
                                 </div>
                             </div>
                         {% endfor %}
@@ -268,6 +279,5 @@
     });
     galleryTop.params.control = galleryThumbs;
     galleryThumbs.params.control = galleryTop;
-
 </script>
 {% endblock %}

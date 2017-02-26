@@ -15,6 +15,10 @@
     .blog-post .blog-post-pub-date h4 span {position: absolute;bottom: 0;left: 0px;top: 35px; font-size: 1.3em;font-family: 'Playball', cursive;}
     .blog-post .blog-post-img {height: 270px; width: 100%;}
     .blog-post .blog-post-img h2 {width: 100%; background-color: rgba(64,69,69,0.5);color:#e9e5e5;position: relative;z-index: 3;margin-top: -50px;height: 50px;padding-top: 5px;padding-left: 15px;}
+    .blog-post .blog-post-img h2 a{font-size: .73em;font-family: 'Playball', cursive;color: #FFF}
+    .blog-post .blog-post-img img{height: 100%; width: 100%}
+    .blog-post .blog-post-img h2 a:hover,
+    .blog-post .blog-post-img h2 a:active{text-decoration: none; cursor: pointer;}
     .blog-post .blog-post-content,.blog-post .blog-post-footer {padding: 15px;}
     .blog-post .blog-post-footer p {display: inline-block;}
     .blog-post .blog-post-footer p span .left {position: absolute;right: 0}
@@ -39,6 +43,7 @@
     .glyphicon-search::before {font-size: 1.9em !important;}
     .blog-aside-fixed {position: fixed;width: 350px;}
     .blog-aside-fixed .blog-aside-search-button{width: 20%;}
+    .modal-body img{width: 100%}
 </style>
 {% endblock %}
 
@@ -46,269 +51,81 @@
 <div class="row">
     <div class="container">
         <div class="col-xs-12 col-sm-8">
+            {% if news_list %}
+            {% for news in news_list %}
             <div class="blog-post material-shadow">
-                <div class="blog-post-pub-date material-shadow">
-                    <h4>25 ene<span>2017</span></h4>
+                <div class="blog-post-pub-date material-shadow hidden-xs">
+                    <h4>{{news.timestamp|date:"D d M Y"}}</h4>
                 </div>
                 <div class="blog-post-img">
-                    <img src="http://placehold.it/730x270" alt="">
-                    <h2>Title blog post</h2>
+                    <img src="{% if news.image != '' %}{{news.image.url}}{% else %}https://static.pexels.com/photos/325288/pexels-photo-325288.jpeg{% endif %}" alt="">
+                    <h2><a data-toggle="modal" data-target="#{{news.id}}Modal">{{news.title}}</a></h2>
                 </div>
                 <div class="blog-post-content">
-                    <p>
-                        Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
-                    </p>
+                    {{news.content|safe|truncatewords_html:20}}
                 </div>
                 <div class="blog-post-footer">
                     <p>
-                        <span class="left glyphicon glyphicon-user"> Author</span>
-                        <span class="right glyphicon glyphicon-heart-empty"> Likes</span>
+                        <span class="left glyphicon glyphicon-user"> {% if news.user.first_name %}{{news.user.first_name}}{% endif %} {% if news.user.last_name %}{{news.user.last_name}}{% endif %}</span>
                     </p>
                     <br>
-                    <p><a href="">Category</a></p>
+                    <p><a href=""></a>{% if news.category %}{{news.category}}{% endif %}</p><br>
+                    {% if news.related %}<p><a href="">{{news.related.id}}</a></p>{% endif %}
+                </div>
+                <div  id="{{news.id}}Modal" class="modal" tabindex="-1" role="dialog">
+                    <div class="modal-dialog modal-lg" role="document">
+                        <div class="modal-content">
+                            <div class="modal-body">
+                               <img src="{% if news.image != '' %}{{news.image.url}}{% else %}https://static.pexels.com/photos/325288/pexels-photo-325288.jpeg{% endif %}" alt="">
+                               <h1>{{news.title}}</h1>
+                               {{news.content|safe}}
+                            </div>
+                        </div>
+                    </div>
                 </div>
             </div>
-            <div class="blog-post material-shadow">
-                <div class="blog-post-pub-date material-shadow">
-                    <h4>25 ene<span>2017</span></h4>
-                </div>
-                <div class="blog-post-img">
-                    <img src="http://placehold.it/730x270" alt="">
-                    <h2>Title blog post</h2>
-                </div>
-                <div class="blog-post-content">
-                    <p>
-                        Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
-                    </p>
-                </div>
-                <div class="blog-post-footer">
-                    <p>
-                        <span class="left glyphicon glyphicon-user"> Author</span>
-                        <span class="right glyphicon glyphicon-heart-empty"> Likes</span>
-                    </p>
-                    <br>
-                    <p><a href="">Category</a></p>
-                </div>
-            </div>
-            <div class="blog-post material-shadow">
-                <div class="blog-post-pub-date material-shadow">
-                    <h4>25 ene<span>2017</span></h4>
-                </div>
-                <div class="blog-post-img">
-                    <img src="http://placehold.it/730x270" alt="">
-                    <h2>Title blog post</h2>
-                </div>
-                <div class="blog-post-content">
-                    <p>
-                        Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
-                    </p>
-                </div>
-                <div class="blog-post-footer">
-                    <p>
-                        <span class="left glyphicon glyphicon-user"> Author</span>
-                        <span class="right glyphicon glyphicon-heart-empty"> Likes</span>
-                    </p>
-                    <br>
-                    <p><a href="">Category</a></p>
-                </div>
-            </div>
-            <div class="blog-post material-shadow">
-                <div class="blog-post-pub-date material-shadow">
-                    <h4>25 ene<span>2017</span></h4>
-                </div>
-                <div class="blog-post-img">
-                    <img src="http://placehold.it/730x270" alt="">
-                    <h2>Title blog post</h2>
-                </div>
-                <div class="blog-post-content">
-                    <p>
-                        Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
-                    </p>
-                </div>
-                <div class="blog-post-footer">
-                    <p>
-                        <span class="left glyphicon glyphicon-user"> Author</span>
-                        <span class="right glyphicon glyphicon-heart-empty"> Likes</span>
-                    </p>
-                    <br>
-                    <p><a href="">Category</a></p>
-                </div>
-            </div>
-            <div class="blog-post material-shadow">
-                <div class="blog-post-pub-date material-shadow">
-                    <h4>25 ene<span>2017</span></h4>
-                </div>
-                <div class="blog-post-img">
-                    <img src="http://placehold.it/730x270" alt="">
-                    <h2>Title blog post</h2>
-                </div>
-                <div class="blog-post-content">
-                    <p>
-                        Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
-                    </p>
-                </div>
-                <div class="blog-post-footer">
-                    <p>
-                        <span class="left glyphicon glyphicon-user"> Author</span>
-                        <span class="right glyphicon glyphicon-heart-empty"> Likes</span>
-                    </p>
-                    <br>
-                    <p><a href="">Category</a></p>
-                </div>
-            </div>
-            <div class="blog-post material-shadow">
-                <div class="blog-post-pub-date material-shadow">
-                    <h4>25 ene<span>2017</span></h4>
-                </div>
-                <div class="blog-post-img">
-                    <img src="http://placehold.it/730x270" alt="">
-                    <h2>Title blog post</h2>
-                </div>
-                <div class="blog-post-content">
-                    <p>
-                        Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
-                    </p>
-                </div>
-                <div class="blog-post-footer">
-                    <p>
-                        <span class="left glyphicon glyphicon-user"> Author</span>
-                        <span class="right glyphicon glyphicon-heart-empty"> Likes</span>
-                    </p>
-                    <br>
-                    <p><a href="">Category</a></p>
-                </div>
-            </div>
-            <div class="blog-post material-shadow">
-                <div class="blog-post-pub-date material-shadow">
-                    <h4>25 ene<span>2017</span></h4>
-                </div>
-                <div class="blog-post-img">
-                    <img src="http://placehold.it/730x270" alt="">
-                    <h2>Title blog post</h2>
-                </div>
-                <div class="blog-post-content">
-                    <p>
-                        Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
-                    </p>
-                </div>
-                <div class="blog-post-footer">
-                    <p>
-                        <span class="left glyphicon glyphicon-user"> Author</span>
-                        <span class="right glyphicon glyphicon-heart-empty"> Likes</span>
-                    </p>
-                    <br>
-                    <p><a href="">Category</a></p>
-                </div>
-            </div>
-            <div class="blog-post material-shadow">
-                <div class="blog-post-pub-date material-shadow">
-                    <h4>25 ene<span>2017</span></h4>
-                </div>
-                <div class="blog-post-img">
-                    <img src="http://placehold.it/730x270" alt="">
-                    <h2>Title blog post</h2>
-                </div>
-                <div class="blog-post-content">
-                    <p>
-                        Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
-                    </p>
-                </div>
-                <div class="blog-post-footer">
-                    <p>
-                        <span class="left glyphicon glyphicon-user"> Author</span>
-                        <span class="right glyphicon glyphicon-heart-empty"> Likes</span>
-                    </p>
-                    <br>
-                    <p><a href="">Category</a></p>
-                </div>
-            </div>
-            <div class="blog-post material-shadow">
-                <div class="blog-post-pub-date material-shadow">
-                    <h4>25 ene<span>2017</span></h4>
-                </div>
-                <div class="blog-post-img">
-                    <img src="http://placehold.it/730x270" alt="">
-                    <h2>Title blog post</h2>
-                </div>
-                <div class="blog-post-content">
-                    <p>
-                        Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
-                    </p>
-                </div>
-                <div class="blog-post-footer">
-                    <p>
-                        <span class="left glyphicon glyphicon-user"> Author</span>
-                        <span class="right glyphicon glyphicon-heart-empty"> Likes</span>
-                    </p>
-                    <br>
-                    <p><a href="">Category</a></p>
-                </div>
-            </div>
-            <div class="blog-post material-shadow">
-                <div class="blog-post-pub-date material-shadow">
-                    <h4>25 ene<span>2017</span></h4>
-                </div>
-                <div class="blog-post-img">
-                    <img src="http://placehold.it/730x270" alt="">
-                    <h2>Title blog post</h2>
-                </div>
-                <div class="blog-post-content">
-                    <p>
-                        Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
-                    </p>
-                </div>
-                <div class="blog-post-footer">
-                    <p>
-                        <span class="left glyphicon glyphicon-user"> Author</span>
-                        <span class="right glyphicon glyphicon-heart-empty"> Likes</span>
-                    </p>
-                    <br>
-                    <p><a href="">Category</a></p>
-                </div>
-            </div>
+            {% endfor %}
+            {% endif %}
             <!-- Paginator -->
             <nav aria-label="...">
+                {% if news_list.has_other_pages %}
                 <ul class="pagination">
+                    {% if news_list.has_previous %}
+                    <li>
+                        <a href="?page={{ news_list.previous_page_number }}" aria-label="Previous">
+                            <span aria-hidden="true">&laquo;</span>
+                        </a>
+                    </li>
+                    {% else %}
                     <li class="disabled">
                         <a href="#" aria-label="Previous">
                             <span aria-hidden="true">&laquo;</span>
                         </a>
                     </li>
-                    <li class="active">
-                        <a href="#">
-                            1<span class="sr-only">(current)</span>
-                        </a>
-                    </li>
-                    <li class="">
-                        <a href="#">
-                            2
-                        </a>
-                    </li>
-                    <li class="">
-                        <a href="#">
-                            3
-                        </a>
-                    </li>
-                    <li class="">
-                        <a href="#">
-                            4
-                        </a>
-                    </li>
-                    <li class="">
-                        <a href="#">
-                            5
-                        </a>
-                    </li>
+                    {% endif %}
+                    {% for i in news_list.paginator.page_range %}
+                        {% if news_list.number == i %}
+                            <li class="active"><span>{{ i }} <span class="sr-only">(current)</span></span></li>
+                        {% else %}
+                            <li><a href="?page={{ i }}">{{ i }}</a></li>
+                        {% endif %}
+                    {% endfor %}
+                    {% if news_list.has_next %}
                     <li>
-                        <a href="#" aria-label="Next">
+                        <a href="?page={{ users.next_page_number }}" aria-label="Next">
                             <span aria-hidden="true">&raquo;</span>
                         </a>
                     </li>
+                    {% else %}
+                        <li class="disabled"><span>&raquo;</span></li>
+                    {% endif %}
                 </ul>
+                {% endif %}
             </nav>
+
         </div>
         <div class="col-sm-4 hidden-xs">
-            <div class="blog-aside material-shadow" id="blogSeachAside">
+            <!-- <div class="blog-aside material-shadow" id="blogSeachAside">
                 <div class="blog-aside-search">
                     <form class="" action="index.html" method="post">
                         <div class="blog-aside-search-input">
@@ -321,7 +138,8 @@
                         </div>
                     </form>
                 </div>
-            </div>
+            </div> -->
+            {% if categories %}
             <div class="blog-aside material-shadow" id="blogCategoriesAside">
                 <div class="blog-aside-header">
                     <p>Categorías</p>
@@ -333,50 +151,11 @@
                                 Familia <span class="badge">5</span>
                             </a>
                         </li>
-                        <li class="" id="">
-                            <a href="" class="" id="">
-                                Hombre <span class="badge">5</span>
-                            </a>
-                        </li>
-                        <li class="" id="">
-                            <a href="" class="" id="">
-                                Mujer <span class="badge">5</span>
-                            </a>
-                        </li>
-                        <li class="" id="">
-                            <a href="" class="" id="">
-                                Niños <span class="badge">5</span>
-                            </a>
-                        </li>
-                        <li class="" id="">
-                            <a href="" class="" id="">
-                                Hogar <span class="badge">5</span>
-                            </a>
-                        </li>
-                        <li class="" id="">
-                            <a href="" class="" id="">
-                                Noticias Populares <span class="badge">5</span>
-                            </a>
-                        </li>
-                        <li class="" id="">
-                            <a href="" class="" id="">
-                                Economia <span class="badge">5</span>
-                            </a>
-                        </li>
-                        <li class="" id="">
-                            <a href="" class="" id="">
-                                Salud <span class="badge">5</span>
-                            </a>
-                        </li>
-                        <li class="" id="">
-                            <a href="" class="" id="">
-                                Amor <span class="badge">5</span>
-                            </a>
-                        </li>
                     </ul>
                 </div>
             </div>
-            <div class="blog-aside material-shadow" id="blogTopAuthorsAside">
+            {% endif %}
+            <!-- <div class="blog-aside material-shadow" id="blogTopAuthorsAside">
                 <div class="blog-aside-header">
                     <p>Top 5 Autores</p>
                 </div>
@@ -443,7 +222,7 @@
                         </li>
                     </ul>
                 </div>
-            </div>
+            </div>-->
         </div>
     </div>
 </div>

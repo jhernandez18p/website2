@@ -1,6 +1,6 @@
 from django.contrib import admin
 
-from .models import (Church, Event, Feed, Project, Schedule, Reunion)
+from .models import (Church, Event, Feed, Project, Schedule, Reunion, Subscriber, Category)
 # Register your models here.
 
 @admin.register(Church)
@@ -73,3 +73,25 @@ class ReunionAdmin(admin.ModelAdmin):
 	
 	class Meta:
 		model = Reunion
+
+
+@admin.register(Subscriber)
+class SubscriberAdmin(admin.ModelAdmin):
+	list_display = ["name", "updated",]
+	list_display_links = ["updated"]
+	list_editable = ["name"]
+	list_filter = ["description", "name"]
+	search_fields = ["name", "description"]
+	
+	class Meta:
+		model = Subscriber
+
+class CategoryAdmin(admin.ModelAdmin):
+	list_display = ["name", "updated",]
+	list_display_links = ["updated"]
+	list_editable = ["name"]
+	list_filter = ["description", "name"]
+	search_fields = ["name", "description"]
+	
+	class Meta:
+		model = Category

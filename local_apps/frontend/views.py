@@ -4,6 +4,7 @@ from django.contrib.auth.mixins import LoginRequiredMixin
 from django.http import Http404, HttpResponse, HttpResponseRedirect
 from django.shortcuts import get_object_or_404, render
 from settings.settings.serializers import UserSerializer, GroupSerializer
+from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
 import random
 
 from rest_framework import viewsets
@@ -65,16 +66,16 @@ def home(request):
 
 	try:
 		projects = Project.objects.all().filter(category='Projecs')
-		if len(projects)>0:
-			print(projects[0].category)
+		# if len(projects)>0:
+		# 	print(projects[0].category)
 		context['projects'] = projects
 	except Exception as e:
 		print('No hay proyectos aún' + e)
 
 	try:
 		groups = Project.objects.all().filter(category='Groups')
-		if len(groups)>0:
-			print(groups[0].category)
+		# if len(groups)>0:
+		# 	print(groups[0].category)
 		context['groups'] = groups
 	except Exception as e:
 		print('No hay grupos aún' + e)
@@ -101,7 +102,7 @@ def projects(request):
 def reunions(request):
 	template = 'base/reunion.html'
 	context = {
-		'pg_title':'',
+		'pg_title':'Reuniones',
 	}
 	return render(request, template, context)
 
@@ -109,23 +110,130 @@ def reunions(request):
 def testimonials(request):
 	template = 'base/testimonial.html'
 	context = {
-		'pg_title':'',
+		'pg_title':'Testimonios',
 	}
+
+	try:
+		testimonials = Testimonial.objects.all()
+		testimonial_list = testimonials
+		testimonials = testimonials[:5]
+		context['testimonials'] = testimonials
+	except Exception as e:
+		print('No hay Testimonios aún' + e)
+	
+	page = request.GET.get('page', 1)
+	paginator = Paginator(testimonial_list, 12)
+	try:
+		testimonial_list = paginator.page(page)
+	except PageNotAnInteger:
+		testimonial_list = paginator.page(1)
+	except EmptyPage:
+		testimonial_list = paginator.page(paginator.num_pages)
+
+	context['testimonial_list'] = testimonial_list
+
 	return render(request, template, context)
 
 
 def media(request):
 	template = 'base/media.html'
 	context = {
-		'pg_title':'',
+		'pg_title':'Multimedia',
 	}
+
+	try:
+		videos = Video.objects.all()
+		video_list = videos
+		context['videos'] = videos
+	except Exception as e:
+		print('No hay videos aún' + e)
+	
+	page = request.GET.get('page', 1)
+	paginator = Paginator(video_list, 12)
+	try:
+		video_list = paginator.page(page)
+	except PageNotAnInteger:
+		video_list = paginator.page(1)
+	except EmptyPage:
+		video_list = paginator.page(paginator.num_pages)
+
+	context['video_list'] = video_list
+
+	try:
+		audios = Audio.objects.all()
+		context['audios'] = audios
+	except Exception as e:
+		print(e)
+		print('Aún no hay audios')
+	
+	try:
+		newspapers = Newspaper.objects.all()
+		newspaper_list = newspapers
+		context['newspapers'] = newspapers
+	except Exception as e:
+		print('No hay newspapers aún' + e)
+	
+	page = request.GET.get('page', 1)
+	paginator = Paginator(newspaper_list, 5)
+	try:
+		newspaper_list = paginator.page(page)
+	except PageNotAnInteger:
+		newspaper_list = paginator.page(1)
+	except EmptyPage:
+		newspaper_list = paginator.page(paginator.num_pages)
+
+	context['newspaper_list'] = newspaper_list
+
+	try:
+		events = Event.objects.all()
+		context['events'] = events
+	except Exception as e:
+		print(e)
+		print('Aún no hay eventos')
+
 	return render(request, template, context)
 
 
 def blog(request):
 	template = 'base/blog.html'
 	context = {
-		'pg_title':'',
+		'pg_title':'Noticias',
+	}
+
+	try:
+		categories = Category.objects.all()
+		context['categories'] = categories
+	except Exception as e:
+		print('No hay categorias aún' + e)
+
+	try:
+		news = Post.objects.all()
+		news_list = news
+		context['news'] = news
+	except Exception as e:
+		print('No hay noticias aún' + e)
+	
+	page = request.GET.get('page', 1)
+	paginator = Paginator(news_list, 12)
+	try:
+		news_list = paginator.page(page)
+	except PageNotAnInteger:
+		news_list = paginator.page(1)
+	except EmptyPage:
+		news_list = paginator.page(paginator.num_pages)
+
+	context['news_list'] = news_list
+
+	return render(request, template, context)
+
+
+def blog_detail(request):
+	pass
+
+def events(request):
+	template = 'base/blog.html'
+	context = {
+		'pg_title':'Eventos',
 	}
 	return render(request, template, context)
 
@@ -133,10 +241,62 @@ def blog(request):
 def contact(request):
 	template = 'base/contact.html'
 	context = {
-		'pg_title':'',
+		'pg_title':'Contato',
 	}
-	return render(request, template, context)
 
+	if request.method == 'GET':
+
+		return render(request, template, context)
+
+	elif request.method == 'POST':
+		
+		name = request.POST['name']
+		email = request.POST['email']
+		description = request.POST['description']
+		submit = request.POST['submit']
+		url = request.POST['url']
+
+		if submit == 'True':
+			if name == '' or email == '' or description == '':
+				return HttpResponseRedirect(url)
+			print(' %s\n %s\n %s\n' %(name,email,description))
+			new = Subscriber.objects.create(name=name,email=email,description=description)
+			new.save()
+			return HttpResponseRedirect(url)
+
+		else:
+			request.session['user_rouge_for_pray'] = False
+			return HttpResponseRedirect(url)
+
+
+"""
+	Rouge for pray
+"""
+def susbcribe(request):
+	if request.method == 'GET':
+
+		return HttpResponseRedirect(request.get_full_path)
+
+	elif request.method == 'POST':
+		
+		name = request.POST['name']
+		email = request.POST['email']
+		description = request.POST['description']
+		submit = request.POST['submit']
+		url = request.POST['url']
+
+		if submit == 'True':
+			if name == '' or email == '' or description == '':
+				return HttpResponseRedirect(url)
+			print(' %s\n %s\n %s\n' %(name,email,description))
+			new = Subscriber.objects.create(name=name,email=email,description=description)
+			new.save()
+			return HttpResponseRedirect(url)
+
+		else:
+
+			request.session['user_rouge_for_pray'] = False
+			return HttpResponseRedirect(url)
 
 """
 	Rest API

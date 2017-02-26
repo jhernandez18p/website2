@@ -389,6 +389,18 @@ video,audio {width: 100%;}
 .footer-sm{font-size: 2.8em;}
 .margin-footer{padding-bottom: 25px;}
 
+.modal-body iframe{height: 500px; width: 100%}
+.testimonial-post {min-height: 100px;}
+.testimonial-post-header {height: 250px;}
+.testimonial-post-header img {height: 100%; width: 100%}
+.testimonial-post-header h3 {position: relative; background-color: rgba(54,69,69,0.5); width: 100%; margin: 0;bottom: 50px;height: 50px;padding-left: 15px;padding-top: 5px;color: #e9e5e5}
+.testimonial-post-content {height: 0px;padding: 15px;}
+.testimonial-post-footer {padding: 20px 10px 1px 2px;}
+.testimonios {margin-top: 15px; margin-bottom: 15px}
+.testimonial-block{margin-bottom: 20px}
+.modal-body .close{position: absolute;top: 0;right: 20px;}
+.modal-body .close h2{color: #FFF;}
+
 @media (max-width: 768px) {
     .vertical-carousel .gallery-top {
         margin-left: auto; 
@@ -404,4 +416,8 @@ video,audio {width: 100%;}
     .vertical-carousel .swiper-slide {width: 100%}
     .vertical-carousel .swiper-slide .content h4{ font-size: 1.5em;}
     .vertical-carousel .swiper-slide .content p a{z-index: 999;color: #FFF; font-size: 1.03em;}
+    .testimonial-post-header h3 {font-size: 1.130em;}
+    .modal-body iframe{height: 250px; width: 100%;}
 }
+
+.footer-anchor a{color: #FFF !important;}
