@@ -66,7 +66,7 @@ def home(request):
 
 	try:
 		projects = Project.objects.all().filter(category='Projecs')
-		if len(projects):
+		if len(projects)>0:
 			print(projects[0].category)
 		context['projects'] = projects
 	except Exception as e:

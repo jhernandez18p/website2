@@ -3,82 +3,7 @@
 
 {% block css %}
 <style media="screen">
-    .project-slide .swiper-container {
-        width: 100%;
-        height: 300px;
-        margin: 20px auto;
-    }
-    .project-slide .swiper-slide {
-        text-align: center;
-        font-size: 18px;
-        background: #fff;
-        
-        /* Center slide text vertically */
-        display: -webkit-box;
-        display: -ms-flexbox;
-        display: -webkit-flex;
-        display: flex;
-        -webkit-box-pack: center;
-        -ms-flex-pack: center;
-        -webkit-justify-content: center;
-        justify-content: center;
-        -webkit-box-align: center;
-        -ms-flex-align: center;
-        -webkit-align-items: center;
-        align-items: center;
-    }
-    .project-slide .swiper-slide img,
-    .project-slide .swiper-slide p{position: absolute;}
-    .project-slide .swiper-slide img{
-        height: 100%;
-        width: 100%;
-    }
-    .project-slide .swiper-slide p{top:80% ; z-index: 2;}
-    .project-slide .swiper-slide p a{color: #0e0e0e;font-size: 1.7em}
-    .project-slide .append-buttons {
-        text-align: center;
-        margin-top: 20px;
-    }
-    .project-slide .append-buttons a {
-        display: inline-block;
-        border: 1px solid #007aff;
-        color: #007aff;
-        text-decoration: none;
-        padding: 4px 10px;
-        border-radius: 4px;
-        margin: 0 10px;
-        font-size: 13px;
-    }
-
-    .verticalCarousel {height: 600px}
-    .verticalCarousel .swiper-pagination-bullet{display: none}
-    .verticalCarousel .swiper-container {
-        width: 80%;
-        height: 300px;
-        display: inline;    
-    }
-    .swiper-slide {
-        background-size: cover;
-        background-position: center;
-    }
-    .verticalCarousel .gallery-top {
-        height: 100%;
-        width: 80%;
-        margin-left: 30%; 
-        margin-top: -10%;
-    }
-    .verticalCarousel .gallery-top .swiper-button-prev {left: 30%; }
-    .verticalCarousel .gallery-thumbs {
-        height: 20%;
-        box-sizing: border-box;
-        padding: 10px 0;
-    }
-    .verticalCarousel .gallery-thumbs .swiper-slide {
-        width: 25%;
-        height: 100%;
-        opacity: 0.4;
-    }
-    .verticalCarousel .gallery-thumbs .swiper-slide-active {opacity: 1;}
+    
 </style>
 {% endblock %}
 
@@ -86,9 +11,12 @@
 <!-- Under Nav -->
 <div class="row">
     <div class="container">
+        <div class="col-xs-12 text-center">
+            <h3>Actualización diaria</h3>
+        </div>
         {% if last_news %}
-        <div class="col-sm-6">
-            <div id="" class="gray lastnew-imge lastnew">
+        <div class="col-xs-12 col-sm-6">
+            <div id="" class="gray lastnew quote-image">
                 <img src="{{last_news.image.url}}" alt="{{last_news.title}}">
                 <div class="footer">
                     <h3>
@@ -102,7 +30,7 @@
         <div class="col-sm-6 hidden-xs">
             <div id="friendsFeeds" class="friendsfeeds">
                 {% for feed in feeds %}
-                <div class="items">
+                <div class="items quote-image">
                     <img src="{{feed.image.url}}" alt="">
                     <div class="footer">
                         <h3><a href="{{feed.url_feed}}" target="_blank">{{feed.title}}</a></h3>
@@ -117,12 +45,15 @@
 <!-- TV + Radio + Image -->
 <div class="row">
     <div class="container">
-        <div class="col-sm-6 col-lg-7">
+        <div class="col-xs-12 text-center">
+            <h3>Multimedia</h3>
+        </div>
+        <div class="col-xs-12 col-sm-6">
             {% if videos %}
             <div class="tv">
                 {% for video in videos %}
                 {% if video.video_url != '' %}
-                    <iframe src="https://www.youtube.com/embed/{{video.video_url}}" width="640" height="370" frameborder="0" style="background-image: url("https://i.ytimg.com/vi_webp/{{video.video_url}}/maxresdefault.webp");"></iframe>
+                    <iframe src="https://www.youtube.com/embed/{{video.video_url}}" width="540" height="370" frameborder="0" style="background-image: url("https://i.ytimg.com/vi_webp/{{video.video_url}}/maxresdefault.webp");"></iframe>
                 {% endif %}
                 {% if video.video_file != '' %}
                 <video controls='false'>
@@ -155,7 +86,7 @@
             {% endif %}
         </div>
         {% if imagen %}
-        <div id="noPadding" class="col-sm-6 col-lg-5">
+        <div class="col-xs-12 col-sm-6">
             <div id="" class="">
                 {% for image in imagen %}
                 <div class="dailyimage">
@@ -172,42 +103,24 @@
     {% if testimonials %}
     <div class="container">
         <div class="col-xs-12">
-            <div id="testimonialCarousel">
                 <h2 class="text-center">Ultimos testimonios</h2>
-
-                <div id="testimonials" class="carousel slide text-center" data-ride="carousel">
-                    <!-- Indicators -->
-                    <!-- <ol class="carousel-indicators">
+        </div>
+        <div class="col-xs-12">
+            <div id="testimonialCarousel">
+                <div class="swiper-container">
+                    <div class="swiper-wrapper">
                         {% for testimonial in testimonials %}
-                        <li data-target="#myCarousel" data-slide-to="{{forloop.counter0}}" class="{% if forloop.counter0 == 0%} active {% endif %}"></li>
-                        {% endfor %}
-                    </ol> -->
-
-                    <!-- Wrapper for slides -->
-                    <div class="carousel-inner" role="listbox">
-                        {% for testimonial in testimonials %}
-                        <div id="{{testimonial.id}}" class="item {% if forloop.counter0 == 0%} active {% endif %}">
-                            <img src="{% if testimonial.image != '' %}{{testimonial.image.url}}{% else %}https://static.pexels.com/photos/325288/pexels-photo-325288.jpeg{% endif %}" alt="{{ testimonial.title }}">
-                            <h4>
-                                "{{ testimonial.title }}"
-                                <br>
-                                <span style="font-style:normal;">
-                                    {{ testimonial.publisher }}
-                                </span>
-                            </h4>
+                        <div id="quote{{testimonial.id}}" class="swiper-slide quote-image">
+                            <img src="{% if testimonial.image != '' %}{{testimonial.image.url}}{% else %}https://static.pexels.com/photos/325288/pexels-photo-325288.jpeg{% endif %}" alt="">
+                            <div class="content">
+                                <h4>{{testimonial.title}}</h4>
+                                <p><a href="#">Ver testimonio</a></p>
+                            </div>
                         </div>
                         {% endfor %}
                     </div>
-
-                    <!-- Left and right controls -->
-                    <a class="left carousel-control" href="#testimonials" role="button" data-slide="prev">
-                        <span class="glyphicon glyphicon-chevron-left" aria-hidden="true"></span>
-                        <span class="sr-only">Anterior</span>
-                    </a>
-                    <a class="right carousel-control" href="#testimonials" role="button" data-slide="next">
-                        <span class="glyphicon glyphicon-chevron-right" aria-hidden="true"></span>
-                        <span class="sr-only">Siguiente</span>
-                    </a>
+                    <!-- Add Pagination -->
+                    <div class="swiper-pagination"></div>
                 </div>
             </div>
         </div>
@@ -215,7 +128,7 @@
     {% endif %}
 </div>
 <!-- Our Groups -->
-<div class="row gray">
+<div class="row gray hidden-xs large">
     {% if groups %}
     <div class="container-fluid our-groups">
         <div class="col-xs-12 text-center">
@@ -226,7 +139,31 @@
                 <div class="swiper-wrapper">
                     {% for group in groups %}
                     <div class="swiper-slide material-shadow">
-                        <p><a href="#">{{group.title}}</a></p>
+                        <h3><a href="#">{{group.title}}</a></h3>
+                        <img src="http://placehold.it/350x170" alt="">
+                    </div>
+                    {% endfor %}
+                </div>
+                <!-- Add Arrows -->
+                <div class="swiper-button-next"></div>
+                <div class="swiper-button-prev"></div>
+            </div>
+        </div>
+    </div>
+    {% endif %}
+</div>
+<div class="row gray small hidden-sm hidden-lg hidden-mg">
+    {% if groups %}
+    <div class="container-fluid our-groups">
+        <div class="col-xs-12 text-center">
+            <h3>Conozca nuestros Grupos</h3>
+        </div>
+        <div class="project-slide">
+            <div class="swiper-container">
+                <div class="swiper-wrapper">
+                    {% for group in groups %}
+                    <div class="swiper-slide material-shadow">
+                        <h3><a href="#">{{group.title}}</a></h3>
                         <img src="http://placehold.it/350x170" alt="">
                     </div>
                     {% endfor %}
@@ -241,74 +178,86 @@
 </div>
 <!-- Latest News -->
 <div class="row">
-{# if news #}
-    <div class="container">
-        <div class="verticalCarousel swiper-container">
-            <div class="gallery-thumbs">
-                <div class="swiper-wrapper">
-                {% for new in news %}
-                    <div class="swiper-slide" style="background-image:url({{new.image.url}})"></div>
-                {% endfor %}
+    {# if news #}
+        <div class="container">
+            <div class="col-xs-12 text-center">
+                <h3>Últimos artículos publicados</h3>
+            </div>
+            <div class="col-xs-12 text-center">
+                <div class="vertical-carousel swiper-container">
+                    <div class="gallery-thumbs hidden-xs">
+                        <div class="swiper-wrapper">
+                        {% for new in news %}
+                            <div class="swiper-slide" style="background-image:url({{new.image.url}})"></div>
+                        {% endfor %}
+                        </div>
+                    </div>
+                    <div class="gallery-top">
+                        <div class="swiper-wrapper">
+                        {% for new in news %}
+                            <div class="swiper-slide quote-image">
+                                <img src="{{new.image.url}}" alt="{{new.title}}">
+                                <div class="content">
+                                    <h4>{{new.title}}</h4>
+                                    <p><a href="#">Leer artículo</a></p>
+                                </div>
+                            </div>
+                        {% endfor %}
+                        </div>
+                        <!-- Add Arrows -->
+                        <div class="swiper-button-next swiper-button-white"></div>
+                        <div class="swiper-button-prev swiper-button-white"></div>
+                    </div>
                 </div>
             </div>
-            <div class="gallery-top">
-                <div class="swiper-wrapper">
-                {% for new in news %}
-                    <div class="swiper-slide" style="background-image:url({{new.image.url}})"></div>
-                {% endfor %}
-                </div>
-                <!-- Add Arrows -->
-                <div class="swiper-button-next swiper-button-white"></div>
-                <div class="swiper-button-prev swiper-button-white"></div>
-            </div>
         </div>
-    </div>
-{# endif #}
+    {# endif #}
 </div>
-<!-- Last section -->
-<div class="row">
-    <div class="container">
-        <div class="col-sm-6">
-            <div class="orange">
-                <a href="#">
-                    <img class="reunion-image img-responsive" src="{% static 'base/images/progreso.jpg' %}" alt="">
-                </a>
-            </div>
-        </div>
-        <div class="col-sm-6">
-            <div class="blue">
-                <a href="#">
-                    <img class="reunion-image img-responsive" src="{% static 'base/images/terapia.jpg' %}" alt="">
-                </a>
-            </div>
-        </div>
-    </div>
-</div>
-<!-- Ending -->
 {% endblock %}
 
 {% block js %}
 <script>
-    var swiper = new Swiper('.project-slide .swiper-container', {
-        pagination: '.swiper-pagination',
-        nextButton: '.swiper-button-next',
-        prevButton: '.swiper-button-prev',
-        slidesPerView: 3,
+    var swiper = new Swiper('#testimonialCarousel .swiper-container', {
+        pagination: '#testimonialCarousel .swiper-pagination',
+        paginationClickable: true,
+        nextButton: '#testimonialCarousel .swiper-button-next',
+        prevButton: '#testimonialCarousel .swiper-button-prev',
+        spaceBetween: 30,
+        autoplay: 2500,
+        grabCursor: true
+    });
+    var swiper1 = new Swiper('.large .project-slide .swiper-container', {
+        pagination: '.large .project-slide .swiper-pagination',
+        nextButton: '.large .project-slide .swiper-button-next',
+        prevButton: '.large .project-slide .swiper-button-prev',
+        slidesPerView: 5,
         centeredSlides: true,
         paginationClickable: true,
         spaceBetween: 30,
         autoplay: 2500,
         grabCursor: true
     });
-    var galleryTop = new Swiper('.verticalCarousel .gallery-top', {
+    var swiper2 = new Swiper('.small .project-slide .swiper-container', {
+        pagination: '.small .project-slide.swiper-pagination',
+        nextButton: '.small .project-slide.swiper-button-next',
+        prevButton: '.small .project-slide.swiper-button-prev',
+        slidesPerView: 1,
+        centeredSlides: true,
+        paginationClickable: true,
+        spaceBetween: 30,
+        autoplay: 2500,
+        grabCursor: true
+    });
+    var galleryTop = new Swiper('.vertical-carousel .gallery-top', {
         nextButton: '.swiper-button-next',
         prevButton: '.swiper-button-prev',
         pagination: '.gallery-thumbs .swiper-wrapper .swiper-slide',
         paginationClickable: true,
         direction: 'vertical',
         spaceBetween: 10,
+        slideToClickedSlide: true
     });
-    var galleryThumbs = new Swiper('.verticalCarousel .gallery-thumbs', {
+    var galleryThumbs = new Swiper('.vertical-carousel .gallery-thumbs', {
         direction: 'vertical',
         spaceBetween: 10,
         centeredSlides: true,
@@ -319,534 +268,6 @@
     });
     galleryTop.params.control = galleryThumbs;
     galleryThumbs.params.control = galleryTop;
-</script>
-<script type="text/javascript">
-    !function ($) {
 
-    var is,
-        transition;
-
-    // from valentine
-    is = {
-        fun: function (f) {
-            return typeof f === 'function';
-        },
-        arr: function (ar) {
-            return ar instanceof Array;
-        },
-        obj: function (o) {
-            return o instanceof Object && !is.fun(o) && !is.arr(o);
-        }
-    };
-
-    /*
-        Based on Bootstrap
-        Mozilla and Webkit support only
-    */
-    transition = (function () {
-        var st = document.createElement('div').style,
-            transitionEnd = 'TransitionEnd',
-            transitionProp = 'Transition',
-            support = st.transition !== undefined ||
-                st.WebkitTransition !== undefined ||
-                st.MozTransition !== undefined;
-
-        return support && {
-            prop: (function () {
-                if (st.WebkitTransition !== undefined) {
-                    transitionProp = 'WebkitTransition';
-                } else if (st.MozTransition !== undefined) {
-                    transitionProp = 'MozTransition';
-                }
-                return transitionProp;
-            }()),
-            end: (function () {
-                if (st.WebkitTransition !== undefined) {
-                    transitionEnd = 'webkitTransitionEnd';
-                } else if (st.MozTransition !== undefined) {
-                    transitionEnd = 'transitionend';
-                }
-                return transitionEnd;
-            }())
-        };
-    }());
-
-    function extend() {
-        // based on jQuery deep merge
-        var options, name, src, copy, clone,
-            target = arguments[0], i = 1, length = arguments.length;
-
-        for (; i < length; i += 1) {
-            if ((options = arguments[i]) !== null) {
-                // Extend the base object
-                for (name in options) {
-                    src = target[name];
-                    copy = options[name];
-                    if (target === copy) {
-                        continue;
-                    }
-                    if (copy && (is.obj(copy))) {
-                        clone = src && is.obj(src) ? src : {};
-                        target[name] = extend(clone, copy);
-                    } else if (copy !== undefined) {
-                        target[name] = copy;
-                    }
-                }
-            }
-        }
-        return target;
-    }
-
-    function clone(obj) {
-        if (null === obj || 'object' !== typeof obj) {
-            return obj;
-        }
-        var copy = obj.constructor(),
-            attr;
-        for (attr in obj) {
-            if (obj.hasOwnProperty(attr)) {
-                copy[attr] = obj[attr];
-            }
-        }
-        return copy;
-    }
-
-    // from jquery
-    function proxy(fn, context) {
-        var slice = Array.prototype.slice,
-            args = slice.call(arguments, 2);
-        return function () {
-            return fn.apply(context, args.concat(slice.call(arguments)));
-        };
-    }
-
-    function animate(options) {
-        var el = options.el,
-            complete = options.complete ? options.complete : function () {},
-            animation,
-            dummy;
-
-        // no animation obj OR animation is not available,
-        // fallback to css and call the callback
-        if (! options.animation ||
-            ! (el.animate || (options.css3transition && transition))) {
-            el.css(options.fallbackCss);
-            complete();
-            return;
-        }
-
-        // we will animate, apply start CSS
-        if (options.animStartCss) {
-            if (options.animStartCss.opacity === 0) {
-                options.animStartCss.opacity = 0.01; // ie quirk
-            }
-            el.css(options.animStartCss);
-        }
-        animation = options.animation;
-
-        // css3 setted, if available apply the css
-        if (options.css3transition && transition) {
-            dummy = el[0].offsetWidth; // force reflow; source: bootstrap
-            el[0].style[transition.prop] = 'all ' + animation.duration + 'ms';
-
-            // takaritas
-            delete animation.duration;
-            delete animation.easing;
-
-            el.css(animation);
-            //el.unbind(transition.end);
-            el.on(transition.end, function () {
-                // delete transition properties and events
-                el.off(transition.end);
-                el[0].style[transition.prop] = 'none';
-                complete();
-            });
-        } else if (window.ender) {
-            // use morpheus
-            el.animate(extend(animation, {'complete': complete}));
-        } else {
-            // use animate from jquery
-            el.animate(animation, animation.duration, animation.easing, complete);
-        }
-    }
-
-    /*
-        Carousel Constructor
-    */
-    function Carousel(el, options) {
-        this.init(el, options);
-
-        // only return the API
-        // instead of this
-        return {
-            getPageSize: proxy(this.getPageSize, this),
-            getCursor: proxy(this.getCursor, this),
-            nextPage: proxy(this.nextPage, this),
-            prevPage: proxy(this.prevPage, this),
-            isVisibleItem: proxy(this.isVisibleItem, this),
-            scrollToItem: proxy(this.scrollToItem, this),
-            getOptions: proxy(this.getOptions, this),
-            setOptions: proxy(this.setOptions, this)
-        };
-    }
-
-    Carousel.prototype = {
-        init: function (el, options) {
-            var opt;
-
-            this.options = {
-                window: '.window',
-                items: 'li',
-                pager: null,
-                nextPager: 'a.next',
-                prevPager: 'a.prev',
-                activeClass: null,
-                disabledClass: 'disabled',
-                duration: 400,
-                vertical: false,
-                keyboard: false,
-                css3transition: false,
-                extraOffset: 0
-            };
-            this.setOptions(options);
-            opt = this.options;
-
-            if (opt.css3transition && ! transition) {
-                opt.css3transition = false;
-            }
-
-            this.$el = $(el);
-            this.$window = this.$el.find(
-                opt.window
-            );
-            this.$itemWrapper = this.$window.children().first();
-            this.$items = this.$el.find(
-                opt.items
-            );
-            this.$nextPager = this.$el.find(
-                opt.nextPager
-            );
-            this.$prevPager = this.$el.find(
-                opt.prevPager
-            );
-
-            this.setDimensions();
-
-            if (opt.pager) {
-                this.$pager = this.$el.find(
-                    opt.pager
-                );
-
-                this.createPager();
-
-                this.$pagerItems = this.$pager.find('li');
-            }
-
-            if (this.$items.length <= this.pageSize) {
-                this.hidePrevPager();
-                this.hideNextPager();
-                return;
-            }
-
-            this.cursor = this.getActiveIndex();
-
-            if (this.cursor < 0) {
-                if (this.options.activeClass) {
-                    for (var i = 0; i < this.pageSize; i += 1) {
-                        $(this.$items.get(i)).addClass('active');
-                    }
-                }
-
-                this.cursor = 0;
-            }
-
-            if (this.cursor > this.lastPosition) {
-                this.cursor = this.lastPosition;
-            }
-
-            if (this.cursor > 0) {
-                this.scrollToItem(this.cursor, true);
-            }
-
-            if (this.cursor === 0) {
-                this.hidePrevPager();
-            }
-
-            if (this.cursor >= this.lastPosition) {
-                this.hideNextPager();
-            }
-
-            this.$nextPager.on('click', proxy(this.nextPage, this));
-            this.$prevPager.on('click', proxy(this.prevPage, this));
-
-            if (opt.keyboard) {
-                $(document).on('keyup', proxy(this.onKeyUp, this));
-            }
-
-            this.$el.addClass('carousel-inited');
-        },
-
-        setDimensions: function () {
-            var $secondItem,
-                alignedDimension = 'width',
-                marginType = ['margin-left', 'margin-right'];
-
-            if (this.options.vertical) {
-                alignedDimension = 'height';
-                marginType = ['margin-top', 'margin-bottom'];
-            }
-
-            $secondItem = this.$items.first().next();
-            this.itemMargin = parseInt($secondItem.css(marginType[0]), 10) +
-                parseInt($secondItem.css(marginType[1]), 10);
-            this.itemDimension = $secondItem[alignedDimension]() + this.itemMargin;
-
-            this.windowDimension = this.$window[alignedDimension]();
-            this.pageSize = Math.floor(
-                (this.windowDimension + this.itemMargin) / this.itemDimension
-            );
-            this.pageDimension = this.pageSize * this.itemDimension;
-            this.lastPosition = this.$items.length - this.pageSize;
-
-        },
-
-        createPager: function () {
-            var itemsLen = this.$items.length,
-                pagerItemsFrag = document.createDocumentFragment(),
-                pagerItem,
-                i;
-
-            for (i = 0; i < itemsLen; i += 1) {
-                pagerItem = document.createElement('li');
-                $pagerItem = $(pagerItem);
-
-                $pagerItem.on('click', proxy(this.usePager, this, i, itemsLen));
-
-                if (i < this.pageSize) {
-                    $pagerItem.addClass('active');
-                }
-
-                pagerItemsFrag.appendChild(pagerItem);
-            }
-
-            this.$pager.empty().get(0).appendChild(pagerItemsFrag);
-        },
-
-        usePager: function (pos, len) {
-            if (pos > (len - this.pageSize)) {
-                this.scrollToItem(len - this.pageSize);
-            } else {
-                this.scrollToItem(pos);
-            }
-        },
-
-        nextPage: function (e) {
-            if (typeof(e) !== 'undefined') {
-                e.preventDefault();
-            }
-
-            if (this.cursor >= this.lastPosition) {
-                return;
-            }
-
-            var itemIdx = this.cursor + this.pageSize;
-            if (itemIdx > this.lastPosition) {
-                itemIdx = this.lastPosition;
-            }
-
-            this.scrollToItem(itemIdx);
-        },
-
-        prevPage: function (e) {
-            if (typeof(e) !== 'undefined') {
-                e.preventDefault();
-            }
-
-            if (this.cursor === 0) {
-                return;
-            }
-
-            var itemIdx = this.cursor - this.pageSize;
-            if (itemIdx < 0) {
-                itemIdx = 0;
-            }
-
-            this.scrollToItem(itemIdx);
-        },
-
-        nextItem: function () {
-            if (this.cursor >= this.lastPosition) {
-                return;
-            }
-
-            this.scrollToItem(this.cursor + 1);
-        },
-
-        prevItem: function () {
-            if (this.cursor === 0) {
-                return;
-            }
-            this.scrollToItem(this.cursor - 1);
-        },
-
-        scrollToItem: function (idx, doNotAnimate) {
-            var animateTo,
-                scrollTo,
-                direction = this.options.vertical ? 'top' : 'left',
-                animObj = {},
-                activeClassName = this.options.activeClass || 'active',
-                itemsLen = this.$items.length,
-                i;
-
-            this.cursorPrevious = this.cursor;
-            this.cursor = idx;
-
-            if (this.cursor === 0) {
-                this.hidePrevPager();
-            } else {
-                this.showPrevPager();
-            }
-
-            if (this.cursor >= this.lastPosition) {
-                this.hideNextPager();
-            } else {
-                this.showNextPager();
-            }
-
-            scrollTo = this.cursor * this.itemDimension;
-            if (this.cursor === this.lastPosition) {
-                scrollTo = scrollTo -
-                    (this.windowDimension - this.pageDimension + this.itemMargin) +
-                    this.options.extraOffset;
-            }
-
-            scrollTo *= -1;
-            animObj[direction] = scrollTo;
-
-            if (! doNotAnimate) {
-                animObj.duration = this.options.duration;
-            }
-
-            if (this.options.activeClass) {
-                activeClass = this.options.activeClass;
-
-                if (this.getPageSize() === 1) {
-                    $(this.$items.get(this.cursorPrevious)).removeClass(activeClass);
-                    $(this.$items.get(idx)).addClass(activeClass);
-                } else {
-                    itemslen = this.$items.length;
-                    this.$items.removeClass(activeClass);
-
-                    for (i = 0; i < itemslen; i += 1) {
-                        if (this.isVisibleItem(i)) {
-                            $(this.$items.get(i)).addClass(activeClass);
-                        }
-                    }
-                }
-            }
-
-            if (this.options.pager) {
-                if (this.getPageSize() === 1) {
-                    $(this.$pagerItems.get(this.cursorPrevious)).removeClass(activeClassName);
-                    $(this.$pagerItems.get(this.cursor)).addClass(activeClassName);
-                } else {
-                    this.$pagerItems.removeClass(activeClassName);
-
-                    for (i = 0; i < itemsLen; i += 1) {
-                        if (this.isVisibleItem(i)) {
-                            $(this.$pagerItems.get(i)).addClass(activeClassName);
-                        }
-                    }
-                }
-            }
-
-            animate({
-                el: this.$itemWrapper,
-                animation: doNotAnimate ? false : animObj,
-                fallbackCss: animObj,
-                css3transition: this.options.css3transition
-            });
-        },
-
-        onKeyUp: function (e) {
-            if (e.keyCode === 39) {
-                this.nextPage();
-            } else if (e.keyCode === 37) {
-                this.prevPage();
-            }
-        },
-
-        getActiveIndex: function () {
-            var i = 0,
-                il = this.$items.length;
-
-            for (; i < il; i += 1) {
-                if ($(this.$items.get(i)).hasClass('active')) {
-                    return i;
-                }
-            }
-
-            return -1;
-        },
-
-        hideNextPager: function () {
-            this.$nextPager.addClass(
-                this.options.disabledClass
-            );
-        },
-
-        hidePrevPager: function () {
-            this.$prevPager.addClass(
-                this.options.disabledClass
-            );
-        },
-
-        showNextPager: function () {
-            this.$nextPager.removeClass(
-                this.options.disabledClass
-            );
-        },
-
-        showPrevPager: function () {
-            this.$prevPager.removeClass(
-                this.options.disabledClass
-            );
-        },
-
-        getPageSize: function () {
-            return this.pageSize;
-        },
-
-        getCursor: function () {
-            return this.cursor;
-        },
-
-        isVisibleItem: function (idx) {
-            if (this.cursor + this.pageSize <= idx || this.cursor > idx) {
-                return false;
-            }
-            return true;
-        },
-
-        getOptions: function () {
-            return this.options;
-        },
-
-        setOptions: function (options) {
-            extend(this.options, options || {});
-        }
-    };
-
-    $.fn.carousel = function (options) {
-        return new Carousel(this.first(), options);
-    };
-    }(window.ender || window.jQuery || window.Zepto);
-
-
-    $(document).ready(function () {
-    $(".carousel").carousel({
-        vertical: true
-    });
-    });
 </script>
 {% endblock %}

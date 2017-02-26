@@ -13,6 +13,7 @@
         <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
         <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
     <![endif]-->
+    <script src="{% static 'base/js/jquery-3.1.1.min.js' %}" charset="utf-8"></script>
     <style media="screen">
     </style>
 </head>
@@ -134,63 +135,7 @@
     </header>
     <section>{% block content %}{% endblock %}</section>
     <footer>
-        <div id="footerRow1" class="row footer-row ident-color">
-            <div class="container">
-                <div class="col-xs-12 col-sm-3">
-                    <ul id="footerCol1Row" class="footer-list">
-                        <li class="" id="">Últimos artículos</li>
-                        <li class="" id="">lorem</li>
-                        <li class="" id="">lorem</li>
-                        <li class="" id="">lorem</li>
-                        <li class="" id="">lorem</li>
-                        <li class="" id="">lorem</li>
-                    </ul>
-                </div>
-                <div class="col-xs-12 col-sm-3">
-                    <ul id="footerCol2Row" class="footer-list">
-                        <li class="" id="">Blogs amigos</li>
-                        <li class="" id="">lorem</li>
-                        <li class="" id="">lorem</li>
-                        <li class="" id="">lorem</li>
-                        <li class="" id="">lorem</li>
-                        <li class="" id="">lorem</li>
-                    </ul>
-                </div>
-                <div class="col-xs-12 col-sm-3">
-                    <ul id="footerCol3Row" class="footer-list">
-                        <li class="" id="">Título</li>
-                        <li class="" id="">lorem</li>
-                        <li class="" id="">lorem</li>
-                        <li class="" id="">lorem</li>
-                        <li class="" id="">lorem</li>
-                        <li class="" id="">lorem</li>
-                    </ul>
-                </div>
-                <div class="col-xs-12 col-sm-3">
-                    <ul id="footerCol4Row" class="footer-list">
-                        <li class="" id="">Redes sociales</li>
-                        <li class="" id="">lorem</li>
-                        <li class="" id="">lorem</li>
-                        <li class="" id="">lorem</li>
-                        <li class="" id="">lorem</li>
-                        <li class="" id="">lorem</li>
-                    </ul>
-                </div>
-            </div>
-        </div>
-        <div id="footerRow2" class="row footer-row ident-color-dark">
-            <div class="container">
-                <div class="col-xs-12 col-sm-4 text-center">
-                    <p>Copyright 2017 Iglesia Oración Fuerte al Espiritu Santo</p>
-                </div>
-                <div class="col-xs-12 col-sm-4 text-center">
-                    <p></p>
-                </div>
-                <div class="col-xs-12 col-sm-4 text-center">
-                    <p class="dev2tech-logo">Powered by <span class=""><a target="_blank" href="https://dev2tech.xyz">Dev2tech</a></span></p>
-                </div>
-            </div>
-        </div>
+        {% include 'footer.html' %}
     </footer>
     {% if user_rouge_for_pray %}
     <div  id="prayModal" class="modal fade" tabindex="-1" role="dialog">
@@ -239,7 +184,6 @@
         </div>
     </div>
     {% endif %}
-    <script src="{% static 'base/js/jquery-3.1.1.min.js' %}" charset="utf-8"></script>
     <script src="{% static 'base/js/bootstrap.min.js' %}" charset="utf-8"></script>
     <script src="{% static 'base/js/app.js' %}" charset="utf-8"></script>
     <script src="{% static 'base/js/swiper.min.js' %}" charset="utf-8"></script>
