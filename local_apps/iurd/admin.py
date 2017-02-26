@@ -86,6 +86,8 @@ class SubscriberAdmin(admin.ModelAdmin):
 	class Meta:
 		model = Subscriber
 
+
+@admin.register(Category)
 class CategoryAdmin(admin.ModelAdmin):
 	list_display = ["name", "updated",]
 	list_display_links = ["updated"]
