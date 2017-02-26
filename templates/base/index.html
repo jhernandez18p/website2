@@ -11,10 +11,10 @@
 <!-- Under Nav -->
 <div class="row">
     <div class="container">
+        {% if last_news %}
         <div class="col-xs-12 text-center">
             <h3>Actualización diaria</h3>
         </div>
-        {% if last_news %}
         <div class="col-xs-12 col-sm-6">
             <div id="" class="gray lastnew quote-image">
                 <img src="{{last_news.image.url}}" alt="{{last_news.title}}">
@@ -45,11 +45,11 @@
 <!-- TV + Radio + Image -->
 <div class="row">
     <div class="container">
+        {% if videos %}
         <div class="col-xs-12 text-center">
             <h3>Multimedia</h3>
         </div>
         <div class="col-xs-12 col-sm-6">
-            {% if videos %}
             <div class="tv">
                 {% for video in videos %}
                 {% if video.video_url != '' %}
@@ -83,8 +83,8 @@
                 {% endfor %}
                 </audio>
             </div>
-            {% endif %}
         </div>
+        {% endif %}
         {% if imagen %}
         <div class="col-xs-12 col-sm-6">
             <div id="" class="">
