@@ -1,5 +1,4 @@
 @import url("https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css");
-* {font-family: 'Lora', serif;font-size: 18px}
 body {background-color: #E6E6E6;overflow-x: hidden;display: flex;min-height: 100vh;flex-direction: column;}
 section{flex: 1;min-height: 50vh;}
 h1,h2,h3,h4,h5,h6 {font-family: 'Playball', cursive;}
@@ -23,13 +22,13 @@ h6 {font-size: 1.30em}
 .dev2tech-logo {margin-top: 10px !important;}
 .dev2tech-logo span a{font-family: 'Sarina', cursive !important;color:#e9e5e5;}
 .dev2tech-logo span a:hover {text-decoration: none;}
-.modal {text-align: center;padding: 0!important;}
+/*.modal {text-align: center;padding: 0!important;}
 .modal:before {content: '';display: inline-block;height: 100%;vertical-align: middle;margin-right: -4px;}
 .modal-dialog {display: inline-block;text-align: left;vertical-align: middle;}
 .image-group {margin: 10px 0;}
 .material-shadow {box-shadow: 0 10px 20px rgba(0,0,0,0.19), 0 6px 6px rgba(0,0,0,0.23);}
 .reunion-image {width: 100%; max-height:300px; }
-.modal-header, .modal-footer {border-top: none; border-bottom: none;}
+.modal-header, .modal-footer {border-top: none; border-bottom: none;}*/
 
 /*Index*/
 video,audio {width: 100%;}

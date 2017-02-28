@@ -7,7 +7,7 @@ SECRET_KEY = config('KEY')
 
 DEBUG = config('DEBUG')
 
-ALLOWED_HOSTS = ['*','universal.org.pa','www.universal.org.pa']
+ALLOWED_HOSTS = ['*']
 
 DJANGO_APPS = [
     'django.contrib.admin',
@@ -69,26 +69,15 @@ TEMPLATES = [
     },
 ]
 
-WSGI_APPLICATION = 'settings.wsgi.application'
+WSGI_APPLICATION = 'settings.wsgi_local.application'
 
-if DEBUG == True:
-    DATABASES = {
-        'default': {
-            'ENGINE': 'django.db.backends.sqlite3',
-            'NAME': os.path.join(BASE_DIR, 'db.sqlite3'),
-        }
+DATABASES = {
+    'default': {
+        'ENGINE': 'django.db.backends.sqlite3',
+        'NAME': os.path.join(BASE_DIR, 'db.sqlite3'),
     }
-else:
-    DATABASES = {
-        'default': {
-            'ENGINE': 'django.db.backends.postgresql_psycopg2',
-            'NAME': 'universal',
-            'USER': 'iurd',
-            'PASSWORD': 'da*Zy@LdBkkAT2@x',
-            'HOST': 'localhost',
-            'PORT': '',
-        }
-    }   
+}
+       
 
 AUTH_PASSWORD_VALIDATORS = [
     {
@@ -184,14 +173,6 @@ SOCIAL_AUTH_FACEBOOK_PROFILE_EXTRA_PARAMS = {
 """
     Rest API
 """
-
-# REST_FRAMEWORK = {
-#     'DEFAULT_PERMISSION_CLASSES': [
-#         'rest_framework.permissions.AllowAny',
-#     ],
-#     'PAGE_SIZE': 10
-# }
-
 REST_FRAMEWORK = {
     #'DEFAULT_PERMISSION_CLASSES': ('rest_framework.permissions.IsAdminUser','rest_framework.permissions.IsAuthenticated','rest_framework.permissions.AllowAny',),
     'DEFAULT_PERMISSION_CLASSES': ('rest_framework.permissions.AllowAny',),
