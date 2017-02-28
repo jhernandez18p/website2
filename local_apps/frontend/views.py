@@ -316,3 +316,35 @@ class GroupViewSet(viewsets.ModelViewSet):
     """
     queryset = Group.objects.all()
     serializer_class = GroupSerializer
+
+"""
+	custom errors
+"""
+
+def my_custom_bad_request_view(request):
+	template = 'url_error/frontend/400.html'
+	context = {
+		'pg_title':'Error 400',
+	}
+	return render(request, template, context)
+
+def my_custom_permission_denied_view(request):
+	template = 'url_error/frontend/403.html'
+	context = {
+		'pg_title':'Error 403',
+	}
+	return render(request, template, context)
+
+def my_custom_page_not_found_view(request):
+	template = 'url_error/frontend/404.html'
+	context = {
+		'pg_title':'Error 404',
+	}
+	return render(request, template, context)
+
+def my_custom_error_view(request):
+	template = 'url_error/frontend/500.html'
+	context = {
+		'pg_title':'Error 500',
+	}
+	return render(request, template, context)

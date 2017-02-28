@@ -1,5 +1,5 @@
 from django.conf import settings
-from django.conf.urls import include, url
+from django.conf.urls import (include, url, handler400, handler403, handler404, handler500)
 from django.conf.urls.static import static
 from django.contrib import admin
 from rest_framework import routers
@@ -10,6 +10,11 @@ from local_apps.frontend import views as base_views
 router = routers.DefaultRouter()
 router.register(r'api/users', base_views.UserViewSet)
 router.register(r'api/groups', base_views.GroupViewSet)
+
+handler400 = 'local_apps.frontend.views.my_custom_bad_request_view'
+handler403 = 'local_apps.frontend.views.my_custom_permission_denied_view'
+handler404 = 'local_apps.frontend.views.my_custom_page_not_found_view'
+handler500 = 'local_apps.frontend.views.my_custom_error_view'
 
 urlpatterns = [
 	url(r'^',include('local_apps.frontend.urls' ,namespace='frontend')),
