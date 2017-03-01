@@ -13,8 +13,8 @@ urlpatterns = [
 	url(r'^testimonios/', base_views.testimonials, name='Testimonials'),
 	url(r'^multimedia/', base_views.media, name='Media'),
 	url(r'^multimedia/eventos/(?P<slug>[\w-]+)/', base_views.events, name='Events'),
-	url(r'^noticias/', base_views.blog, name='Blog'),
 	url(r'^noticias/(?P<slug>[\w-]+)/', base_views.blog_detail, name='Blog_detalle'),
+	url(r'^noticias/', base_views.blog, name='Blog'),
 	url(r'^contacto/', base_views.contact, name='Contact'),
 	url(r'^suscribirse/', base_views.susbcribe, name='Pray'),
 ]

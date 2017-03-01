@@ -20,7 +20,7 @@
                 <img src="{% if last_news.image %}{{last_news.image.url}}{% endif %}" alt="{{last_news.title}}">
                 <div class="footer">
                     <h3>
-                        <a href="{{last_news.slug}}">{{last_news.title}}</a>
+                        <a href="{{last_news.get_absolute_url}}">{{last_news.title}}</a>
                     </h3>
                 </div>
             </div>
@@ -152,7 +152,7 @@
     </div>
     {% endif %}
 </div>
-<div class="row gray small hidden-sm hidden-lg hidden-mg">
+<div class="row gray small hidden-sm hidden-lg hidden-md">
     {% if groups %}
     <div class="container-fluid our-groups">
         <div class="col-xs-12 text-center">
@@ -198,7 +198,9 @@
                             <div class="swiper-slide quote-image">
                                 <img src="{% if new.image != '' %}{{new.image.url}}{% else %}https://static.pexels.com/photos/325288/pexels-photo-325288.jpeg{% endif %}" alt="{{new.title}}">
                                 <div class="content">
-                                    <h4>{{new.title}}</h4>
+                                    <h3>
+                                        <a href="{{last_news.get_absolute_url}}">{{last_news.title}}</a>
+                                    </h3>
                                     <!-- <p><a data-toggle="modal" data-target="#{{news.id}}Modal">Leer artículo</a></p> -->
                                 </div>
                             </div>
@@ -275,7 +277,7 @@
         paginationClickable: true,
         slidesPerView: 'auto',
         touchRatio: 0.2,
-        slideToClickedSlide: true,
+        slideToClickedSlide: false,
     });
     galleryTop.params.control = galleryThumbs;
     galleryThumbs.params.control = galleryTop;

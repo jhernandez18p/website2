@@ -59,7 +59,7 @@
                 </div>
                 <div class="blog-post-img">
                     <img src="{% if news.image != '' %}{{news.image.url}}{% else %}https://static.pexels.com/photos/325288/pexels-photo-325288.jpeg{% endif %}" alt="">
-                    <h2><a data-toggle="modal" data-target="#{{news.id}}Modal">{{news.title}}</a></h2>
+                    <h2><a href="{{news.get_absolute_url}}">{{news.title}}</a></h2>
                 </div>
                 <div class="blog-post-content">
                     {{news.content|safe|truncatewords_html:20}}

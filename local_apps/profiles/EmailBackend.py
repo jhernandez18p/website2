@@ -8,8 +8,6 @@ from django.core.mail import send_mail
 class EmailBackend(object):
 
     def authenticate(self, username=None, password=None):
-
-
         UserModel = get_user_model()
         try:
             user = UserModel.objects.get(email=username)

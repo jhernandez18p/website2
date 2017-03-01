@@ -24,10 +24,7 @@ def home(request):
 	try:
 		news = Post.objects.active()[:10]
 		if len(news)>=1:
-			last_new = {}
-			last_new['title'] = news.first()
-			last_new['image'] = news.first().image
-			last_new['slug'] = news.first().slug
+			last_new = news.first()
 		context['last_news'] = last_new
 		context['news'] = news
 	except Exception as e:
@@ -227,8 +224,16 @@ def blog(request):
 	return render(request, template, context)
 
 
-def blog_detail(request):
-	pass
+def blog_detail(request, slug):
+	template = 'detail/blogs.html'
+	new = get_object_or_404(Post, slug=slug)
+	title = (new.title)
+	print(slug, title)
+	context = {
+		'pg_title':'Detalles {}'.format(str(title))
+	}
+
+	return render(request, template, context)
 
 def events(request):
 	template = 'base/blog.html'
@@ -298,10 +303,10 @@ def susbcribe(request):
 			request.session['user_rouge_for_pray'] = False
 			return HttpResponseRedirect(url)
 
+
 """
 	Rest API
 """
-
 class UserViewSet(viewsets.ModelViewSet):
     """
     API endpoint that allows users to be viewed or edited.
@@ -317,16 +322,17 @@ class GroupViewSet(viewsets.ModelViewSet):
     queryset = Group.objects.all()
     serializer_class = GroupSerializer
 
+
 """
 	custom errors
 """
-
 def my_custom_bad_request_view(request):
 	template = 'url_error/frontend/400.html'
 	context = {
 		'pg_title':'Error 400',
 	}
 	return render(request, template, context)
+
 
 def my_custom_permission_denied_view(request):
 	template = 'url_error/frontend/403.html'
@@ -335,6 +341,7 @@ def my_custom_permission_denied_view(request):
 	}
 	return render(request, template, context)
 
+
 def my_custom_page_not_found_view(request):
 	template = 'url_error/frontend/404.html'
 	context = {
@@ -342,9 +349,15 @@ def my_custom_page_not_found_view(request):
 	}
 	return render(request, template, context)
 
+
 def my_custom_error_view(request):
 	template = 'url_error/frontend/500.html'
 	context = {
 		'pg_title':'Error 500',
 	}
 	return render(request, template, context)
+
+
+"""
+
+"""
