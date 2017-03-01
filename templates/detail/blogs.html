@@ -1,8 +1,32 @@
 {% extends 'base.html' %}
 {% block css %}
+<style>
+	#fullWidthImage1 {
+        height: 50vh;
+        background-image: url("{{post.image.url}}");
+    }
+    .quote-image::before {
+        opacity: 0.799;
+    }
+    .quote-image .container h4 {position: relative;max-width: 35vw;margin:10% auto;text-align: center;font-size: 2.8em;}
+</style>
 {% endblock %}
 
 {% block content %}
+<div class="container-fluid">
+	<div class="row">
+		<div id="fullWidthImage1" class="quote-image">
+			<div class="container">
+	            <h4>{{post.title}}</h4>
+	        </div>
+		</div>
+	</div>
+</div>
+<div class="container">
+	<div class="row">
+		{{post.content | safe}}
+	</div>
+</div>
 {% endblock %}
 
 {% block js %}

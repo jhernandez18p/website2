@@ -17,7 +17,7 @@ def cookies(request):
         print('No hay blogs amigos aún' + e)
 
     try:
-        news = Post.objects.active()[:10]
+        news = Post.objects.active()[:5]
         if len(news)>=1:
             last_new = {}
             last_new['title'] = news.first()

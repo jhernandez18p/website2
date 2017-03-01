@@ -230,10 +230,12 @@ def blog_detail(request, slug):
 	title = (new.title)
 	print(slug, title)
 	context = {
-		'pg_title':'Detalles {}'.format(str(title))
+		'pg_title':'Detalles {}'.format(str(title)),
+		'post':new,
 	}
 
 	return render(request, template, context)
+
 
 def events(request):
 	template = 'base/blog.html'
