@@ -5,8 +5,8 @@
 <style media="screen">
     .project {height: 320px;}
     .group-container{margin-bottom: 15px;}
-    .group-image{height: 200px;}
-    .group-image img{max-height: 350px; width: 350px;padding-top: 50px;}
+    .group-image{height: 350px;}
+    .group-image img{max-height:250px; width:250px;}
 
 </style>
 {% endblock %}
@@ -33,7 +33,7 @@
                 </div>
                 <div class="col-xs-12 col-sm-4">
                     <div class="group-image pull-left">
-                        <img src="{% if group.image %}{{group.image.url}}{% else %}{% endif %}" alt="" style="background-size: 300px;background-repeat: no-repeat">
+                        <img src="{% if group.image %}{{group.image.url}}{% else %}{% endif %}" alt="{{group.title}}" >
                     </div>
                 </div>
             </div>
