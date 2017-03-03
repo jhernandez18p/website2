@@ -1,7 +1,7 @@
 from settings.settings.base import *
 from decouple import config
 
-WSGI_APPLICATION = 'settings.wsgi_production.application'
+WSGI_APPLICATION = 'settings.wsgi_prod.application'
 
 ALLOWED_HOSTS = ['universal.org.pa','www.universal.org.pa','universalpanama.com','www.universalpanama.com']
 
