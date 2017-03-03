@@ -6,7 +6,7 @@
     .go-back{margin-top: 25px;}
     #fullWidthImage1 {
         height: 50vh;
-        background-image: url("{% if object.image_background %}{{object.image_background.url}}{% else %}{% endif %}");
+        background-image: url("{% if object.background_image %}{{object.background_image.url}}{% else %}{% endif %}");
     }
     .quote-image::before {
         opacity: 0.799;
