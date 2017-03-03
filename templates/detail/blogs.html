@@ -1,6 +1,7 @@
 {% extends 'base.html' %}
 {% block css %}
 <style>
+	.go-back{margin-top: 25px;}
 	#fullWidthImage1 {
         height: 50vh;
         background-image: url("{{post.image.url}}");
@@ -9,11 +10,14 @@
         opacity: 0.799;
     }
     .quote-image .container h4 {position: relative;max-width: 35vw;margin:10% auto;text-align: center;font-size: 2.8em;}
+    .post,.comments{padding: 25px;background-color: #EfEfEf; margin-top: 25px; }
+    .comment{border-top: 1px solid #CCC; padding-top:10px; }
+    .comment .comment-author{width: 60px; background-color: #e4e4e4; height: auto}
 </style>
 {% endblock %}
 
 {% block content %}
-<div class="container-fluid">
+<div class="container-fluid hidden-xs">
 	<div class="row">
 		<div id="fullWidthImage1" class="quote-image">
 			<div class="container">
@@ -22,11 +26,100 @@
 		</div>
 	</div>
 </div>
+
 <div class="container">
 	<div class="row">
-		{{post.content | safe}}
+		<div class="col-xs-12 col-sm-8">
+			<div class="go-back">
+				<p><a href="{% url 'frontend:Blog' %}"><span class="glyphicon glyphicon-menu-left"></span>Ver todos los artículos</a></p>
+			</div>
+		</div>
+		<div class="col-xs-12 col-sm-8">
+			<div class="post card-3">
+				<div class="post-author">
+					
+				</div>
+				<div class="post-content">
+					{{post.content | safe}}
+				</div>
+			</div>
+		</div>
+		<div class="col-sm-4">
+			<div class="related">
+				<h3>Artículos relacionados</h3>
+				<ul>
+					{% if post.related %}
+						{% for related in post.related.all %}
+							<li><a href="{{related.get_absolute_url}}">{{related}}</a></li>
+						{% endfor %}
+					{% endif %}
+				</ul>
+			</div>
+		</div>
 	</div>
 </div>
+
+<div class="container">
+	<div class="row">
+		<div class="col-xs-12 col-md-8">
+			
+			<div class="comments card-3">
+				<div class="header text-center">
+					<h4>Ultimos comentarios</h4>
+				</div>
+				{% if comments %}
+					{% for comment in comments %}
+						<div class="comment">
+							<div class="comment-author">
+								
+							</div>
+							<div class="content">
+								{{comment.content | safe}}
+							</div>
+						</div>
+					{% endfor %}
+					{% else %}
+					<div class="comment">
+						<p>Aún no hay comentario</p>
+					</div>
+				{% endif %}
+			</div>
+
+
+			{% if user.is_anonymous %}
+				<div class="comments card-3">
+					<div class="header text-center">
+						<h4>Iniciar sesión</h4>
+					</div>
+					<form method="post" action="{% url 'auth:Login' %}">
+						{% csrf_token %}
+						<input type="text" class="form-control" id="lg_username" name="username" placeholder="Escriba su correo eléctronico">
+						<input type="password" class="form-control" id="lg_password" name="password" placeholder="Escriba su contraseña">
+						<button type="submit" class="btn btn-block btn-primary">Entrar</button>
+					</form>		
+				</div>
+				{% else %}
+				<div class="comments card-3">
+					<div class="header text-center">
+						<h4>Escribe un comentario</h4>
+					</div>
+					<form method="post" action="">
+						{% csrf_token %}
+						<input type="text" class="form-control" id="lg_username" name="username" placeholder="Escriba su correo eléctronico">
+						<input type="text" class="hidden" value="{{post.content_type}}" name="content_type">
+						<input type="text" class="hidden" value="{{post.object_id}}" name="object_id">
+						<input type="text" class="hidden" value="" name="">
+						<textarea class="form-control" rows="3" class="form-control" value="" placeholder="Escriba su comentario" name="content"></textarea>
+						<button type="submit" class="btn btn-block btn-primary">Entrar</button>
+					</form>		
+				</div>
+			{% endif %}
+
+		</div>
+	</div>
+</div>
+
+
 {% endblock %}
 
 {% block js %}

@@ -35,6 +35,26 @@ def upload_location(instance, filename):
 	# print(instance.__class__.__name__)
 	return "%s/%s/%s" %(model_name,new_id,filename)
 
+class Category(models.Model):
+	name = models.CharField(max_length=144)
+	description = RichTextField()
+	created = models.DateTimeField(auto_now=True,auto_now_add=False)
+	time_stamp = models.DateTimeField(auto_now=False,auto_now_add=True)
+	updated = models.DateTimeField(auto_now=True, auto_now_add=False)
+
+	def __str__(self):
+		return self.name
+
+	class Meta:
+		ordering = ['-time_stamp','-updated']
+		verbose_name = ('Nueva categoría')
+		verbose_name_plural = ('Categorías')
+		permissions = (
+			("can_create_category", "Puede crear caregorías"),
+			("can_delete_category", "Puede eliminar caregorías"),
+			("can_update_category", "Puede editar caregorías"),
+		)
+
 
 class Church(models.Model):
 	name = models.CharField(max_length=144)
@@ -79,6 +99,7 @@ class Event(models.Model):
 	updated = models.DateTimeField(auto_now=True, auto_now_add=False)
 	church = models.ForeignKey(Church, default=1)
 	location = RichTextField()
+	category = models.ForeignKey(Category, null=True, blank=True)
 	image = models.ImageField(upload_to=upload_location, 
             null=True, 
             blank=True, 
@@ -100,6 +121,8 @@ class Event(models.Model):
 			("can_update_event", "Puede editar eventos"),
 		)
 
+	def get_absolute_url(self):
+		return reverse("frontend:Event_detail", kwargs={"pk": self.id})
 
 class Feed(models.Model):
 	name = models.CharField(max_length=144)
@@ -142,6 +165,8 @@ class Project(models.Model):
 
 	name = models.CharField(max_length=144)
 	title = models.CharField(max_length=144)
+	slug = models.CharField(max_length=144)
+	url = models.CharField(max_length=144)
 	description = RichTextField()
 	created = models.DateTimeField(auto_now=True,auto_now_add=False)
 	time_stamp = models.DateTimeField(auto_now=False,auto_now_add=True)
@@ -160,7 +185,8 @@ class Project(models.Model):
             height_field="background_height_field")
 	background_height_field = models.IntegerField(default=0)
 	background_width_field = models.IntegerField(default=0)
-	category = models.CharField(max_length=10, choices=CATEGORIES)
+	project_type = models.CharField(max_length=10, choices=CATEGORIES)
+	category = models.ForeignKey(Category, null=True, blank=True)
 	parentId = models.ForeignKey("self", null=True, blank=True)
 
 	def __str__(self):
@@ -175,6 +201,9 @@ class Project(models.Model):
 			("can_delete_project", "Puede eliminar proyectos"),
 			("can_update_project", "Puede editar proyectos"),
 		)
+
+	def get_absolute_url(self):
+		return reverse("frontend:Project_detail", kwargs={"pk": self.id})
 
 
 class Schedule(models.Model):
@@ -210,13 +239,13 @@ class Reunion(models.Model):
 	SATURDAY = 7
 
 	WEEKDAYS = (
-		('SUNDAY','Domingo'),
-		('MONDAY','Lunes'),
-		('TUESDAY','Martes'),
-		('WEDNESDAY','Miércoles'),
-		('THURSDAY','Jueves'),
-		('FRIDAY','Vierne'),
-		('SATURDAY','Sabado'),
+		('0_MONDAY','Lunes'),
+		('1_TUESDAY','Martes'),
+		('2_WEDNESDAY','Miércoles'),
+		('3_THURSDAY','Jueves'),
+		('4_FRIDAY','Viernes'),
+		('5_SATURDAY','Sábado'),
+		('6_SUNDAY','Domingo'),
 	)
 
 	name = models.CharField(max_length=144)
@@ -239,7 +268,7 @@ class Reunion(models.Model):
             height_field="background_height_field")
 	background_height_field = models.IntegerField(default=0)
 	background_width_field = models.IntegerField(default=0)
-	category = models.CharField(max_length=10, choices=WEEKDAYS)
+	category = models.CharField(max_length=20, choices=WEEKDAYS)
 	parentId = models.ForeignKey("self",null=True, blank=True)
 	schedule = models.ManyToManyField(Schedule)
 
@@ -256,6 +285,8 @@ class Reunion(models.Model):
 			("can_delete_reunions", "Puede eliminar reuniones"),
 			("can_update_reunions", "Puede editar reuniones"),
 		)
+	def get_absolute_url(self):
+		return reverse("frontend:Reunions_detail", kwargs={"pk": self.id})
 
 
 class Subscriber(models.Model):
@@ -277,24 +308,4 @@ class Subscriber(models.Model):
 			("can_create_subscribers", "Puede crear suscriptores"),
 			("can_delete_subscribers", "Puede eliminar suscriptores"),
 			("can_update_subscribers", "Puede editar suscriptores"),
-		)
-
-class Category(models.Model):
-	name = models.CharField(max_length=144)
-	description = RichTextField()
-	created = models.DateTimeField(auto_now=True,auto_now_add=False)
-	time_stamp = models.DateTimeField(auto_now=False,auto_now_add=True)
-	updated = models.DateTimeField(auto_now=True, auto_now_add=False)
-
-	def __str__(self):
-		return self.name
-
-	class Meta:
-		ordering = ['-time_stamp','-updated']
-		verbose_name = ('Nueva categoría')
-		verbose_name_plural = ('Categorías')
-		permissions = (
-			("can_create_category", "Puede crear caregorías"),
-			("can_delete_category", "Puede eliminar caregorías"),
-			("can_update_category", "Puede editar caregorías"),
 		)

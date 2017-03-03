@@ -1,10 +1,10 @@
 <div id="footerRow1" class="row footer-row ident-color">
     <div class="container hidden-xs">
-        {% if news %}
+        {% if page_news %}
         <div class="col-xs-12 col-sm-4">
             <ul id="footerCol1Row" class="footer-list">
                 <li class="" id="">Últimos artículos</li>
-                {% for new in news %}<li class="footer-anchor" id=""><a >{{new.title}}</a></li>{% endfor %}
+                {% for new in page_news %}<li class="footer-anchor" id=""><a >{{new.title}}</a></li>{% endfor %}
             </ul>
         </div>
         {%endif%}

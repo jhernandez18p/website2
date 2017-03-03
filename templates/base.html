@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <title>{{pg_title}} | Iglesia Universal Del Reino de Dios</title>
+    <title>{{title}} | Iglesia Universal Del Reino de Dios</title>
     {% include 'header.html' %}
     {% block css %}{% endblock %}
     <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
@@ -13,9 +13,6 @@
         <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
         <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
     <![endif]-->
-    <script src="{% static 'base/js/jquery-3.1.1.min.js' %}" charset="utf-8"></script>
-    <style media="screen">
-    </style>
 </head>
 <body>
     <header>
@@ -28,7 +25,7 @@
             <div class="container">
                 <div class="navbar-header">
                     <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1" aria-expanded="false">
-                        <span class="sr-only">Toggle navigation</span>
+                        <span class="sr-only"></span>
                         <span class="icon-bar"></span>
                         <span class="icon-bar"></span>
                         <span class="icon-bar"></span>
@@ -42,86 +39,57 @@
                         <li class="{% if pg_title == 'about' %}active{% endif %}" >
                             <a href="{% url 'frontend:About' %}">¿Quienes somos?</a>
                         </li>
-                        <!-- <li class="{% if pg_title == 'project' %}active{% endif %}">
+                        <li class="{% if pg_title == 'project' %}active{% endif %}">
                             <a href="{% url 'frontend:Projects' %}">Proyectos</a>
-                        </li> -->
-                        <!-- <li class="dropdown dropdown-large {% if pg_title == 'reunion' %}active{% endif %}">
-                            <a href="#" class="dropdown-toggle" data-toggle="dropdown">
+                        </li>
+                        <li class="dropdown dropdown-large {% if pg_title == 'reunion' %}active{% endif %}">
+                            <a href="{% url 'frontend:Reunions' %}" class="dropdown-toggle hidden-sm hidden-mg hidden-lg">
+                                Reuniones</b>
+                            </a>
+                            <a href="{% url 'frontend:Reunions' %}" class="dropdown-toggle hidden-xs" data-toggle="dropdown">
                                 Reuniones <b class="caret"></b>
                             </a>
-                            <ul class="dropdown-menu dropdown-menu-large row">
-                                <li class="col-sm-3">
-                                    <ul>
-                                        <li class="dropdown-header">Ver reuniones</li>
-                                        <li>
-                                            <a href="{% url 'frontend:Reunions' %}">Todas las reuniones</a>
-                                        </li>
-                                        <li class="divider"></li>
-                                        <li class="dropdown-header">
-                                            Domingo
-                                        </li>
-                                        <li>
-                                            <a href="#">
-                                                Reunión espiritual y familiar
-                                            </a>
-                                        </li>
-                                        <li>
-                                            <a href="#">Cura de los vicios</a>
-                                        </li>
-                                        <li>
-                                            <a href="#">Estudio apocalipsis</a>
-                                        </li>
-                                    </ul>
-                                </li>
-                                <li class="col-sm-3">
-                                    <ul>
-                                        <li class="dropdown-header">Lunes</li>
-                                        <li>
-                                            <a href="#">Progreso economico</a>
-                                        </li>
-                                        <li class="divider"></li>
-                                        <li class="dropdown-header">
-                                            Martes
-                                        </li>
-                                        <li>
-                                            <a href="#">Liberación</a>
-                                        </li>
-                                    </ul>
-                                </li>
-                                <li class="col-sm-3">
-                                    <ul>
-                                        <li class="dropdown-header">Miércoles</li>
-                                        <li>
-                                            <a href="#">Noche de salvación</a>
-                                        </li>
-                                        <li class="divider"></li>
-                                        <li class="dropdown-header">Jueves</li>
-                                        <li>
-                                            <a href="#">Terapia del amor</a>
-                                        </li>
-                                    </ul>
-                                </li>
-                                <li class="col-sm-3">
-                                    <ul>
-                                        <li class="dropdown-header">Viernes</li>
-                                        <li>
-                                            <a href="#">Liberación espiritual</a>
-                                        </li>
-                                        <li class="divider"></li>
-                                        <li class="dropdown-header">Sabado</li>
-                                        <li>
-                                            <a href="#">Casos imposibles</a>
-                                        </li>
-                                    </ul>
-                                </li>
+                            <ul class="dropdown-menu dropdown-menu-large row hidden-xs">
+                                {% for key, value in weekdays.items %}
+                                    <li class="col-sm-3">
+                                        <ul>
+                                        {% if forloop.counter == 1 %}
+                                            <li class="dropdown-header">Todas las reuniones</li>
+                                            <li><a href="{% url 'frontend:Reunions' %}">Ver reuniones</a></li>
+                                            <li class="divider"></li>
+                                        </ul>
+                                    </li>
+                                    <li class="col-sm-3">
+                                        <ul>
+                                            <li class="dropdown-header">{{value.day}}</li>
+                                            {% for key, val in value.reunions.items %}
+                                                <li><a href="{{val.url}}">{{val.name}}</a></li>
+                                            {% endfor %}
+                                            <li class="divider"></li>
+                                        {% else %}
+                                            <li class="dropdown-header">{{value.day}}</li>
+                                            {% for key, val in value.reunions.items %}
+                                                <li><a href="{{val.url}}">{{val.name}}</a></li>
+                                            {% endfor %}
+                                            <li class="divider"></li>
+                                        {% endif %}
+                                        </ul>
+                                        
+                                    </li>
+                                {% endfor %}
                             </ul>
-                        </li> -->
+                        </li>
                         <li class="{% if pg_title == 'testimonial' %}active{% endif %}">
                             <a href="{% url 'frontend:Testimonials' %}">Testimonios</a>
                         </li>
                         <li class="{% if pg_title == 'media' %}active{% endif %}">
                             <a href="{% url 'frontend:Media' %}">Multimedia</a>
                         </li>
+                        {% if page_events %}
+                            <li class="{% if pg_title == 'events' %}active{% endif %}">
+                                <a href="{% url 'frontend:Events' %}">Eventos</a>
+                            </li>
+                        {% endif %}
                         <li class="{% if pg_title == 'blog' %}active{% endif %}">
                             <a href="{% url 'frontend:Blog' %}">Blog</a>
                         </li>
@@ -137,7 +105,7 @@
     <footer>
         {% include 'footer.html' %}
     </footer>
-    {% if user_rouge_for_pray == 'True' %}
+    {% if user_rouge_for_pray == True %}
     <div  id="prayModal" class="modal fade" tabindex="-1" role="dialog">
         <div class="modal-dialog modal-lg" role="document">
             <div class="modal-content">

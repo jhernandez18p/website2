@@ -19,18 +19,15 @@
                 <div class="swiper-container">
                     <div class="swiper-wrapper">
                         {% for testimonial in testimonials %}
-                        <div id="quote{{testimonial.id}}" class="swiper-slide quote-image">
-                            <img src="{% if testimonial.image != '' %}{{testimonial.image.url}}{% else %}https://static.pexels.com/photos/325288/pexels-photo-325288.jpeg{% endif %}" alt="">
-                            <div class="content">
-                                <h4>{{testimonial.title}}</h4>
-                                <p><a data-toggle="modal" data-target="#{{testimonial.id}}Modal">Ver testimonio</a></p>
+                            <div id="quote{{testimonial.id}}" class="swiper-slide quote-image">
+                                <img src="{% if testimonial.image != '' %}{{testimonial.image.url}}{% else %}https://static.pexels.com/photos/325288/pexels-photo-325288.jpeg{% endif %}" alt="">
+                                <div class="content">
+                                    <h4>{{testimonial.title}}</h4>
+                                    <p><a href="{% url 'frontend:Testimonial_detail' testimonial.id %}">Ver testimonio</a></p>
+                                </div>
                             </div>
-                        </div>
-                        
                         {% endfor %}
                     </div>
-                    <!-- Add Pagination -->
-                    <div class="swiper-pagination"></div>
                 </div>
             </div>
         </div>
@@ -45,7 +42,7 @@
         <div class="col-xs-12 col-sm-6 testimonial-block">
             <div class="testimonial-post material-shadow">
                 <div class="testimonial-post-header">
-                    <a data-toggle="modal" data-target="#{{testimonial.id}}Modal">
+                    <a href="{% url 'frontend:Testimonial_detail' testimonial.id %}">
                         <img id="" src="{% if testimonial.image != '' %}{{testimonial.image.url}}{% else %}https://static.pexels.com/photos/325288/pexels-photo-325288.jpeg{% endif %}" alt="" height="250" width="540">
                     </a>
                     <h3>{{testimonial.title}}</h3>

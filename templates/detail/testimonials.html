@@ -2,10 +2,67 @@
 {% load staticfiles %}
 
 {% block css %}
+<style>
+    .go-back{margin-top: 25px;}
+    #fullWidthImage1 {
+        height: 50vh;
+        background-image: url("{% if object.image %}{{object.image.url}}{% else %}{% endif %}");
+    }
+    .quote-image::before {
+        opacity: 0.799;
+    }
+    .quote-image .container h4 {position: relative;max-width: 35vw;margin:10% auto;text-align: center;font-size: 2.8em;}
+    .box{padding: 25px;background-color: #EfEfEf; margin-top: 25px; }
+    .video iframe{width: 100%; height: 450px;}
+</style>
 {% endblock %}
 
 {% block content %}
-<p>{{pg_title}}</p>
+<div class="row hidden-xs vh50">
+    <div id="fullWidthImage1" class="quote-image">
+        <div class="container">
+            <h4>{{object.title}}</h4>
+        </div>
+    </div>
+</div>
+
+<div class="container">
+    <div class="row">
+        <div class="col-xs-12">
+            <div class="go-back">
+                <p><a href="{% url 'frontend:Testimonials' %}"><span class="glyphicon glyphicon-menu-left"></span> Ver todos los testimonios</a></p>
+            </div>
+        </div>
+        {% if object.video_url %}
+        <div class="col-xs-12">
+            <div class="video">
+				<iframe src="https://www.youtube.com/embed/{{object.video_url}}" frameborder="0"></iframe>
+            </div>
+        </div>
+        {% endif %}
+        <div class="col-xs-12 col-sm-offset-2 col-sm-8">
+            <div class="card-3 box">
+                <h2>{{object.title}}</h2>
+                {{object.description| safe}}
+                {{object.location| safe}}
+            </div>
+        </div>
+        <div class="hidden-xs col-sm-4">
+            {% if articles %}
+            <h4>Articulos relacionados</h4>
+                {% for article in articles %}
+                    <div class="card-3 box">
+                        <div class="article-image">
+                            <img src="" alt="">
+                        </div>
+                        <p><a href="{{article.get_absolute_url}}">{{article.title}}</a></p>
+                    </div>
+                {% endfor %}
+            {% endif %}
+        </div>
+    </div>
+</div>
+
 {% endblock %}
 
 {% block js %}

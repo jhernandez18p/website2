@@ -18,7 +18,8 @@ def home(request):
 
 	template = 'base/index.html'
 	context = {
-		'pg_title':'Inicio',
+		'pg_title':'home',
+		'title':'Inicio',
 	}
 
 	try:
@@ -62,7 +63,7 @@ def home(request):
 		print('No hay Testimonios aún' + e)
 
 	try:
-		projects = Project.objects.all().filter(category='Projecs')
+		projects = Project.objects.all().filter(project_type='Projecs')
 		# if len(projects)>0:
 		# 	print(projects[0].category)
 		context['projects'] = projects
@@ -70,7 +71,7 @@ def home(request):
 		print('No hay proyectos aún' + e)
 
 	try:
-		groups = Project.objects.all().filter(category='Groups')
+		groups = Project.objects.all().filter(project_type='Groups')
 		# if len(groups)>0:
 		# 	print(groups[0].category)
 		context['groups'] = groups
@@ -83,7 +84,8 @@ def home(request):
 def about(request):
 	template = 'base/about.html'
 	context = {
-		'pg_title':'¿Quienes somos?',
+		'pg_title':'about',
+		'title':'¿Quienes somos?',
 	}
 	return render(request, template, context)
 
@@ -91,15 +93,35 @@ def about(request):
 def projects(request):
 	template = 'base/project.html'
 	context = {
-		'pg_title':'Proyectos universal',
+		'pg_title':'project',
+		'title':'Proyectos universal',
 	}
+	try:
+		projects = Project.objects.all().filter(project_type='Projecs')
+		# if len(projects)>0:
+		# 	print(projects[0].category)
+		context['projects'] = projects
+	except Exception as e:
+		print('No hay proyectos aún' + e)
+
+	try:
+		groups = Project.objects.all().filter(project_type='Groups')
+		# if len(groups)>0:
+		# 	print(groups[0].category)
+		context['groups'] = groups
+	except Exception as e:
+		print('No hay grupos aún' + e)
+
 	return render(request, template, context)
 
 
 def reunions(request):
 	template = 'base/reunion.html'
+	reunions = Reunion.objects.all()
 	context = {
-		'pg_title':'Reuniones',
+		'pg_title':'reunion',
+		'title':'Reuniones',
+		'objects':reunions,
 	}
 	return render(request, template, context)
 
@@ -107,7 +129,8 @@ def reunions(request):
 def testimonials(request):
 	template = 'base/testimonial.html'
 	context = {
-		'pg_title':'Testimonios',
+		'pg_title':'testimonial',
+		'title':'Testimonios',
 	}
 
 	try:
@@ -135,7 +158,8 @@ def testimonials(request):
 def media(request):
 	template = 'base/media.html'
 	context = {
-		'pg_title':'Multimedia',
+		'pg_title':'media',
+		'title':'Multimedia',
 	}
 
 	try:
@@ -194,7 +218,8 @@ def media(request):
 def blog(request):
 	template = 'base/blog.html'
 	context = {
-		'pg_title':'Noticias',
+		'pg_title':'blog',
+		'title':'Noticias',
 	}
 
 	try:
@@ -211,7 +236,7 @@ def blog(request):
 		print('No hay noticias aún' + e)
 	
 	page = request.GET.get('page', 1)
-	paginator = Paginator(news_list, 12)
+	paginator = Paginator(news_list, 10)
 	try:
 		news_list = paginator.page(page)
 	except PageNotAnInteger:
@@ -224,31 +249,27 @@ def blog(request):
 	return render(request, template, context)
 
 
-def blog_detail(request, slug):
-	template = 'detail/blogs.html'
-	new = get_object_or_404(Post, slug=slug)
-	title = (new.title)
-	print(slug, title)
-	context = {
-		'pg_title':'Detalles {}'.format(str(title)),
-		'post':new,
-	}
-
-	return render(request, template, context)
-
-
 def events(request):
-	template = 'base/blog.html'
+	template = 'base/events.html'
 	context = {
-		'pg_title':'Eventos',
+		'pg_title':'events',
+		'title':'Eventos',
 	}
+
+	try:
+		events = Event.objects.all()
+		context['events'] = events
+	except Exception as e:
+		raise e
+
 	return render(request, template, context)
 
 
 def contact(request):
 	template = 'base/contact.html'
 	context = {
-		'pg_title':'Contato',
+		'pg_title':'contact',
+		'title':'Contato',
 	}
 
 	if request.method == 'GET':
@@ -332,6 +353,7 @@ def my_custom_bad_request_view(request):
 	template = 'url_error/frontend/400.html'
 	context = {
 		'pg_title':'Error 400',
+		'title':'Error 400',
 	}
 	return render(request, template, context)
 
@@ -340,6 +362,7 @@ def my_custom_permission_denied_view(request):
 	template = 'url_error/frontend/403.html'
 	context = {
 		'pg_title':'Error 403',
+		'title':'Error 403',
 	}
 	return render(request, template, context)
 
@@ -348,6 +371,7 @@ def my_custom_page_not_found_view(request):
 	template = 'url_error/frontend/404.html'
 	context = {
 		'pg_title':'Error 404',
+		'title':'Error 404',
 	}
 	return render(request, template, context)
 
@@ -356,10 +380,117 @@ def my_custom_error_view(request):
 	template = 'url_error/frontend/500.html'
 	context = {
 		'pg_title':'Error 500',
+		'title':'Error 500',
 	}
 	return render(request, template, context)
 
 
 """
-
+	Details
 """
+def blog_detail(request, slug):
+	template = 'detail/blogs.html'
+	new = get_object_or_404(Post, slug=slug)
+	title = (new.title)
+	try:
+		comments = Comment.objects.all().filter(content_type=new.get_content_type, object_id=new.id)
+		print(comments)
+	except Exception as e:
+		print(e)
+
+	
+	context = {
+		'pg_title':'blog',
+		'title':'Detalles {}'.format(str(title)),
+		'post':new,
+		'comments':comments,
+	}
+
+	return render(request, template, context)
+
+
+def blog_filter(request, category):
+	template = 'base/blog.html'
+	title = 'Filtro de categorias'
+	context = {
+		'pg_title':'blog',
+		'title':'Detalles {}'.format(str(title)),
+	}
+	try:
+		news = Post.objects.all().filter(category=category)
+		news_list = news
+		context['news'] = news
+	except Exception as e:
+		print('No hay noticias aún' + e)
+	
+	page = request.GET.get('page', 1)
+	paginator = Paginator(news_list, 10)
+	try:
+		news_list = paginator.page(page)
+	except PageNotAnInteger:
+		news_list = paginator.page(1)
+	except EmptyPage:
+		news_list = paginator.page(paginator.num_pages)
+
+	context['news_list'] = news_list
+	
+
+	return render(request, template, context)
+
+
+def projects_detail(request, pk):
+	template = 'detail/projects.html'
+	project = get_object_or_404(Project, id=pk)
+	print(project)
+	title = project.title
+	
+	context = {
+		'pg_title':'project',
+		'title':'Detalles {}'.format(str(title)),
+		'project':project,
+	}
+
+	return render(request, template, context)
+
+
+def reunions_detail(request, pk):
+	template = 'detail/reunions.html'
+	reunions = get_object_or_404(Reunion,id=pk)
+	title = ''
+	
+	context = {
+		'pg_title':'reunion',
+		'title':'Detalles {}'.format(str(title)),
+		'object':reunions,
+	}
+
+	return render(request, template, context)
+
+
+def testimonials_detail(request, pk):
+	template = 'detail/testimonials.html'
+	testimonial = get_object_or_404(Testimonial,id=pk)
+	title = testimonial.title
+	
+	context = {
+		'pg_title':'testimonial',
+		'title':'Detalles {}'.format(str(title)),
+		'object':testimonial
+	}
+
+	return render(request, template, context)
+
+
+def events_detail(request, pk):
+	template = 'detail/events.html'
+	event = get_object_or_404(Event, id=pk)
+	title = event.title
+	
+	context = {
+		'pg_title':'events',
+		'title':'Detalles {}'.format(str(title)),
+		'object':event,
+	}
+
+	return render(request, template, context)
+

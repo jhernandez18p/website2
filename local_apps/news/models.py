@@ -129,7 +129,11 @@ class Post(models.Model):
         return self.title
 
     def get_absolute_url(self):
-        return reverse("frontend:Blog_detalle", kwargs={"slug": self.slug})
+        return reverse("frontend:Blog_details", kwargs={"slug": self.slug})
+
+    def get_category_url(self):
+        my_category = Category.objects.all().get(name=self.category)
+        return reverse("frontend:Blog_category", kwargs={"category": my_category.id})
 
     class Meta:
         ordering = ["-timestamp", "-updated"]
@@ -174,6 +178,5 @@ def pre_save_post_receiver(sender, instance, *args, **kwargs):
     #     html_string = instance.get_markdown()
     #     read_time_var = get_read_time(html_string)
     #     instance.read_time = read_time_var
-
 
 pre_save.connect(pre_save_post_receiver, sender=Post)

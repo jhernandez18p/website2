@@ -114,7 +114,7 @@
                             <img src="{% if testimonial.image != '' %}{{testimonial.image.url}}{% else %}https://static.pexels.com/photos/325288/pexels-photo-325288.jpeg{% endif %}" alt="">
                             <div class="content">
                                 <h4>{{testimonial.title}}</h4>
-                                <p><a href="#">Ver testimonio</a></p>
+                                <p><a href="{{testimonial.get_absolute_url}}">Ver testimonio</a></p>
                             </div>
                         </div>
                         {% endfor %}
@@ -139,7 +139,7 @@
                 <div class="swiper-wrapper">
                     {% for group in groups %}
                     <div class="swiper-slide material-shadow">
-                        <h3><a href="#">{{group.title}}</a></h3>
+                        <h3><a href="{{group.get_absolute_url}}">{{group.title}}</a></h3>
                         <img src="{% if group.image %}{{group.image.url}}{% endif %}" alt="{{group.title}}">
                     </div>
                     {% endfor %}
@@ -163,7 +163,7 @@
                 <div class="swiper-wrapper">
                     {% for group in groups %}
                     <div class="swiper-slide material-shadow">
-                        <h3><a href="#">{{group.title}}</a></h3>
+                        <h3><a href="{{group.get_absolute_url}}">{{group.title}}</a></h3>
                         <img src="{% if group.image %}{{group.image.url}}{% endif %}" alt="{{group.title}}">
                     </div>
                     {% endfor %}
@@ -232,11 +232,11 @@
 <script>
     var swiper = new Swiper('#testimonialCarousel .swiper-container', {
         pagination: '#testimonialCarousel .swiper-pagination',
-        paginationClickable: true,
         nextButton: '#testimonialCarousel .swiper-button-next',
         prevButton: '#testimonialCarousel .swiper-button-prev',
+        paginationClickable: true,
         spaceBetween: 30,
-        autoplay: 2500,
+        autoplay: 5000,
         grabCursor: true
     });
     var swiper1 = new Swiper('.large .project-slide .swiper-container', {
@@ -247,7 +247,7 @@
         centeredSlides: true,
         paginationClickable: true,
         spaceBetween: 30,
-        autoplay: 2500,
+        autoplay: 5000,
         grabCursor: true
     });
     var swiper2 = new Swiper('.small .project-slide .swiper-container', {
@@ -258,7 +258,7 @@
         centeredSlides: true,
         paginationClickable: true,
         spaceBetween: 30,
-        autoplay: 2500,
+        autoplay: 5000,
         grabCursor: true
     });
     var galleryTop = new Swiper('.vertical-carousel .gallery-top', {

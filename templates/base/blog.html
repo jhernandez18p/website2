@@ -69,7 +69,12 @@
                         <span class="left glyphicon glyphicon-user"> {% if news.user.first_name %}{{news.user.first_name}}{% endif %} {% if news.user.last_name %}{{news.user.last_name}}{% endif %}</span>
                     </p>
                     <br>
-                    <p><a href=""></a>{% if news.category %}{{news.category}}{% endif %}</p><br>
+                    {% if news.category %}
+                        <p>
+                            <a href="{{news.get_category_url}}">{{news.category}}</a>
+                        </p>
+                    {% endif %}
+                    <br>
                     {% if news.related %}<p><a href="">{{news.related.id}}</a></p>{% endif %}
                 </div>
                 <div  id="{{news.id}}Modal" class="modal" tabindex="-1" role="dialog">
@@ -103,13 +108,13 @@
                         </a>
                     </li>
                     {% endif %}
-                    {% for i in news_list.paginator.page_range %}
-                        {% if news_list.number == i %}
-                            <li class="active"><span>{{ i }} <span class="sr-only">(current)</span></span></li>
-                        {% else %}
-                            <li><a href="?page={{ i }}">{{ i }}</a></li>
-                        {% endif %}
-                    {% endfor %}
+                        {% for i in news_list.paginator.page_range %}
+                            {% if news_list.number == i %}
+                                <li class="active"><span>{{ i }} <span class="sr-only">(current)</span></span></li>
+                            {% else %}
+                                <li><a href="?page={{ i }}">{{ i }}</a></li>
+                            {% endif %}
+                        {% endfor %}
                     {% if news_list.has_next %}
                     <li>
                         <a href="?page={{ users.next_page_number }}" aria-label="Next">
@@ -125,104 +130,24 @@
 
         </div>
         <div class="col-sm-4 hidden-xs">
-            <!-- <div class="blog-aside material-shadow" id="blogSeachAside">
-                <div class="blog-aside-search">
-                    <form class="" action="index.html" method="post">
-                        <div class="blog-aside-search-input">
-                            <input type="text" name="blog_search" placeholder="Buscar">
-                        </div>
-                        <div class="blog-aside-search-button">
-                            <button type="button" name="button">
-                                <span class="glyphicon glyphicon-search"></span>
-                            </button>
-                        </div>
-                    </form>
+            {% if site_categories %}
+                <div class="blog-aside material-shadow" id="blogCategoriesAside">
+                    <div class="blog-aside-header">
+                        <p>Categorías</p>
+                    </div>
+                    <div class="blog-aside-body">
+                        <ul class="" id="">
+                                {% for category in site_categories %}
+                                <li class="" id="">
+                                    <a href="{% url 'frontend:Blog_category' category.id %}" class="" id="">
+                                        {{category.name}}
+                                    </a>
+                                </li>
+                            {% endfor %}
+                        </ul>
+                    </div>
                 </div>
-            </div> -->
-            {% if categories %}
-            <div class="blog-aside material-shadow" id="blogCategoriesAside">
-                <div class="blog-aside-header">
-                    <p>Categorías</p>
-                </div>
-                <div class="blog-aside-body">
-                    <ul class="" id="">
-                        <li class="" id="">
-                            <a href="" class="" id="">
-                                Familia <span class="badge">5</span>
-                            </a>
-                        </li>
-                    </ul>
-                </div>
-            </div>
             {% endif %}
-            <!-- <div class="blog-aside material-shadow" id="blogTopAuthorsAside">
-                <div class="blog-aside-header">
-                    <p>Top 5 Autores</p>
-                </div>
-                <div class="blog-aside-body">
-                    <ul class="" id="">
-                        <li class="" id="">
-                            <a href="" class="" id="">
-                                Familia <span class="badge">5</span>
-                            </a>
-                        </li>
-                        <li class="" id="">
-                            <a href="" class="" id="">
-                                Hombre <span class="badge">5</span>
-                            </a>
-                        </li>
-                        <li class="" id="">
-                            <a href="" class="" id="">
-                                Mujer <span class="badge">5</span>
-                            </a>
-                        </li>
-                        <li class="" id="">
-                            <a href="" class="" id="">
-                                Niños <span class="badge">5</span>
-                            </a>
-                        </li>
-                        <li class="" id="">
-                            <a href="" class="" id="">
-                                Hogar <span class="badge">5</span>
-                            </a>
-                        </li>
-                    </ul>
-                </div>
-            </div>
-            <div class="blog-aside material-shadow" id="blogTopAuthorsAside">
-                <div class="blog-aside-header">
-                    <p>Top 5 Autores</p>
-                </div>
-                <div class="blog-aside-body">
-                    <ul class="" id="">
-                        <li class="" id="">
-                            <a href="" class="" id="">
-                                Familia <span class="badge">5</span>
-                            </a>
-                        </li>
-                        <li class="" id="">
-                            <a href="" class="" id="">
-                                Hombre <span class="badge">5</span>
-                            </a>
-                        </li>
-                        <li class="" id="">
-                            <a href="" class="" id="">
-                                Mujer <span class="badge">5</span>
-                            </a>
-                        </li>
-                        <li class="" id="">
-                            <a href="" class="" id="">
-                                Niños <span class="badge">5</span>
-                            </a>
-                        </li>
-                        <li class="" id="">
-                            <a href="" class="" id="">
-                                Hogar <span class="badge">5</span>
-                            </a>
-                        </li>
-                    </ul>
-                </div>
-            </div>-->
         </div>
     </div>
 </div>

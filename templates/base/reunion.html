@@ -2,11 +2,61 @@
 {% load staticfiles %}
 
 {% block css %}
+<style media="screen">
+    .project {height: 320px;}
+    .group-container{margin-bottom: 15px;}
+    .group-image{height: 200px;}
+    .group-image img{max-height: 350px; width: 350px;padding-top: 50px;}
+
+</style>
 {% endblock %}
 
 {% block content %}
-
+<!-- Projects -->
+<div class="container">
+    <!-- Our projects -->
+    {% if objects %}
+    <div class="row">
+        <div class="col-xs-12 text-center">
+            <h3>Proyectos</h3>
+        </div>
+    </div>
+    {% for group in objects %}
+        <div class="row">
+            <div class="groups-container">
+                <div class="col-xs-12 col-sm-offset-2 col-sm-4">
+                    <div class="group-content">
+                        <h3>{{group.title}}</h3>
+                        {{group.description|safe|truncatewords_html:20}}
+                        <p><a href="{{group.get_absolute_url}}">Ver más</a></p>
+                    </div>
+                </div>
+                <div class="col-xs-12 col-sm-4">
+                    <div class="group-image pull-left">
+                        <img src="{% if group.image %}{{group.image.url}}{% else %}{% endif %}" alt="" style="background-size: 300px;background-repeat: no-repeat">
+                    </div>
+                </div>
+            </div>
+        </div>
+    {% endfor %}
+    {% endif %}
+    {% if projects %}
+    {% for project in projects %}
+    <div class="row">
+        <div class="col-xs-12 text-center">
+            <h3></h3>
+        </div>
+    </div>
+    <div class="row">
+        
+    </div>
+    {% endfor %}
+    {% endif %}
+</div>
 {% endblock %}
 
 {% block js %}
+<script>
+    
+</script>
 {% endblock %}

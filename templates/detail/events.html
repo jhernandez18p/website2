@@ -6,14 +6,13 @@
     .go-back{margin-top: 25px;}
     #fullWidthImage1 {
         height: 50vh;
-        background-image: url("{% if object.image %}{{object.image_background.url}}{% else %}{% endif %}");
+        background-image: url("{% if object.image.url %}{{object.image.url}}{% else %}{% endif %}");
     }
     .quote-image::before {
         opacity: 0.799;
     }
     .quote-image .container h4 {position: relative;max-width: 35vw;margin:10% auto;text-align: center;font-size: 2.8em;}
     .box{padding: 25px;background-color: #EfEfEf; margin-top: 25px; }
-    .video iframe{width: 100%; height: 450px;}
 </style>
 {% endblock %}
 
@@ -30,7 +29,7 @@
     <div class="row">
         <div class="col-xs-12">
             <div class="go-back">
-                <p><a href="{% url 'frontend:Testimonials' %}"><span class="glyphicon glyphicon-menu-left"></span> Ver todos los testimonios</a></p>
+                <p><a href="{% url 'frontend:Events' %}"><span class="glyphicon glyphicon-menu-left"></span> Ver todos los eventos</a></p>
             </div>
         </div>
         <div class="col-xs-12 col-sm-offset-2 col-sm-8">
@@ -38,7 +37,6 @@
                 <h2>{{object.title}}</h2>
                 {{object.description| safe}}
                 {{object.location| safe}}
-
             </div>
         </div>
         <div class="hidden-xs col-sm-4">

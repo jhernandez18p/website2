@@ -1,0 +1,35 @@
+{% extends 'base.html' %}
+{% load staticfiles %}
+
+{% block css %}
+<style media="screen">
+    .box{padding:15px; background-color: #EfEfEf; }
+</style>
+{% endblock %}
+{% block content %}
+
+{% if page_events %}
+<div class="container">
+    <div class="row">
+        <div class="col-xs-12 text-center">
+            <h4>Proximos eventos</h4>
+        </div>
+        {% for event in events %}
+            <div class="col-xs-12 col-sm-4">
+                <div class="card-3 box">
+                    <h3 class="text-center"><a href="{{event.get_absolute_url}}">{{event.title}}</a></h3>
+                    {{event.description|safe|truncatewords_html:20}}
+                </div>
+            </div>
+        {% endfor %}
+    </div>
+</div>
+{% endif %}
+
+{% endblock %}
+
+{% block js %}
+<script>
+
+</script>
+{% endblock %}

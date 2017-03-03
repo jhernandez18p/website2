@@ -33,8 +33,6 @@ def upload_location(instance, filename):
     # print(instance.__class__.__name__)
     return "%s/%s/%s" %(model_name,new_id, filename)
 
-
-
 class UserProfile(models.Model):
 
     OBP = 1
@@ -89,4 +87,3 @@ class UserProfile(models.Model):
             ("can_delete_user", "Puede eliminar usuarios"),
             ("can_update_user", "Puede editar usuarios"),
         )
-

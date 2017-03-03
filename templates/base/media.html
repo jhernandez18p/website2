@@ -9,39 +9,10 @@
 
 {% block content %}
 <div class="row">
-    {% if events %}
-    <div class="container">
-        <div class="col-xs-12">
-            <h2 class="text-center">Ultimos eventos</h2>
-        </div>
-        <div class="col-xs-12">
-            <div id="testimonialCarousel">
-                <div class="swiper-container">
-                    <div class="swiper-wrapper">
-                        {% for event in events %}
-                        <div id="quote{{event.id}}" class="swiper-slide quote-image">
-                            <img src="{% if event.image != '' %}{{event.image.url}}{% else %}https://static.pexels.com/photos/325288/pexels-photo-325288.jpeg{% endif %}" alt="">
-                            <div class="content">
-                                <!-- <h4>{{event.title}}</h4> -->
-                            </div>
-                        </div>
-                        
-                        {% endfor %}
-                    </div>
-                    <!-- Add Pagination -->
-                    <div class="swiper-pagination"></div>
-                </div>
-            </div>
-        </div>
-    </div>
-    {% endif %}
-</div>
-
-<div class="row">
     {% if newspapers %}
     <div class="container">
         <div class="col-xs-12 text-center">
-            <h2>Descarga gratis el periódico de la Iglesia Universal</h2>
+            <h2>Descarga nuestro periódico</h2>
         </div>
         {% for newspapper in newspaper_list %}
             <div class="col-xs-12 col-sm-4">
