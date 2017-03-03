@@ -1,13 +1,8 @@
 @import url("https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css");
 body {background-color: #E6E6E6;overflow-x: hidden;display: flex;min-height: 100vh;flex-direction: column;}
 section{flex: 1;min-height: 50vh;}
-h1,h2,h3,h4,h5,h6 {font-family: 'Playball', cursive;}
-h1 {font-size: 2.3em}
-h2 {font-size: 2.16em}
-h3 {font-size: 1.99em}
-h4 {font-size: 1.76em}
-h5 {font-size: 1.53em}
-h6 {font-size: 1.30em}
+h1,h2,h3,h4,h5,h6 {font-family: 'Old Standard TT', serif; font-weight: bold;}
+
 #logoLarge{display: block;margin: auto;}
 .row{margin-bottom: 10px;margin-left: 0px;margin-right: 0px;}
 .navbar .navbar-nav {display: inline-block;float: none;}
@@ -272,7 +267,7 @@ video,audio {width: 100%;}
 }
 #testimonialCarousel .swiper-slide img{width: 100%;height: auto;}
 #testimonialCarousel .swiper-slide .content{z-index: 999;color: #FFF;position: absolute;}
-#testimonialCarousel .swiper-slide .content h4{ font-size: 2.5em;}
+#testimonialCarousel .swiper-slide .content h4{ font-size: 2.0em;}
 #testimonialCarousel .swiper-slide .content p a{z-index: 999;color: #FFF; font-size: 1.03em;}
 
 .project-slide .swiper-container {
@@ -384,7 +379,7 @@ video,audio {width: 100%;}
 .footer-sm-facebook{background-color: #3b5998}
 .footer-sm-youtube{background-color: #c4302b}
 .footer-sm-facebook{background-color: #3b5998}
-.footer-sm{font-size: 2.8em;}
+.footer-sm{font-size: 1.3em;}
 .margin-footer{padding-bottom: 25px;}
 
 .modal-body iframe{height: 500px; width: 100%}

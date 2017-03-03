@@ -124,6 +124,7 @@ class Event(models.Model):
 	def get_absolute_url(self):
 		return reverse("frontend:Event_detail", kwargs={"pk": self.id})
 
+
 class Feed(models.Model):
 	name = models.CharField(max_length=144)
 	title = models.CharField(max_length=144)
