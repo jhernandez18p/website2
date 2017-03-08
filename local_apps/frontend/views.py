@@ -39,7 +39,7 @@ def home(request):
 		print('No hay blogs amigos aún' + e)
 
 	try:
-		video = Video.objects.all().last()
+		video = Video.objects.all().filter(active=True)[:1]
 		context['videos'] = video
 	except Exception as e:
 		print('No hay videos aún' + e)
@@ -51,7 +51,7 @@ def home(request):
 		print('No hay audios aún' + e)
 
 	try:
-		imagen = Image.objects.all().last()
+		imagen = Image.objects.all().filter(active=True)[:1] 
 		context['imagen'] = imagen
 	except Exception as e:
 		print('No hay imgen aún' + e)
