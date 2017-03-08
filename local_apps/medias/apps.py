@@ -2,4 +2,4 @@ from django.apps import AppConfig
 
 
 class MediasConfig(AppConfig):
-    name = 'multimedia'
+    name = 'medias'
