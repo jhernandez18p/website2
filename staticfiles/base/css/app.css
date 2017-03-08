@@ -134,7 +134,7 @@ video,audio {width: 100%;}
     bottom: 0;
     right: 0;
     background: #000000;
-    opacity: 0.5;
+    opacity: 0.3;
     z-index: 2;
 }
 .quote-image .container h4,
