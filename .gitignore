@@ -219,6 +219,5 @@ pip-log.txt
 
 
 .env
-media/*
 */*.sqlite3
 */*/migrations/*
