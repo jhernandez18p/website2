@@ -1,136 +1,84 @@
-{% extends 'base.html' %}
-{% load staticfiles %}
+{% extends 'base.html' %}{% load staticfiles %}
 
 {% block css %}
 <style media="screen">
+    .form-control[disabled], fieldset[disabled] .form-control {cursor: pointer; }
     .no-margin {margin: -10px 0 0 0}
+    .contact-form {padding: 25px 10px;}
+    .alert {margin-bottom: 0;position: fixed;top: 80%;right: 0%;}
 </style>
 {% endblock %}
 
 {% block content %}
 <!-- Form -->
 <div class="row">
-    <div class="container gray">
-        <div class="col-xs-12 col-sm-offset-2 col-sm-8">
-            <form action="{% url 'frontend:Contact' %}" method="post">
-                {% csrf_token %}
+    <div class="container gray card-3">
+        <div class="col-xs-12 text-center">
+            <h2>Contáctanos</h2>
+        </div>
+        <div class="col-xs-12 col-sm-6">
+            <div class="contact-form">
                 <div class="form-group">
                     <label for="recipient-name" class="control-label">
-                        <h5>¿Cual es su nombre?</h5>
+                        <h5>Correo</h5>
                     </label>
-                    <input type="text" class="form-control" name="name" id="recipient-name">
-                    <input type="text" class="hidden" name="url" id="recipient-name" value="{{ request.get_full_path }}">
-                </div>
+                    <input  type="text" class="form-control" name="name" id="recipient-name" value="iurd@universal.org.pa" disabled>
+                </div>          
                 <div class="form-group">
                     <label for="recipient-name" class="control-label">
-                        <h5>¿Cuál es su correo electrónico?</h5>
+                        <h5>Teléfono</h5>
                     </label>
-                    <input type="text" class="form-control" name="email" id="recipient-name">
+                    <input  type="text" class="form-control" name="name" id="recipient-name" value="224-2566 380-1450" disabled>
                 </div>
-                <div class="form-group">
-                    <label for="message-text" class="control-label">
-                        <h5>Escriba su mensaje</h5>
-                    </label>
-                    <textarea class="form-control" name="description" id="message-text"></textarea>
-                </div>
-                <div class="text-center">
-                    <button type="submit" class="btn btn-default" name="submit" value="True">
-                        <h5>Enviar</h5>
-                    </button>
-                </div>
-            </form>
+                <label for="message-text" class="control-label">
+                    <h5>Dirección Sede Panamá</h5>
+                </label>
+                <textarea class="form-control" name="description" id="message-text" disabled>Parque Lefevre Cruce de Av. España con Av. Cincuentenario diagonal al Mc Donald´s de Rio Abajo.</textarea>
+            </div>
+        </div>
+        <div class="col-xs-12 col-sm-6">
+            <div class="contact-form">
+                <form action="{% url 'frontend:Contact' %}" method="post">
+                    {% csrf_token %}
+                    <div class="form-group">
+                        <label for="recipient-name" class="control-label">
+                            <h5>¿Cual es su nombre?</h5>
+                        </label>
+                        <input type="text" class="form-control" name="name" id="recipient-name">
+                        <input type="text" class="hidden" name="url" id="recipient-name" value="{{ request.get_full_path }}">
+                    </div>
+                    <div class="form-group">
+                        <label for="recipient-name" class="control-label">
+                            <h5>¿Cuál es su correo electrónico?</h5>
+                        </label>
+                        <input type="text" class="form-control" name="email" id="recipient-name">
+                        <label for="recipient-name" class="control-label">
+                            <h5>¿Cuál es su número de telefono?</h5>
+                        </label>
+                        <input type="text" class="form-control" name="phone" id="recipient-name">
+                    </div>
+                    <div class="form-group">
+                        <label for="message-text" class="control-label">
+                            <h5>Escriba su mensaje</h5>
+                        </label>
+                        <textarea class="form-control" name="description" id="message-text"></textarea>
+                    </div>
+                    <div class="text-center">
+                        <button type="submit" class="btn btn-block btn-primary" name="submit" value="True">
+                            <h5>Enviar</h5>
+                        </button>
+                    </div>
+                </form>
+            </div>
         </div>
     </div>
 </div>
-<!-- Iglesias -->
-<!-- <div class="row">
-    <div class="container-fluid">
-        <div class="col-xs-12 text-center">
-            <h3>Nuestras iglesias</h3>
-        </div>
-        <div class="col-xs-12 col-sm-3 red">
-            <hr>
-            <hr>
-            <hr>
-            <hr>
-            <hr>
-            <hr>
-            <hr>
-            <hr>
-            <hr>
-            <hr>
-            <hr>
-        </div>
-        <div class="col-xs-12 col-sm-3 orange">
-            <hr>
-            <hr>
-            <hr>
-            <hr>
-            <hr>
-            <hr>
-            <hr>
-            <hr>
-            <hr>
-            <hr>
-            <hr>
-        </div>
-        <div class="col-xs-12 col-sm-3 blue">
-            <hr>
-            <hr>
-            <hr>
-            <hr>
-            <hr>
-            <hr>
-            <hr>
-            <hr>
-            <hr>
-            <hr>
-            <hr>
-        </div>
-        <div class="col-xs-12 col-sm-3 yellow">
-            <hr>
-            <hr>
-            <hr>
-            <hr>
-            <hr>
-            <hr>
-            <hr>
-            <hr>
-            <hr>
-            <hr>
-            <hr>
-        </div>
+{% if messages %}
+    <div class="alert alert-success alert-dismissible">
+        <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
+        <strong>Enhorabuena!</strong> Su mensaje se ha enviado satisfactoriamente.
     </div>
-</div> -->
-<!-- Mapa -->
-<!-- <div class="row ident-color-dark no-margin">
-    <div class="container">
-        <div class="map">
-            <hr>
-            <hr>
-            <hr>
-            <hr>
-            <hr>
-            <hr>
-            <hr>
-            <hr>
-            <hr>
-            <hr>
-            <hr>
-            <hr>
-            <hr>
-            <hr>
-            <hr>
-            <hr>
-            <hr>
-            <hr>
-            <hr>
-            <hr>
-            <hr>
-            <hr>
-        </div>
-    </div>
-</div> -->
+{% endif %}
 {% endblock %}
 
 {% block js %}

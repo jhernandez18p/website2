@@ -5,7 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <title>{{title}} | Iglesia Universal Del Reino de Dios</title>
-    {% include 'header.html' %}
+    {% include 'head.html' %}
     {% block css %}{% endblock %}
     <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
     <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
@@ -15,92 +15,7 @@
     <![endif]-->
 </head>
 <body>
-    <header>
-        <div class="hidden-xs row">
-            <div class="container-fluid">
-                <img src="{% static 'base/images/logo.png' %}" alt="Iglesia oración fuerte al Espiritu Santo" id="logoLarge">
-            </div>
-        </div>
-        <nav id="myMenu" class="navbar navbar-default navbar-top">
-            <div class="container">
-                <div class="navbar-header">
-                    <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1" aria-expanded="false">
-                        <span class="sr-only"></span>
-                        <span class="icon-bar"></span>
-                        <span class="icon-bar"></span>
-                        <span class="icon-bar"></span>
-                    </button>
-                </div>
-                <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
-                    <ul class="nav navbar-nav">
-                        <li class="{% if pg_title == 'home' %}active{% endif %}">
-                            <a href="{% url 'frontend:Home' %}">Inicio</a>
-                        </li>
-                        <li class="{% if pg_title == 'about' %}active{% endif %}" >
-                            <a href="{% url 'frontend:About' %}">¿Quienes somos?</a>
-                        </li>
-                        <li class="{% if pg_title == 'project' %}active{% endif %}">
-                            <a href="{% url 'frontend:Projects' %}">Proyectos</a>
-                        </li>
-                        <li class="dropdown dropdown-large {% if pg_title == 'reunion' %}active{% endif %}">
-                            <a href="{% url 'frontend:Reunions' %}" class="dropdown-toggle hidden-sm hidden-mg hidden-lg">
-                                Reuniones</b>
-                            </a>
-                            <a href="{% url 'frontend:Reunions' %}" class="dropdown-toggle hidden-xs" data-toggle="dropdown">
-                                Reuniones <b class="caret"></b>
-                            </a>
-                            <ul class="dropdown-menu dropdown-menu-large row hidden-xs">
-                                {% for key, value in weekdays.items %}
-                                    <li class="col-sm-3">
-                                        <ul>
-                                        {% if forloop.counter == 1 %}
-                                            <li class="dropdown-header">Todas las reuniones</li>
-                                            <li><a href="{% url 'frontend:Reunions' %}">Ver reuniones</a></li>
-                                            <li class="divider"></li>
-                                        </ul>
-                                    </li>
-                                    <li class="col-sm-3">
-                                        <ul>
-                                            <li class="dropdown-header">{{value.day}}</li>
-                                            {% for key, val in value.reunions.items %}
-                                                <li><a href="{{val.url}}">{{val.name}}</a></li>
-                                            {% endfor %}
-                                            <li class="divider"></li>
-                                        {% else %}
-                                            <li class="dropdown-header">{{value.day}}</li>
-                                            {% for key, val in value.reunions.items %}
-                                                <li><a href="{{val.url}}">{{val.name}}</a></li>
-                                            {% endfor %}
-                                            <li class="divider"></li>
-                                        {% endif %}
-                                        </ul>
-                                        
-                                    </li>
-                                {% endfor %}
-                            </ul>
-                        </li>
-                        <li class="{% if pg_title == 'testimonial' %}active{% endif %}">
-                            <a href="{% url 'frontend:Testimonials' %}">Testimonios</a>
-                        </li>
-                        <li class="{% if pg_title == 'media' %}active{% endif %}">
-                            <a href="{% url 'frontend:Media' %}">Multimedia</a>
-                        </li>
-                        {% if page_events %}
-                            <li class="{% if pg_title == 'events' %}active{% endif %}">
-                                <a href="{% url 'frontend:Events' %}">Eventos</a>
-                            </li>
-                        {% endif %}
-                        <li class="{% if pg_title == 'blog' %}active{% endif %}">
-                            <a href="{% url 'frontend:Blog' %}">Blog</a>
-                        </li>
-                        <li class="{% if pg_title == 'contact' %}active{% endif %}">
-                            <a href="{% url 'frontend:Contact' %}">Contacto</a>
-                        </li>
-                    </ul>
-                </div>
-            </div>
-        </nav>
-    </header>
+    {% include 'header.html' %}
     <section>{% block content %}{% endblock %}</section>
     <footer>
         {% include 'footer.html' %}

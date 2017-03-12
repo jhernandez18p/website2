@@ -72,7 +72,10 @@ TEMPLATES = [
     },
 ]
 
-WSGI_APPLICATION = 'settings.wsgi_local.application'
+if DEBUG == True:
+    WSGI_APPLICATION = 'settings.wsgi_local.application'
+elif DEBUG == False:
+    WSGI_APPLICATION = 'settings.wsgi_prod.application'
 
 DATABASES = {
     'default': {

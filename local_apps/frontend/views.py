@@ -1,3 +1,4 @@
+from django.contrib import messages
 from django.contrib.auth.models import User, Group
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth.mixins import LoginRequiredMixin
@@ -279,18 +280,26 @@ def contact(request):
 	elif request.method == 'POST':
 		
 		name = request.POST['name']
+		email = 'desconocido'
 		email = request.POST['email']
+		phone = 'desconocido'
+		phone = request.POST['phone']
 		description = request.POST['description']
 		submit = request.POST['submit']
 		url = request.POST['url']
 
 		if submit == 'True':
-			if name == '' or email == '' or description == '':
+			if name == '' or description == '':
 				return HttpResponseRedirect(url)
-			print(' %s\n %s\n %s\n' %(name,email,description))
-			new = Subscriber.objects.create(name=name,email=email,description=description)
+			# print(' %s\n %s\n %s\n' %(name,email,description))
+			new = Subscriber.objects.create(name=name,email=email,phone=phone,description=description)
 			new.save()
-			return HttpResponseRedirect(url)
+			if email != 'desconocido':
+				print('enviar correo a {}'.format(email))
+			else:
+				print('No enviar correo')
+			context['messages'] = True
+			return render(request, template, context)
 
 		else:
 			request.session['user_rouge_for_pray'] = False

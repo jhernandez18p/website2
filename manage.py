@@ -8,10 +8,10 @@ if __name__ == "__main__":
     DEBUG = str(config('DEBUG'))
 
     if DEBUG == 'True':
-        print(config('DEBUG'))
+        print('Se está usando el servidor local = {}'.format(config('DEBUG')))
         os.environ.setdefault("DJANGO_SETTINGS_MODULE", "settings.settings.base")
     elif DEBUG == 'False':
-        print(config('DEBUG'))
+        print('Se está usando el servidor producción = {}'.format(config('DEBUG')))
         os.environ.setdefault("DJANGO_SETTINGS_MODULE", "settings.settings.production")
 
     try:

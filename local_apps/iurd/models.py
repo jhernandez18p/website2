@@ -293,6 +293,7 @@ class Reunion(models.Model):
 class Subscriber(models.Model):
 	name = models.CharField(max_length=144)
 	email = models.EmailField(max_length=65)
+	phone = models.CharField(max_length=65, blank=True)
 	description = RichTextField()
 	created = models.DateTimeField(auto_now=True,auto_now_add=False)
 	time_stamp = models.DateTimeField(auto_now=False,auto_now_add=True)
