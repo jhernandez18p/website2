@@ -302,7 +302,7 @@ def contact(request):
 			context['messages'] = True
 			send_mail(
 		            'Mensaje contacto Pagina web \"Iglesia Universal del Reino de Dios\"',
-		            '%s, %s' % (username,email) ,
+		            '%s, %s, %s, %s' % (str(name),str(email),str(phone),str(description)) ,
 		            config("EMAIL_HOST_USER",),
 		            [config("EMAIL_HOST_USER",)],
 		            fail_silently=False,
