@@ -14,6 +14,8 @@ from local_apps.iurd.models import *
 from local_apps.medias.models import *
 from local_apps.news.models import *
 from local_apps.testimonials.models import *
+from decouple import config
+
 # Create your views here.
 
 def home(request):
