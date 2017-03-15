@@ -5,6 +5,7 @@ from django.contrib.auth.mixins import LoginRequiredMixin
 from django.http import Http404, HttpResponse, HttpResponseRedirect
 from django.shortcuts import get_object_or_404, render
 from settings.settings.serializers import UserSerializer, GroupSerializer
+from django.core.mail import send_mail
 from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
 import random
 
@@ -299,6 +300,13 @@ def contact(request):
 			else:
 				print('No enviar correo')
 			context['messages'] = True
+			send_mail(
+		            'Mensaje contacto Pagina web \"Iglesia Universal del Reino de Dios\"',
+		            '%s, %s' % (username,email) ,
+		            config("EMAIL_HOST_USER",),
+		            [config("EMAIL_HOST_USER",)],
+		            fail_silently=False,
+		        )
 			return render(request, template, context)
 
 		else:
