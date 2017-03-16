@@ -1,13 +1,13 @@
 {% load staticfiles %}
 <div id="footerRow1" class="row footer-row ident-color">
     <div class="container hidden-xs">
-        <div class="col-xs-12 col-sm-3">
+        <div class="col-xs-12 col-mg-3 hidden-sm">
             <div class="img-logo-footer">
                 <img src="{% static 'base/images/isotipo.png' %}" alt="Iglesia oración fuerte al Espiritu Santo" class="img-responsive">
             </div>
         </div>
         {% if page_news %}
-        <div class="col-xs-12 col-sm-3">
+        <div class="col-xs-12 col-sm-4 col-mg-3">
             <ul id="footerCol1Row" class="footer-list">
                 <li class="" id="">Últimos artículos</li>
                 {% for new in page_news %}<li class="footer-anchor" id=""><a >{{new.title}}</a></li>{% endfor %}
@@ -15,17 +15,18 @@
         </div>
         {%endif%}
         {% if feeds %}
-        <div class="col-xs-12 col-sm-3">
+        <div class="col-xs-12 col-sm-4 col-mg-3">
             <ul id="footerCol2Row" class="footer-list">
                 <li class="" id="">Blogs amigos</li>
                 {% for feed in feeds %}<li class="footer-anchor" id=""><a href="{{feed.url_feed}}" target="_blank">{{feed.title}}</a></li>{% endfor %}
             </ul>
         </div>
         {%endif%}
-        <div class="col-xs-12 col-sm-3">
+        <div class="col-xs-12 col-sm-4 col-mg-3">
             <ul id="footerCol4Row" class="footer-list">
                 <li class="text-center" id="">Redes sociales</li>
             </ul>
+            <br>
             <div class="text-center">
                 <a href="https://www.facebook.com/IglesiaUniversalPanama/" type="button" class="btn footer-sm-facebook btn-circle btn-lg">
                     <i class="fa fa-facebook footer-sm text-white" aria-hidden="true"></i>

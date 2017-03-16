@@ -3,7 +3,7 @@
 
 {% block css %}
 <style media="screen">
-    
+    .groups-item{margin:10px;}
 </style>
 {% endblock %}
 
@@ -127,31 +127,52 @@
     {% endif %}
 </div>
 <!-- Our Groups -->
-<div class="row gray hidden-xs large">
+<div class="row gray hidden-xs hidden-sm large">
     {% if groups %}
     <div class="container-fluid our-groups">
         <div class="col-xs-12 text-center">
             <h3>Conozca nuestros Grupos</h3>
         </div>
-        <div class="project-slide">
-            <div class="swiper-container">
-                <div class="swiper-wrapper">
-                    {% for group in groups %}
-                    <div class="swiper-slide material-shadow">
-                        <h3><a href="{{group.get_absolute_url}}">{{group.title}}</a></h3>
-                        <img src="{% if group.image %}{{group.image.url}}{% endif %}" alt="{{group.title}}">
+        <div class="col-sm-10 col-sm-offset-1">
+            <div class="project-slide">
+                <div class="swiper-container">
+                    <div class="swiper-wrapper">
+                        {% for group in groups %}
+                        <div class="swiper-slide material-shadow">
+                            <h3><a href="{{group.get_absolute_url}}">{{group.title}}</a></h3>
+                            <img src="{% if group.image %}{{group.image.url}}{% endif %}" alt="{{group.title}}">
+                        </div>
+                        {% endfor %}
                     </div>
-                    {% endfor %}
+                    <!-- Add Arrows -->
+                    <div class="swiper-button-next"></div>
+                    <div class="swiper-button-prev"></div>
                 </div>
-                <!-- Add Arrows -->
-                <div class="swiper-button-next"></div>
-                <div class="swiper-button-prev"></div>
             </div>
         </div>
     </div>
     {% endif %}
 </div>
-<div class="row gray small hidden-sm hidden-lg hidden-md">
+<div class="row gray hidden-xs hidden-lg hidden-mg">
+    {% if groups %}
+    <div class="container-fluid our-groups">
+        <div class="col-xs-12 text-center">
+            <h3>Conozca nuestros Grupos</h3>
+        </div>
+    </div>
+    <div class="container">
+        {% for group in groups %}
+        <div class="col-sm-4">
+            <div class="groups-item card-3">
+                <img src="{% if group.image %}{{group.image.url}}{% endif %}" alt="{{group.title}}" height="200" width="200">
+                <!-- <h3><a href="{{group.get_absolute_url}}">{{group.title}}</a></h3> -->
+            </div>
+        </div>
+        {% endfor %}
+    </div>
+    {% endif %}
+</div>
+<div class="row gray small hidden-sm hidden-lg hidden-mg">
     {% if groups %}
     <div class="container-fluid our-groups">
         <div class="col-xs-12 text-center">
@@ -184,7 +205,7 @@
             </div>
             <div class="col-xs-12 text-center">
                 <div class="vertical-carousel swiper-container">
-                    <div class="gallery-thumbs hidden-xs">
+                    <div class="gallery-thumbs hidden-xs hidden-sm">
                         <div class="swiper-wrapper">
                         {% for new in news %}
                             <div class="swiper-slide" style="background-image:url({% if new.image %}{{new.image.url}}{%endif%})"></div>

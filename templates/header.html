@@ -6,7 +6,7 @@
         </div>
     </div>
     <nav id="myMenu" class="navbar navbar-default navbar-top">
-        <div class="container">
+        <div class="container-fluid">
             <div class="navbar-header">
                 <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1" aria-expanded="false">
                     <span class="sr-only"></span>
@@ -27,10 +27,10 @@
                         <a href="{% url 'frontend:Projects' %}">Proyectos</a>
                     </li>
                     <li class="dropdown dropdown-large {% if pg_title == 'reunion' %}active{% endif %}">
-                        <a href="{% url 'frontend:Reunions' %}" class="dropdown-toggle hidden-sm hidden-mg hidden-lg">
+                        <a href="{% url 'frontend:Reunions' %}" class="dropdown-toggle hidden-mg hidden-lg">
                             Reuniones</b>
                         </a>
-                        <a href="{% url 'frontend:Reunions' %}" class="dropdown-toggle hidden-xs" data-toggle="dropdown">
+                        <a href="{% url 'frontend:Reunions' %}" class="dropdown-toggle hidden-xs hidden-sm" data-toggle="dropdown">
                             Reuniones <b class="caret"></b>
                         </a>
                         <ul class="dropdown-menu dropdown-menu-large row hidden-xs">
