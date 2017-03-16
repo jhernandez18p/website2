@@ -1,5 +1,5 @@
 @import url("https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css");
-body {background-color: #E6E6E6;overflow-x: hidden;display: flex;min-height: 100vh;flex-direction: column;}
+body {background-color: rgb(241, 241, 241);overflow-x: hidden;display: flex;min-height: 100vh;flex-direction: column;}
 section{flex: 1;min-height: 50vh;}
 h1,h2,h3,h4,h5,h6 {font-family: 'Old Standard TT', serif; font-weight: bold;}
 
