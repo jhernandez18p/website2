@@ -79,8 +79,12 @@ elif DEBUG == False:
 
 DATABASES = {
     'default': {
-        'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': os.path.join(BASE_DIR, 'db.sqlite3'),
+        'ENGINE': config('BASE_DB_ENGINE'),
+        'NAME': config('BASE_DB_NAME'),
+        'USER': config('BASE_DB_USER'),
+        'PASSWORD': config('BASE_DB_PASSWORD'),
+        'HOST': config('BASE_DB_HOST'),
+        'PORT': '',
     }
 }
        

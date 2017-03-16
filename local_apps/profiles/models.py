@@ -67,7 +67,7 @@ class UserProfile(models.Model):
             height_field="height_field")
     height_field = models.IntegerField(default=0)
     width_field = models.IntegerField(default=0)
-    location = models.OneToOneField(Church, default=0, null=True, on_delete=models.CASCADE)
+    location = models.ForeignKey(Church, default=0, null=True, on_delete=models.CASCADE)
     role = models.PositiveSmallIntegerField(choices=ROLE_CHOICES, null=True, blank=True)
     created = models.DateTimeField(auto_now=True,auto_now_add=False)
     time_stamp = models.DateTimeField(auto_now=False,auto_now_add=True)
