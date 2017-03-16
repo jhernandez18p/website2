@@ -12,9 +12,6 @@
 <div class="row">
     <div class="container">
         {% if last_news %}
-        <div class="col-xs-12 text-center">
-            <h3>Actualización diaria</h3>
-        </div>
         <div class="col-xs-12 col-sm-6">
             <div id="" class="gray lastnew">
                 <img src="{% if last_news.image %}{{last_news.image.url}}{% endif %}" alt="{{last_news.title}}">
