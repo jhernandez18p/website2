@@ -34,7 +34,7 @@
                             Reuniones <b class="caret"></b>
                         </a>
                         <ul class="dropdown-menu dropdown-menu-large row hidden-xs">
-                            {% for key, value in weekdays.items %}
+                            {% for key, value in weekdays.items|dictsort:0 %}
                                 <li class="col-sm-3">
                                     <ul>
                                     {% if forloop.counter == 1 %}
