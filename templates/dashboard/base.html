@@ -5,13 +5,12 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <title>Dashboard</title>
-    {% include 'head.html' %}
+    {% include 'header.html' %}
     {% block css %} {% endblock %}
 </head>
 <body>
     <header>
-        {% include 'header.html' %}
-<!--         <nav id="myMenu" class="navbar navbar-default navbar-top">
+        <nav id="myMenu" class="navbar navbar-default navbar-top">
             <div class="container">
                 <div class="navbar-header">
                     <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1" aria-expanded="false">
@@ -118,7 +117,7 @@
                     </ul>
                 </div>
             </div>
-        </nav> -->
+        </nav>
     </header>
     <section>{% block content %} {% endblock %}</section>
     <footer>

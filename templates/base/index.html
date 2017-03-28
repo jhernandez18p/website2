@@ -2,341 +2,298 @@
 {% load staticfiles %}
 
 {% block css %}
-<link rel="stylesheet" href="{% static 'base/css/player.css' %}">
 <style media="screen">
-    .fa-play-circle, .fa-pause-circle{color: #FFF; font-size: 60pt;}
-    .controls button{background-color: rgba(0,0,0,0);border: none; z-index: 99999; position: absolute;}
+    .groups-item{margin:10px;}
 </style>
 {% endblock %}
 
 {% block content %}
 <!-- Under Nav -->
+<div class="row">
     <div class="container">
-        <div class="row">
-            {% if last_news %}
-            <div class="col-xs-12 col-sm-12 col-md-5">
-                <div id="" class="gray lastnew card-3">
-                    <img src="{% if last_news.image %}{{last_news.image.url}}{% endif %}" alt="{{last_news.title}}">
-                    <div class="footer">
-                        <h3>
-                            <a href="{{last_news.get_absolute_url}}">{{last_news.title}}</a>
-                        </h3>
-                    </div>
-                </div>
-            </div>
-            {% endif %}
-            <div class="col-xs-12 col-sm-12 col-md-3">
-                <div class="head-latest-news card-3 white">
-                    <h3 class="text-center">
-                        Últimos artículos
+        {% if last_news %}
+        <div class="col-xs-12 col-sm-6">
+            <div id="" class="gray lastnew">
+                <img src="{% if last_news.image %}{{last_news.image.url}}{% endif %}" alt="{{last_news.title}}">
+                <div class="footer">
+                    <h3>
+                        <a href="{{last_news.get_absolute_url}}">{{last_news.title}}</a>
                     </h3>
-                    {% for new in news %}
-                        <div class="head-latest-news-item card-3">
-                            <h3>
-                                <a href="{{new.get_absolute_url}}">{{new.title}}</a>
-                            </h3>
-                        </div>
-                    {% endfor %}
-                </div>
-            </div>
-            {% if feeds %}
-            <div class="col-md-4 hidden-xs hidden-sm">
-                <div id="friendsFeeds" class="friendsfeeds card-3 white">
-                    {% for feed in feeds %}
-                    <div class="items">
-                        <img src="{% if feed.image %}{{feed.image.url}}{% endif %}" alt="" >
-                        <div class="footer">
-                            <h3><a href="{{feed.url_feed}}" target="_blank">{{feed.title}}</a></h3>
-                        </div>
-                    </div>
-                    {% endfor %}
-                </div>
-            </div>
-            {% endif %}
-        </div>
-    </div>
-<!-- Under Nav -->
-<!-- Multimedia -->
-    <div class="container multimedia">
-        <div class="row">
-            {% if videos %}
-            <div class="col-xs-12 col-md-7 ">
-                <div class="tv">
-                    {% for video in videos %}
-                    {% if video.video_url != '' %}
-                        <iframe class="card-3" src="https://www.youtube.com/embed/{{video.video_url}}" width="540" height="370" frameborder="0" style="background-image: url("https://i.ytimg.com/vi_webp/{{video.video_url}}/maxresdefault.webp");"></iframe>
-                    {% endif %}
-                    {% if video.video_file != '' %}
-                    <video controls='false'>
-                        <source src="http://latinstatic.edgesuite.net/iurd/" type="video/mp4">
-                        <source src="#" type="video/ogg">
-                        <p>Su navegador web no soporta éste video.<br>Le recomendamos actualizar a una nueva versión.</p>
-                    </video>
-                    {% endif %}
-                    {% endfor %}
-                </div>
-            </div>
-            {% endif %}
-            <div class="col-xs-12 col-md-5">
-                <div class="head-latest-news card-3 white">
-                    <h3 class="text-center">
-                        Testimonios
-                    </h3>
-                    {% for testimonial in testimonials %}
-                        <div class="head-latest-news-item card-3">
-                            <h3>
-                                <a href="{{testimonial.get_absolute_url}}">{{testimonial.title}}</a>
-                            </h3>
-                        </div>
-                    {% endfor %}
                 </div>
             </div>
         </div>
-        <br>
-        <div class="row">
-            {% if tv %}
-                <div class="col-xs-12 col-sm-6 col-md-4">
-                    <div class="tv-online card-3">
-                        <a href="{{tv.url}}" target="_blank-">
-                            <img src="{{tv.image.url}}" alt="Tv Universal">
-                        </a>
-                    </div>
-                </div>
-            {% else %}
-                <div class="col-xs-12 col-sm-6 col-md-4">
-                    <div class="tv-online card-3">
-                        <a href="#">
-                            <img src="{% static 'base/images/tvonline.jpg' %}" alt="Tv Universal">
-                        </a>
-                    </div>
-                </div>
-            {% endif %}
-            {% if newspaper %}
-                <div class="col-xs-12 col-sm-6 col-md-4">
-                    <div class="newspaper card-3">
-                        <a href="{{newspaper.newspaper_url}}" target="_blank">
-                            <img src="{{newspaper.image.url}}" alt="Tv Universal">
-                        </a>
-                    </div>
-                </div>
-            {% else %}
-                <div class="col-xs-12 col-sm-6 col-md-4">
-                    <div class="newspaper card-3">
-                        <a href="#">
-                            <img src="{% static 'base/images/periodico.jpg' %}" alt="Tv Universal">
-                        </a>
-                    </div>
-                </div>
-            {% endif %}
-            <div class="col-xs-12 col-sm-6 col-md-4">
-                <div class="player card-3">
-                    <ul>
-                        <li class="cover">
-                            <img src="{% static 'base/images/radio.jpg' %}"/>
-                        </li>
-                        <li class="info">
-                            <h1>Red aleluya</h1>
-                            <h4>Panamá</h4>
-                            <h2>Radio on-line</h2>
-                            <div class="button-items">
-                                <audio id="music" autoplay="true">
-                                    {% if audio %}
-                                        <source src="{{audio.audio_url}}" type="audio/mp3">
-                                        <source src="{{audio.audio_url}}" type="audio/ogg">
-                                    {% else %}
-                                        <source src="http://streamall.alsolnet.com:443/redaleluya" type="audio/mpeg" type="audio/mp3">
-                                        <source src="http://streamall.alsolnet.com:443/redaleluya" type="audio/mpeg" type="audio/ogg">
-                                    {% endif %}
-                                </audio>
-                                <div class="controls">
-                                    <button id="play" >
-                                        <i class="fa fa-play-circle" aria-hidden="true"></i>
-                                    </button>
-                                    <button id="pause" >
-                                        <i class="fa fa-pause-circle" aria-hidden="true"></i>
-                                    </button>
-                                </div>
-                            </div>
-                        </li>
-                    </ul>
-                </div>
-            </div>
-            <div class="col-xs-12 col-sm-6 hidden-md hidden-lg sm">
-                {% if groups %}
-                        <div class="groups-carousel card-3">    
-                            <div class="swiper-container">
-                                <div class="swiper-wrapper">
-                                    {% for group in groups %}
-                                        <div class="swiper-slide">
-                                            <img src="{{group.image.url}}" alt="{{group.title}}">
-                                        </div>
-                                    {% endfor %}
-                                </div>
-                                <!-- Add Pagination -->
-                                <div class="swiper-pagination"></div>
-                                <!-- Add Arrows -->
-                                <div class="swiper-button-next"></div>
-                                <div class="swiper-button-prev"></div>
-                            </div>
-                        </div>
-                    {% endif %}
-            </div>
-        </div>
-        <!-- <br> -->
-        <div class="row">
-            <!-- Groups photo carousel -->
-                <div class="col-xs-12 col-sm-12 col-md-5">
-                    <div class="social-media">
-                        <a href="https://www.facebook.com/IglesiaUniversalPanama/" type="button" target="_blank">
-                            <div class="social-media-item card-3 facebook">
-                                <p><span class="fa fa-facebook footer-sm" aria-hidden="true"></span></p>
-                            </div>
-                        </a>
-                        <a type="button" href="https://www.instagram.com/iurdpanama/" target="_blank">
-                            <div class="social-media-item card-3 instagram">
-                                <p><span class="fa fa-instagram footer-sm" aria-hidden="true"></span></p>
-                            </div>
-                        </a>
-                        <a type="button" href="https://www.youtube.com/channel/UCxDrDoFOgKPbgSwq_A4ptAQ" target="_blank">
-                            <div class="social-media-item card-3 youtube">
-                                <p><span class="fa fa-youtube footer-sm" aria-hidden="true"></span></p>
-                            </div>
-                        </a>
-                    </div>
-                    {% if groups %}
-                        <div class="groups-carousel card-3 hidden-sm">    
-                            <div class="swiper-container">
-                                <div class="swiper-wrapper">
-                                    {% for group in groups %}
-                                        <div class="swiper-slide">
-                                            <img src="{{group.image.url}}" alt="{{group.title}}">
-                                        </div>
-                                    {% endfor %}
-                                </div>
-                                <!-- Add Pagination -->
-                                <div class="swiper-pagination"></div>
-                                <!-- Add Arrows -->
-                                <div class="swiper-button-next"></div>
-                                <div class="swiper-button-prev"></div>
-                            </div>
-                        </div>
-                    {% endif %}
-                </div>
-            <!-- Groups photo carousel -->
-            <!-- Social photo carousel  -->
-                <div class="col-xs-12 col-sm-12 col-md-7">
-                    <div class="social-carousel card-3">    
-                        <div class="swiper-container">
-                            <div class="swiper-wrapper">
-                                <div class="swiper-slide">
-                                    <img src="https://scontent.fpac2-1.fna.fbcdn.net/v/t31.0-8/17547044_298744297231653_8228629394021049160_o.jpg?oh=1db07e55c90a37a06b79ecdf4b2c6831&oe=596226D6" alt="">
-                                </div>
-                                <div class="swiper-slide">
-                                    <img src="https://scontent.fpac2-1.fna.fbcdn.net/v/t1.0-9/17155844_290145961424820_8690350536710073144_n.jpg?oh=e24936e4096c624263718e42107642c1&oe=596D5D47" alt="">
-                                </div>
-                                <div class="swiper-slide">
-                                    <img src="https://scontent.fpac2-1.fna.fbcdn.net/v/t1.0-9/17264326_289291901510226_1803719242824104054_n.jpg?oh=02b98e62fac9db8c3a9eb01c3b6b1a34&oe=596ECA56" alt="">
-                                </div>
-                                <div class="swiper-slide">
-                                    <img src="https://scontent.fpac2-1.fna.fbcdn.net/v/t1.0-9/17203204_289291114843638_7170028775826628923_n.jpg?oh=49523ed47a0ded0c6fee73efc0fdea00&oe=596E8511" alt="">
-                                </div>
-                            </div>
-                            <!-- Add Pagination -->
-                            <div class="swiper-pagination"></div>
-                            <!-- Add Arrows -->
-                            <div class="swiper-button-next"></div>
-                            <div class="swiper-button-prev"></div>
-                        </div>
-                    </div>
-                </div>
-            <!-- Social photo carousel  -->
-        </div>
-    </div>
-<!-- Multimedia -->
-<!-- big Banner -->
-    <div class="row">
-        <div class="container-fluid">
-            <div class="col-sm-12">
-                <div class="banner-home card-3">
-                    <img src="https://scontent.fpac2-1.fna.fbcdn.net/v/t1.0-9/16711531_273989463040470_7821370983721999876_n.jpg?oh=24a14c470b95ce60097084afb59f998d&oe=59656B90" alt="">
-                </div>
-            </div>
-        </div>
-    </div>
-<!-- big Banner -->
-<!-- Blogs amigos -->
-    {% if feeds %}
-        <div class="container hidden-md hidden-lg">
-            <div class="row">
-                <div class="col-xs-12">
-                    <h4 class="text-center">Blogs amigos</h4>
-                </div>
+        {% endif %}
+        {% if feeds %}
+        <div class="col-sm-6 hidden-xs card-3 gray">
+            <div id="friendsFeeds" class="friendsfeeds">
                 {% for feed in feeds %}
-                <div class="col-xs-2">
-                    <div class="items">
-                        <img src="{% if feed.image %}{{feed.image.url}}{% endif %}" alt="" class="img-circle img-responsive">
-                        <p><a href="{{feed.url_feed}}" target="_blank">{{feed.title}}</a></p>
+                <div class="items">
+                    <img src="{% if feed.image %}{{feed.image.url}}{% endif %}" alt="">
+                    <div class="footer">
+                        <h3><a href="{{feed.url_feed}}" target="_blank">{{feed.title}}</a></h3>
                     </div>
                 </div>
                 {% endfor %}
             </div>
         </div>
+        {% endif %}
+    </div>
+</div>
+<!-- TV + Radio + Image -->
+<div class="row">
+    <div class="container">
+        {% if videos %}
+        <div class="col-xs-12 text-center">
+            <h3>Multimedia</h3>
+        </div>
+        <div class="col-xs-12 col-sm-6">
+            <div class="tv">
+                {% for video in videos %}
+                {% if video.video_url != '' %}
+                    <iframe src="https://www.youtube.com/embed/{{video.video_url}}" width="540" height="370" frameborder="0" style="background-image: url("https://i.ytimg.com/vi_webp/{{video.video_url}}/maxresdefault.webp");"></iframe>
+                {% endif %}
+                {% if video.video_file != '' %}
+                <video controls='false'>
+                    <source src="http://latinstatic.edgesuite.net/iurd/" type="video/mp4">
+                    <source src="#" type="video/ogg">
+                    <p>Su navegador web no soporta éste video.<br>Le recomendamos actualizar a una nueva versión.</p>
+                </video>
+                {% endif %}
+                {% endfor %}
+            </div>
+            {% endif %}
+            {% if audios %}
+            <div class="radio orange">
+                    <!-- <source src="http://195.154.194.142:8381/stream" type="audio/mpeg">
+                    <source src="http://streamall.alsolnet.com:443/redaleluya" type="audio/aac"> -->
+                <audio controls>
+                {% for audio in audios %}
+                {% if audio.audio_url != '' %}
+                    <source src="{{audio.audio_url}}" type="audio/mpeg">
+                    <source src="{{audio.audio_url}}" type="audio/aac">
+                    <p>Su navegador web no soporta éste reproductor.<br>Le recomendamos actualizar a una nueva versión.</p>
+                {% else %}
+                    <source src="{{audio.audio_file}}" type="audio/mpeg">
+                    <source src="{{audio.audio_file}}" type="audio/mp3">
+                    <p>Su navegador web no soporta éste reproductor.<br>Le recomendamos actualizar a una nueva versión.</p>
+                {% endif %}
+                {% endfor %}
+                </audio>
+            </div>
+        </div>
+        {% endif %}
+        {% if imagen %}
+        <div class="col-xs-12 col-sm-6">
+            <div id="" class="">
+                {% for image in imagen %}
+                <div class="dailyimage">
+                    <img src="{% if image.image %}{{ image.image.url }}{% endif %}" alt="{{image.title}}">
+                </div>
+                {% endfor %}
+            </div>
+        </div>
+        {% endif %}
+    </div>
+</div>
+<!-- First Carousel -->
+<div class="row">
+    {% if testimonials %}
+    <div class="container">
+        <div class="col-xs-12">
+                <h3 class="text-center">Ultimos testimonios</h3>
+        </div>
+        <div class="col-xs-12 col-sm-offset-2 col-sm-8">
+            <div id="testimonialCarousel">
+                <div class="swiper-container">
+                    <div class="swiper-wrapper card-3">
+                        {% for testimonial in testimonials %}
+                        <div id="quote{{testimonial.id}}" class="swiper-slide">
+                            <img src="{% if testimonial.image != '' %}{{testimonial.image.url}}{% else %}https://static.pexels.com/photos/325288/pexels-photo-325288.jpeg{% endif %}" alt="">
+                            <div class="content">
+                                <h4><a href="{{testimonial.get_absolute_url}}">{{testimonial.title}}</a></h4>
+                            </div>
+                        </div>
+                        {% endfor %}
+                    </div>
+                    <div class="swiper-button-next"></div>
+                    <div class="swiper-button-prev"></div>
+                </div>
+            </div>
+        </div>
+    </div>
     {% endif %}
-<!-- Blogs amigos -->
-{% endblock %}
-
-{% if imagen %}
-<div class="col-xs-12 col-sm-6 col-md-4">
-    <div id="" class="">
-        {% for image in imagen %}
-        <div class="dailyimage">
-            <img src="{% if image.image %}{{ image.image.url }}{% endif %}" alt="{{image.title}}">
+</div>
+<!-- Our Groups -->
+<div class="row gray hidden-xs hidden-sm large">
+    {% if groups %}
+    <div class="container-fluid our-groups">
+        <div class="col-xs-12 text-center">
+            <h3>Conozca nuestros Grupos</h3>
+        </div>
+        <div class="col-sm-10 col-sm-offset-1">
+            <div class="project-slide">
+                <div class="swiper-container">
+                    <div class="swiper-wrapper">
+                        {% for group in groups %}
+                        <div class="swiper-slide material-shadow">
+                            <h3><a href="{{group.get_absolute_url}}">{{group.title}}</a></h3>
+                            <img src="{% if group.image %}{{group.image.url}}{% endif %}" alt="{{group.title}}">
+                        </div>
+                        {% endfor %}
+                    </div>
+                    <!-- Add Arrows -->
+                    <div class="swiper-button-next"></div>
+                    <div class="swiper-button-prev"></div>
+                </div>
+            </div>
+        </div>
+    </div>
+    {% endif %}
+</div>
+<div class="row gray hidden-xs hidden-lg hidden-mg">
+    {% if groups %}
+    <div class="container-fluid our-groups">
+        <div class="col-xs-12 text-center">
+            <h3>Conozca nuestros Grupos</h3>
+        </div>
+    </div>
+    <div class="container">
+        {% for group in groups %}
+        <div class="col-sm-4">
+            <div class="groups-item card-3">
+                <img src="{% if group.image %}{{group.image.url}}{% endif %}" alt="{{group.title}}" height="200" width="200">
+                <!-- <h3><a href="{{group.get_absolute_url}}">{{group.title}}</a></h3> -->
+            </div>
         </div>
         {% endfor %}
     </div>
+    {% endif %}
 </div>
-{% endif %}
+<div class="row gray small hidden-sm hidden-lg hidden-mg">
+    {% if groups %}
+    <div class="container-fluid our-groups">
+        <div class="col-xs-12 text-center">
+            <h3>Conozca nuestros Grupos</h3>
+        </div>
+        <div class="project-slide">
+            <div class="swiper-container">
+                <div class="swiper-wrapper">
+                    {% for group in groups %}
+                    <div class="swiper-slide material-shadow">
+                        <h3><a href="{{group.get_absolute_url}}">{{group.title}}</a></h3>
+                        <img src="{% if group.image %}{{group.image.url}}{% endif %}" alt="{{group.title}}">
+                    </div>
+                    {% endfor %}
+                </div>
+                <!-- Add Arrows -->
+                <div class="swiper-button-next"></div>
+                <div class="swiper-button-prev"></div>
+            </div>
+        </div>
+    </div>
+    {% endif %}
+</div>
+<!-- Latest News -->
+<div class="row">
+    {% if news %}
+        <div class="container">
+            <div class="col-xs-12 text-center">
+                <h3>Últimos artículos publicados</h3>
+            </div>
+            <div class="col-xs-12 text-center">
+                <div class="vertical-carousel swiper-container">
+                    <div class="gallery-thumbs hidden-xs hidden-sm">
+                        <div class="swiper-wrapper">
+                        {% for new in news %}
+                            <div class="swiper-slide" style="background-image:url({% if new.image %}{{new.image.url}}{%endif%})"></div>
+                        {% endfor %}
+                        </div>
+                    </div>
+                    <div class="gallery-top">
+                        <div class="swiper-wrapper">
+                        {% for new in news %}
+                            <div class="swiper-slide quote-image">
+                                <img src="{% if new.image != '' %}{{new.image.url}}{% else %}https://static.pexels.com/photos/325288/pexels-photo-325288.jpeg{% endif %}" alt="{{new.title}}">
+                                <div class="content">
+                                    <h3>
+                                        <a href="{{new.get_absolute_url}}">{{new.title}}</a>
+                                    </h3>
+                                </div>
+                            </div>
+                            <div  id="{{new.id}}Modal" class="modal" tabindex="-1" role="dialog">
+                                <div class="modal-dialog modal-lg" role="document">
+                                    <div class="modal-content">
+                                        <div class="modal-body">
+                                           <img src="{% if new.image != '' %}{{new.image.url}}{% else %}https://static.pexels.com/photos/325288/pexels-photo-325288.jpeg{% endif %}" alt="{{new.title}}">
+                                           <h1>{{new.title}}</h1>
+                                           {{new.content|safe}}
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        {% endfor %}
+                        </div>
+                        <!-- Add Arrows -->
+                        <div class="swiper-button-next swiper-button-white"></div>
+                        <div class="swiper-button-prev swiper-button-white"></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    {% endif %}
+</div>
+{% endblock %}
 
 {% block js %}
 <script>
-    var music = $("#music");
-    var playButton = $("#play");
-    var pauseButton = $("#pause");
-    var playhead = $("#elapsed");
-    var timeline = $("#slider");
-    var timer = $("#timer");
-    var duration;
-
-    $("#play").css("display","none");
-
-    $("#pause").click( "click", function pause() {
-        console.log( "stop audio" );
-        document.getElementById('music').pause();
-        $("#play").css("display","initial");
-        $("#pause").css("display","none");
-    });
-
-    $("#play").click( "click", function play() {
-        console.log( "play audio" );
-        document.getElementById('music').play();
-        $("#play").css("display","none");
-        $("#pause").css("display","initial");
-    });
-    
-    var swiper = new Swiper('.social-carousel .swiper-container', {
-        pagination: '.social-carousel .swiper-pagination',
-        nextButton: '.social-carousel .swiper-button-next',
-        prevButton: '.social-carousel .swiper-button-prev',
-        paginationClickable: true
-    });
-     var swiper = new Swiper('.groups-carousel .swiper-container', {
-        pagination: '.groups-carousel .swiper-pagination',
-        // slidesPerView: 3,
-        nextButton: '.groups-carousel .swiper-button-next',
-        prevButton: '.groups-carousel .swiper-button-prev',
+    var swiper = new Swiper('#testimonialCarousel .swiper-container', {
+        pagination: '#testimonialCarousel .swiper-pagination',
+        nextButton: '#testimonialCarousel .swiper-button-next',
+        prevButton: '#testimonialCarousel .swiper-button-prev',
         paginationClickable: true,
         spaceBetween: 30,
-        // freeMode: true
+        autoplay: 8000,
+        grabCursor: true
     });
+    var swiper1 = new Swiper('.large .project-slide .swiper-container', {
+        pagination: '.large .project-slide .swiper-pagination',
+        nextButton: '.large .project-slide .swiper-button-next',
+        prevButton: '.large .project-slide .swiper-button-prev',
+        slidesPerView: 5,
+        paginationClickable: true,
+        spaceBetween: 30,
+        grabCursor: true
+    });
+    var swiper2 = new Swiper('.small .project-slide .swiper-container', {
+        pagination: '.small .project-slide.swiper-pagination',
+        nextButton: '.small .project-slide.swiper-button-next',
+        prevButton: '.small .project-slide.swiper-button-prev',
+        slidesPerView: 1,
+        centeredSlides: true,
+        paginationClickable: true,
+        spaceBetween: 30,
+        autoplay: 5000,
+        grabCursor: true
+    });
+    var galleryTop = new Swiper('.vertical-carousel .gallery-top', {
+        nextButton: '.swiper-button-next',
+        prevButton: '.swiper-button-prev',
+        pagination: '.gallery-thumbs .swiper-wrapper .swiper-slide',
+        paginationClickable: true,
+        direction: 'vertical',
+        spaceBetween: 10,
+        slideToClickedSlide: true,
+    });
+    var galleryThumbs = new Swiper('.vertical-carousel .gallery-thumbs', {
+        direction: 'vertical',
+        spaceBetween: 10,
+        centeredSlides: true,
+        paginationClickable: true,
+        slidesPerView: 'auto',
+        touchRatio: 0.2,
+        slideToClickedSlide: false,
+    });
+    galleryTop.params.control = galleryThumbs;
+    galleryThumbs.params.control = galleryTop;
 </script>
 {% endblock %}

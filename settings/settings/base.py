@@ -141,7 +141,7 @@ LOGIN_REDIRECT_URL = '/'
 
 LOGOUT_REDIRECT_URL = 'https://universal.org.pa'
 
-LOGIN_URL = '/auth/entrar/'
+LOGIN_URL = '/entrar/'
 
 SESSION_COOKIE_AGE = 43200
 

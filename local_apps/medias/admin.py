@@ -1,5 +1,5 @@
 from django.contrib import admin
-from .models import (Newspaper,Video,Tv,Audio,Radio,Image)
+from .models import Newspaper,Video,Audio,Image
 
 @admin.register(Newspaper)
 class NewspaperAdmin(admin.ModelAdmin):
@@ -25,18 +25,6 @@ class VideoAdmin(admin.ModelAdmin):
 		model = Video	
 
 
-@admin.register(Tv)
-class TvAdmin(admin.ModelAdmin):
-	list_display = ["title"]
-	list_display_links = []
-	list_editable = []
-	list_filter = []
-	# search_fields = ["title", "content"]
-	
-	class Meta:
-		model = Tv	
-
-
 @admin.register(Audio)
 class AudioAdmin(admin.ModelAdmin):
 	list_display = ["title"]
@@ -47,18 +35,6 @@ class AudioAdmin(admin.ModelAdmin):
 	
 	class Meta:
 		model = Audio
-
-
-@admin.register(Radio)
-class RadioAdmin(admin.ModelAdmin):
-	list_display = ["title"]
-	list_display_links = []
-	list_editable = []
-	list_filter = []
-	# search_fields = ["title", "content"]
-	
-	class Meta:
-		model = Radio
 
 
 @admin.register(Image)

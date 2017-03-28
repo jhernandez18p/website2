@@ -6,11 +6,12 @@ from decouple import config
 if __name__ == "__main__":
 
     DEBUG = str(config('DEBUG'))
+
     if DEBUG == 'True':
+        print('Se está usando el servidor local = {}'.format(config('DEBUG')))
         os.environ.setdefault("DJANGO_SETTINGS_MODULE", "settings.settings.base")
-        print('Se está usando el servidor local')
     elif DEBUG == 'False':
-        print('Se está usando el servidor producción')
+        print('Se está usando el servidor producción = {}'.format(config('DEBUG')))
         os.environ.setdefault("DJANGO_SETTINGS_MODULE", "settings.settings.production")
 
     try:

@@ -19,13 +19,13 @@ def cookies(request):
 def menu(request):
     context = {}
     WEEKDAYS = {
-        '6_SUNDAY':{'id':1,'day':'Domingo','reunions':{}},
         '0_MONDAY':{'id':2,'day':'Lunes','reunions':{}},
         '1_TUESDAY':{'id':3,'day':'Martes','reunions':{}},
         '2_WEDNESDAY':{'id':4,'day':'Miércoles','reunions':{}},
         '3_THURSDAY':{'id':5,'day':'Jueves','reunions':{}},
         '4_FRIDAY':{'id':6,'day':'Viernes','reunions':{}},
         '5_SATURDAY':{'id':7,'day':'Sábado','reunions':{}},
+        '6_SUNDAY':{'id':1,'day':'Domingo','reunions':{}},
     }
     reunions = Reunion.objects.all()
     for day in WEEKDAYS:
