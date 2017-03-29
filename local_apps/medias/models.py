@@ -1,4 +1,5 @@
 from django.db import models
+from django.core.urlresolvers import reverse
 from django.core.validators import MaxValueValidator
 from django.core.validators import URLValidator
 
@@ -41,6 +42,7 @@ class Newspaper(models.Model):
 	height_field = models.IntegerField(default=0)
 	width_field = models.IntegerField(default=0)
 	newspaper_file = models.FileField(upload_to=upload_location,blank=True)
+	newspaper_url = models.CharField(validators=[URLValidator()],max_length=144,blank=True)
 	active = models.BooleanField(default=True)
 	publish = models.DateField(auto_now=False, auto_now_add=False)
 	updated = models.DateTimeField(auto_now=True, auto_now_add=False)
@@ -59,6 +61,8 @@ class Newspaper(models.Model):
 			("can_update_newspaper", "Puede editar periodicos"),
 		)
 
+	def get_absolute_url(self):
+		return reverse("frontend:Newspaper", kwargs={"id": self.id})
 
 class Video(models.Model):
 	title = models.CharField(max_length=144)
@@ -91,6 +95,39 @@ class Video(models.Model):
 			("can_update_video", "Puede editar video"),
 		)
 
+
+class Tv(models.Model):
+	title = models.CharField(max_length=144)
+	description = RichTextField()
+	image = models.ImageField(
+		upload_to=upload_location, 
+		null=True, 
+		blank=True, 
+		width_field="width_field", 
+		height_field="height_field"
+	)
+	height_field = models.IntegerField(default=0)
+	width_field = models.IntegerField(default=0)
+	video_url = models.CharField(validators=[URLValidator()],max_length=144,blank=True)
+	video_file = models.FileField(upload_to=upload_location,blank=True)
+	active = models.BooleanField(default=True)
+	publish = models.DateField(auto_now=False, auto_now_add=False)
+	updated = models.DateTimeField(auto_now=True, auto_now_add=False)
+	timestamp = models.DateTimeField(auto_now=False, auto_now_add=True)
+	category = models.ForeignKey(Category, null=True, blank=True)
+
+	def __str__(self):
+		return self.title
+
+	class Meta:
+		ordering = ["-timestamp", "-updated"]
+		verbose_name = ('Tv')
+		verbose_name_plural = ('Tv')
+		permissions = (
+			("can_create_tv", "Puede crear tv"),
+			("can_delete_tv", "Puede eliminar tv"),
+			("can_update_tv", "Puede editar tv"),
+		)
 
 class Audio(models.Model):
 	title = models.CharField(max_length=144)
@@ -155,4 +192,36 @@ class Image(models.Model):
 		)
 
 
+class Radio(models.Model):
+	title = models.CharField(max_length=144)
+	description = RichTextField()
+	image = models.ImageField(
+		upload_to=upload_location, 
+		null=True, 
+		blank=True, 
+		width_field="width_field", 
+		height_field="height_field"
+	)
+	height_field = models.IntegerField(default=0)
+	width_field = models.IntegerField(default=0)
+	audio_url = models.CharField(validators=[URLValidator()],max_length=144,blank=True)
+	audio_file = models.FileField(upload_to=upload_location,blank=True)
+	active = models.BooleanField(default=True)
+	publish = models.DateField(auto_now=False, auto_now_add=False)
+	updated = models.DateTimeField(auto_now=True, auto_now_add=False)
+	timestamp = models.DateTimeField(auto_now=False, auto_now_add=True)
+	category = models.ForeignKey(Category, null=True, blank=True)
+
+	def __str__(self):
+		return self.title
+
+	class Meta:
+		ordering = ["-timestamp", "-updated"]
+		verbose_name = ('Radio')
+		verbose_name_plural = ('Radio')
+		permissions = (
+			("can_create_radio", "Puede crear radio"),
+			("can_delete_radio", "Puede eliminar radio"),
+			("can_update_radio", "Puede editar radio"),
+		)
 		

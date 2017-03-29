@@ -27,9 +27,9 @@ def home(request):
 	}
 
 	try:
-		news = Post.objects.active()[:10]
+		news = Post.objects.active()[1:6]
 		if len(news)>=1:
-			last_new = news.first()
+			last_new = Post.objects.first()
 		context['last_news'] = last_new
 		context['news'] = news
 	except Exception as e:
@@ -49,10 +49,25 @@ def home(request):
 		print('No hay videos aún' + e)
 
 	try:
-		audio = Audio.objects.all().filter(active=True)
-		context['audios'] = audio
+		audio = Radio.objects.all().filter(active=True).first()
+		context['audio'] = audio
+		# print(audio)
 	except Exception as e:
 		print('No hay audios aún' + e)
+
+	try:
+		newspaper = Newspaper.objects.all().filter(active=True).first()
+		context['newspaper'] = newspaper
+		# print(audio)
+	except Exception as e:
+		print('No hay periodicos aún' + e)
+
+	try:
+		tv = Tv.objects.all().filter(active=True).first()
+		context['tv'] = tv
+		# print(audio)
+	except Exception as e:
+		print('No hay tv aún' + e)
 
 	try:
 		imagen = Image.objects.all().filter(active=True)[:1] 
@@ -61,7 +76,7 @@ def home(request):
 		print('No hay imgen aún' + e)
 
 	try:
-		testimonials = Testimonial.objects.all()
+		testimonials = Testimonial.objects.all()[:6]
 		context['testimonials'] = testimonials
 	except Exception as e:
 		print('No hay Testimonios aún' + e)
@@ -509,6 +524,20 @@ def events_detail(request, pk):
 		'pg_title':'events',
 		'title':'Detalles {}'.format(str(title)),
 		'object':event,
+	}
+
+	return render(request, template, context)
+
+
+def newspaper(request, pk):
+	template = 'pdf/web/viewer.html'
+	newspaper = get_object_or_404(Newspaper, id=pk)
+	title = newspaper.title
+	
+	context = {
+		'pg_title':'media',
+		'title':'Detalles {}'.format(str(title)),
+		'object':newspaper,
 	}
 
 	return render(request, template, context)

@@ -9,11 +9,13 @@ urlpatterns = [
 
 	url(r'^$', base_views.home, name='Home'),
 	url(r'^contacto/', base_views.contact, name='Contact'),
-	url(r'^multimedia/', base_views.media, name='Media'),
 	url(r'^suscribirse/', base_views.susbcribe, name='Pray'),
 	url(r'^quienes-somos/', base_views.about, name='About'),
 
-	url(r'^eventos/(?P<pk>[\w-]+)/', base_views.events_detail, name='Event_detail'),
+	url(r'^multimedia/periodico/(?P<pk>[\w-]+)/', base_views.newspaper, name='Newspaper'),
+	url(r'^multimedia/', base_views.media, name='Media'),
+
+	url(r'^eventos/(?P<pk>[\w-]+)', base_views.events_detail, name='Event_detail'),
 	url(r'^eventos/', base_views.events, name='Events'),
 
 	url(r'^noticias/categoria/(?P<category>[\w-]+)/', base_views.blog_filter, name='Blog_category'),
