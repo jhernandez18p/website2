@@ -4,7 +4,11 @@ from django.contrib.auth.decorators import login_required
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django.http import Http404, HttpResponse, HttpResponseRedirect
 from django.shortcuts import get_object_or_404, render
-from settings.settings.serializers import UserSerializer, GroupSerializer
+from settings.settings.serializers import (
+	UserSerializer,
+	GroupSerializer,
+	ChurchSerializer
+)
 from django.core.mail import send_mail
 from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
 import random
@@ -70,8 +74,8 @@ def home(request):
 		print('No hay tv aún' + e)
 
 	try:
-		imagen = Image.objects.all().filter(active=True)[:1] 
-		context['imagen'] = imagen
+		imagen = Image.objects.all().filter(active=True,for_home=True)[:5] 
+		context['imagens'] = imagen
 	except Exception as e:
 		print('No hay imgen aún' + e)
 
@@ -82,18 +86,14 @@ def home(request):
 		print('No hay Testimonios aún' + e)
 
 	try:
-		projects = Project.objects.all().filter(project_type='Projecs')
-		# if len(projects)>0:
-		# 	print(projects[0].category)
-		context['projects'] = projects
+		groups = Project.objects.all().filter(project_type='Groups')
+		context['groups'] = groups
 	except Exception as e:
-		print('No hay proyectos aún' + e)
+		print('No hay grupos aún' + e)
 
 	try:
-		groups = Project.objects.all().filter(project_type='Groups')
-		# if len(groups)>0:
-		# 	print(groups[0].category)
-		context['groups'] = groups
+		event = Event.objects.all().first()
+		context['event'] = event
 	except Exception as e:
 		print('No hay grupos aún' + e)
 
@@ -115,19 +115,26 @@ def projects(request):
 		'pg_title':'project',
 		'title':'Proyectos universal',
 	}
-	try:
-		projects = Project.objects.all().filter(project_type='Projecs')
-		# if len(projects)>0:
-		# 	print(projects[0].category)
-		context['projects'] = projects
-	except Exception as e:
-		print('No hay proyectos aún' + e)
 
 	try:
 		groups = Project.objects.all().filter(project_type='Groups')
 		# if len(groups)>0:
 		# 	print(groups[0].category)
 		context['groups'] = groups
+	except Exception as e:
+		print('No hay grupos aún' + e)
+
+	try:
+		groups = Project.objects.all().filter(project_type='Groups')
+		# if len(groups)>0:
+		# 	print(groups[0].category)
+		context['groups'] = groups
+	except Exception as e:
+		print('No hay grupos aún' + e)
+
+	try:
+		event = Event.objects.all().first()
+		context['event'] = event
 	except Exception as e:
 		print('No hay grupos aún' + e)
 
@@ -161,7 +168,7 @@ def testimonials(request):
 		print('No hay Testimonios aún' + e)
 	
 	page = request.GET.get('page', 1)
-	paginator = Paginator(testimonial_list, 12)
+	paginator = Paginator(testimonial_list, 6)
 	try:
 		testimonial_list = paginator.page(page)
 	except PageNotAnInteger:
@@ -255,7 +262,7 @@ def blog(request):
 		print('No hay noticias aún' + e)
 	
 	page = request.GET.get('page', 1)
-	paginator = Paginator(news_list, 10)
+	paginator = Paginator(news_list, 6)
 	try:
 		news_list = paginator.page(page)
 	except PageNotAnInteger:
@@ -290,6 +297,12 @@ def contact(request):
 		'pg_title':'contact',
 		'title':'Contato',
 	}
+
+	try:
+		church = Church.objects.all()
+		context['churchs'] = church
+	except Exception as e:
+		raise e
 
 	if request.method == 'GET':
 
@@ -362,64 +375,6 @@ def susbcribe(request):
 
 
 """
-	Rest API
-"""
-class UserViewSet(viewsets.ModelViewSet):
-    """
-    API endpoint that allows users to be viewed or edited.
-    """
-    queryset = User.objects.all().order_by('-date_joined')
-    serializer_class = UserSerializer
-
-
-class GroupViewSet(viewsets.ModelViewSet):
-    """
-    API endpoint that allows groups to be viewed or edited.
-    """
-    queryset = Group.objects.all()
-    serializer_class = GroupSerializer
-
-
-"""
-	custom errors
-"""
-def my_custom_bad_request_view(request):
-	template = 'url_error/frontend/400.html'
-	context = {
-		'pg_title':'Error 400',
-		'title':'Error 400',
-	}
-	return render(request, template, context)
-
-
-def my_custom_permission_denied_view(request):
-	template = 'url_error/frontend/403.html'
-	context = {
-		'pg_title':'Error 403',
-		'title':'Error 403',
-	}
-	return render(request, template, context)
-
-
-def my_custom_page_not_found_view(request):
-	template = 'url_error/frontend/404.html'
-	context = {
-		'pg_title':'Error 404',
-		'title':'Error 404',
-	}
-	return render(request, template, context)
-
-
-def my_custom_error_view(request):
-	template = 'url_error/frontend/500.html'
-	context = {
-		'pg_title':'Error 500',
-		'title':'Error 500',
-	}
-	return render(request, template, context)
-
-
-"""
 	Details
 """
 def blog_detail(request, slug):
@@ -472,10 +427,10 @@ def blog_filter(request, category):
 	return render(request, template, context)
 
 
-def projects_detail(request, pk):
+def projects_detail(request, name):
 	template = 'detail/projects.html'
-	project = get_object_or_404(Project, id=pk)
-	print(project)
+	project = get_object_or_404(Project, slug=name)
+	# print(project)
 	title = project.title
 	
 	context = {
@@ -483,6 +438,7 @@ def projects_detail(request, pk):
 		'title':'Detalles {}'.format(str(title)),
 		'project':project,
 	}
+
 
 	return render(request, template, context)
 
@@ -497,6 +453,7 @@ def reunions_detail(request, pk):
 		'title':'Detalles {}'.format(str(title)),
 		'object':reunions,
 	}
+
 
 	return render(request, template, context)
 
@@ -542,3 +499,66 @@ def newspaper(request, pk):
 
 	return render(request, template, context)
 
+"""
+	Rest API
+"""
+class UserViewSet(viewsets.ModelViewSet):
+    """
+    API endpoint that allows users to be viewed or edited.
+    """
+    queryset = User.objects.all().order_by('-date_joined')
+    serializer_class = UserSerializer
+
+
+class GroupViewSet(viewsets.ModelViewSet):
+    """
+    API endpoint that allows groups to be viewed or edited.
+    """
+    queryset = Group.objects.all()
+    serializer_class = GroupSerializer
+
+class ChurchViewSet(viewsets.ModelViewSet):
+    """
+    API endpoint that allows groups to be viewed or edited.
+    """
+    queryset = Church.objects.all()
+    serializer_class = ChurchSerializer
+
+
+"""
+	custom errors
+"""
+def my_custom_bad_request_view(request):
+	template = 'url_error/frontend/400.html'
+	context = {
+		'pg_title':'Error 400',
+		'title':'Error 400',
+	}
+	return render(request, template, context)
+
+
+def my_custom_permission_denied_view(request):
+	template = 'url_error/frontend/403.html'
+	context = {
+		'pg_title':'Error 403',
+		'title':'Error 403',
+	}
+	return render(request, template, context)
+
+
+def my_custom_page_not_found_view(request):
+	template = 'url_error/frontend/404.html'
+	context = {
+		'pg_title':'Error 404',
+		'title':'Error 404',
+	}
+	return render(request, template, context)
+
+
+def my_custom_error_view(request):
+	template = 'url_error/frontend/500.html'
+	context = {
+		'pg_title':'Error 500',
+		'title':'Error 500',
+	}
+	return render(request, template, context)

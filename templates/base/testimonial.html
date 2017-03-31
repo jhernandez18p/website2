@@ -8,32 +8,6 @@
 {% endblock %}
 
 {% block content %}
-<div class="row">
-    {% if testimonials %}
-    <div class="container">
-        <div class="col-xs-12">
-                <h2 class="text-center">Ultimos testimonios</h2>
-        </div>
-        <div class="col-xs-12">
-            <div id="testimonialCarousel">
-                <div class="swiper-container">
-                    <div class="swiper-wrapper">
-                        {% for testimonial in testimonials %}
-                            <div id="quote{{testimonial.id}}" class="swiper-slide quote-image">
-                                <img src="{% if testimonial.image != '' %}{{testimonial.image.url}}{% else %}https://static.pexels.com/photos/325288/pexels-photo-325288.jpeg{% endif %}" alt="">
-                                <div class="content">
-                                    <h4>{{testimonial.title}}</h4>
-                                    <p><a href="{% url 'frontend:Testimonial_detail' testimonial.id %}">Ver testimonio</a></p>
-                                </div>
-                            </div>
-                        {% endfor %}
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
-    {% endif %}
-</div>
 <!-- Testimonials -->
 <div class="row testimonios">
     {% if testimonial_list %}
@@ -99,7 +73,7 @@
                     {% endfor %}
                     {% if testimonial_list.has_next %}
                     <li>
-                        <a href="?page={{ users.next_page_number }}" aria-label="Next">
+                        <a href="?page={{ testimonial_list.next_page_number }}" aria-label="Next">
                             <span aria-hidden="true">&raquo;</span>
                         </a>
                     </li>

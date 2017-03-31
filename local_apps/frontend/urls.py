@@ -22,7 +22,7 @@ urlpatterns = [
 	url(r'^noticias/(?P<slug>[\w-]+)/', base_views.blog_detail, name='Blog_details'),
 	url(r'^noticias/', base_views.blog, name='Blog'),
 	
-	url(r'^proyectos/(?P<pk>[\w-]+)/', base_views.projects_detail, name='Project_detail'),
+	url(r'^proyectos/(?P<name>[\w-]+)/', base_views.projects_detail, name='Project_detail'),
 	url(r'^proyectos/', base_views.projects, name='Projects'),
 
 	url(r'^reuniones/(?P<pk>[\w-]+)/', base_views.reunions_detail, name='Reunions_detail'),

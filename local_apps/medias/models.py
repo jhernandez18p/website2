@@ -64,6 +64,7 @@ class Newspaper(models.Model):
 	def get_absolute_url(self):
 		return reverse("frontend:Newspaper", kwargs={"id": self.id})
 
+
 class Video(models.Model):
 	title = models.CharField(max_length=144)
 	description = RichTextField()
@@ -129,17 +130,24 @@ class Tv(models.Model):
 			("can_update_tv", "Puede editar tv"),
 		)
 
+
 class Audio(models.Model):
 	title = models.CharField(max_length=144)
 	description = RichTextField()
-	image = models.ImageField(upload_to=upload_location, 
-	null=True, 
-	blank=True, 
-	width_field="width_field", 
-	height_field="height_field")
+	image = models.ImageField(
+		upload_to=upload_location, 
+		null=True, 
+		blank=True, 
+		width_field="width_field", 
+		height_field="height_field"
+	)
 	height_field = models.IntegerField(default=0)
 	width_field = models.IntegerField(default=0)
-	audio_url = models.CharField(validators=[URLValidator()],max_length=144,blank=True)
+	audio_url = models.CharField(
+		validators=[URLValidator()],
+		max_length=144,
+		blank=True
+	)
 	audio_file = models.FileField(upload_to=upload_location,blank=True)
 	active = models.BooleanField(default=True)
 	publish = models.DateField(auto_now=False, auto_now_add=False)
@@ -165,14 +173,20 @@ class Image(models.Model):
 	title = models.CharField(max_length=144)
 	description = RichTextField()
 	image = models.ImageField(upload_to=upload_location, 
-	null=True, 
-	blank=True, 
-	width_field="width_field", 
-	height_field="height_field")
+		null=True, 
+		blank=True, 
+		width_field="width_field", 
+		height_field="height_field"
+	)
 	height_field = models.IntegerField(default=0)
 	width_field = models.IntegerField(default=0)
-	image_url = models.CharField(validators=[URLValidator()],max_length=144,blank=True)
+	image_url = models.CharField(
+		validators=[URLValidator()],
+		max_length=144,
+		blank=True
+	)
 	active = models.BooleanField(default=True)
+	for_home = models.BooleanField(default=True)
 	publish = models.DateField(auto_now=False, auto_now_add=False)
 	updated = models.DateTimeField(auto_now=True, auto_now_add=False)
 	timestamp = models.DateTimeField(auto_now=False, auto_now_add=True)

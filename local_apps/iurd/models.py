@@ -12,7 +12,6 @@ from django.utils.text import slugify
 
 from ckeditor.fields import RichTextField
 
-
 def upload_location(instance, filename):
     #filebase, extension = filename.split(".")
     #return "%s/%s.%s" %(instance.id, instance.id, extension)
@@ -61,13 +60,25 @@ class Church(models.Model):
 	mail = models.EmailField(max_length=65)
 	phone_regex = RegexValidator(regex=r'^\+?507?\d{8,15}$', message="Numero de telefono debe seguir este formato: '+999999999'.")
 	telephone_number = models.CharField(validators=[phone_regex], blank=True, max_length=15)
-	image = models.ImageField(upload_to=upload_location, 
-            null=True, 
-            blank=True, 
-            width_field="width_field", 
-            height_field="height_field")
+	image = models.ImageField(
+		upload_to=upload_location, 
+        null=True, 
+        blank=True, 
+        width_field="width_field", 
+        height_field="height_field"
+    )
 	height_field = models.IntegerField(default=0)
 	width_field = models.IntegerField(default=0)
+	lat = models.DecimalField(
+		max_digits=10,
+		decimal_places=8,
+		default=9.022568
+	)
+	lng = models.DecimalField(
+		max_digits=11,
+		decimal_places=8,
+		default=-79.4882987
+	)
 	description = RichTextField()
 	created = models.DateTimeField(auto_now=True,auto_now_add=False)
 	time_stamp = models.DateTimeField(auto_now=False,auto_now_add=True)
@@ -104,9 +115,18 @@ class Event(models.Model):
             null=True, 
             blank=True, 
             width_field="width_field", 
-            height_field="height_field")
+            height_field="height_field"
+        )
 	height_field = models.IntegerField(default=0)
 	width_field = models.IntegerField(default=0)
+	banner_vertical = models.ImageField(upload_to=upload_location, 
+            null=True, 
+            blank=True, 
+        )
+	banner_horizontal = models.ImageField(upload_to=upload_location, 
+            null=True, 
+            blank=True, 
+        )
 
 	def __str__(self):
 		return self.name
@@ -204,7 +224,7 @@ class Project(models.Model):
 		)
 
 	def get_absolute_url(self):
-		return reverse("frontend:Project_detail", kwargs={"pk": self.id})
+		return reverse("frontend:Project_detail", kwargs={"name": self.slug})
 
 
 class Schedule(models.Model):

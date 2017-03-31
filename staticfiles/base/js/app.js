@@ -1,6 +1,6 @@
 $(document).ready(function(){
     // *Initializer
-    $('#prayModal').modal('show');
+    // $('#prayModal').modal('show');
 
     // *Scroll function
     $(function(){

@@ -21,51 +21,52 @@
         {% include 'footer.html' %}
     </footer>
     {% if user_rouge_for_pray == True %}
-    <div  id="prayModal" class="modal fade" tabindex="-1" role="dialog">
-        <div class="modal-dialog modal-lg" role="document">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true"><h5>&times;</h5></span></button>
-                    <h5 class="modal-title text-center" id="exampleModalLabel">
-                        Hola, Nos gustaría hacer una oración a su nombre
-                    </h5>
+        <div  id="prayModal" class="modal fade" tabindex="-1" role="dialog">
+            <div class="modal-dialog modal-lg" role="document">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true"><h5>&times;</h5></span></button>
+                        <h5 class="modal-title text-center" id="exampleModalLabel">
+                            Hola, Nos gustaría hacer una oración a su nombre
+                        </h5>
+                    </div>
+                    <form class="inline-form" action="{% url 'frontend:Pray' %}" method="post">
+                        {% csrf_token %}
+                        <div class="modal-body">
+                            <div class="form-group">
+                                <label for="recipient-name" class="control-label">
+                                    <h5>¿Cual es su nombre?</h5>
+                                </label>
+                                <input type="text" class="form-control" name="name" id="recipient-name">
+                                <input type="text" class="hidden" name="url" id="recipient-name" value="{{ request.get_full_path }}">
+                            </div>
+                            <div class="form-group">
+                                <label for="recipient-name" class="control-label">
+                                    <h5>¿Cuál es su correo electrónico?</h5>
+                                </label>
+                                <input type="text" class="form-control" name="email" id="recipient-name">
+                            </div>
+                            <div class="form-group">
+                                <label for="message-text" class="control-label">
+                                    <h5>¿Por qué o quien quiere que oremos?</h5>
+                                </label>
+                                <textarea class="form-control" name="description" id="message-text"></textarea>
+                            </div>
+                        </div>
+                        <div class="modal-footer">
+                            <button type="submit" class="btn btn-link" name="submit" value="False">
+                                <h5>Por ahora no</h5>
+                            </button>
+                            <button type="submit" class="btn btn-link" name="submit" value="True">
+                                <h5>Enviar</h5>
+                            </button>
+                        </div>
+                    </form>
                 </div>
-                <form class="inline-form" action="{% url 'frontend:Pray' %}" method="post">
-                    {% csrf_token %}
-                    <div class="modal-body">
-                        <div class="form-group">
-                            <label for="recipient-name" class="control-label">
-                                <h5>¿Cual es su nombre?</h5>
-                            </label>
-                            <input type="text" class="form-control" name="name" id="recipient-name">
-                            <input type="text" class="hidden" name="url" id="recipient-name" value="{{ request.get_full_path }}">
-                        </div>
-                        <div class="form-group">
-                            <label for="recipient-name" class="control-label">
-                                <h5>¿Cuál es su correo electrónico?</h5>
-                            </label>
-                            <input type="text" class="form-control" name="email" id="recipient-name">
-                        </div>
-                        <div class="form-group">
-                            <label for="message-text" class="control-label">
-                                <h5>¿Por qué o quien quiere que oremos?</h5>
-                            </label>
-                            <textarea class="form-control" name="description" id="message-text"></textarea>
-                        </div>
-                    </div>
-                    <div class="modal-footer">
-                        <button type="submit" class="btn btn-link" name="submit" value="False">
-                            <h5>Por ahora no</h5>
-                        </button>
-                        <button type="submit" class="btn btn-link" name="submit" value="True">
-                            <h5>Enviar</h5>
-                        </button>
-                    </div>
-                </form>
             </div>
         </div>
-    </div>
     {% endif %}
+
     <script src="{% static 'base/js/bootstrap.min.js' %}" charset="utf-8"></script>
     <script src="{% static 'base/js/app.js' %}" charset="utf-8"></script>
     <script src="{% static 'base/js/swiper.min.js' %}" charset="utf-8"></script>

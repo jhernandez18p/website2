@@ -10,6 +10,7 @@ from local_apps.frontend import views as base_views
 router = routers.DefaultRouter()
 router.register(r'api/users', base_views.UserViewSet)
 router.register(r'api/groups', base_views.GroupViewSet)
+router.register(r'api/church', base_views.ChurchViewSet)
 
 handler400 = 'local_apps.frontend.views.my_custom_bad_request_view'
 handler403 = 'local_apps.frontend.views.my_custom_permission_denied_view'

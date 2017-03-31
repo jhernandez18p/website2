@@ -55,6 +55,12 @@ def menu(request):
         print(e)
         print('No hay noticias aún' + e)
 
+    try:
+        event = Event.objects.all().first()
+        context['event'] = event
+    except Exception as e:
+        print(e)
+
     # try:
     #     session = request.session.get('user_rouge_for_pray', False)
     #     if request.session['user_rouge_for_pray'] == False:

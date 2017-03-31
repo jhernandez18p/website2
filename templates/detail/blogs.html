@@ -10,14 +10,21 @@
         opacity: 0.799;
     }
     .quote-image .container h4 {position: relative;max-width: 35vw;margin:10% auto;text-align: center;font-size: 2.8em;}
-    .post,.comments{padding: 25px;background-color: #EfEfEf; margin-top: 25px; }
+    .post,.comments{padding: 25px;background-color: #FFF; margin-top: 25px; }
     .comment{border-top: 1px solid #CCC; padding-top:10px; }
     .comment .comment-author{width: 60px; background-color: #e4e4e4; height: auto}
+	.navbar {margin-bottom: 0px;}
 </style>
+
+  <meta property="og:type"          content="website" />
+  <meta property="og:title"         content="{{post.title}}" />
+  <meta property="og:description"   content="{{post.content | safe}}" />
+  <meta property="og:image"         content="http://www.universal.org.pa/{{post.image.url}}" />
+</head>
 {% endblock %}
 
 {% block content %}
-<div class="container-fluid hidden-xs">
+<div class=" hidden-xs">
 	<div class="row">
 		<div id="fullWidthImage1" class="quote-image">
 			<div class="container">
@@ -42,19 +49,34 @@
 				<div class="post-content">
 					{{post.content | safe}}
 				</div>
+				<div class="fb-share-button" 
+					data-href="http://www.universal.org.pa/" 
+					data-layout="button_count">
+				</div>
 			</div>
 		</div>
 		<div class="col-sm-4">
-			<div class="related">
-				<h3>Artículos relacionados</h3>
-				<ul>
-					{% if post.related %}
+			{% if post.related.all %}
+				<div class="related">
+					<h3>Artículos relacionados</h3>
+					<ul>
 						{% for related in post.related.all %}
-							<li><a href="{{related.get_absolute_url}}">{{related}}</a></li>
+							<li>
+								<a href="{{related.get_absolute_url}}">
+									{{related}}
+								</a>
+							</li>
 						{% endfor %}
-					{% endif %}
-				</ul>
-			</div>
+					</ul>
+				</div>
+			{% endif %}
+			{% if event %}
+                <div class="banner-home card-3">
+                    <a href="{{event.get_absolute_url}}">
+                        <img src="{% if event.banner_vertical %}{{event.banner_vertical.url}}{% else %}{{event.image.url}}{% endif %}" alt="{{event.title}}">
+                    </a>
+	            </div>
+	        {% endif %}
 		</div>
 	</div>
 </div>
@@ -74,18 +96,16 @@
 								
 							</div>
 							<div class="content">
-								{{comment.content | safe}}
+								{{comment.content|safe}}
 							</div>
 						</div>
 					{% endfor %}
 					{% else %}
-					<div class="comment">
-						<p>Aún no hay comentario</p>
-					</div>
+						<div class="comment">
+							<p>Aún no hay comentario</p>
+						</div>
 				{% endif %}
 			</div>
-
-
 			{% if user.is_anonymous %}
 				<div class="comments card-3">
 					<div class="header text-center">
@@ -94,23 +114,34 @@
 					<form method="post" action="{% url 'auth:Login' %}">
 						{% csrf_token %}
 						<input type="text" class="form-control" id="lg_username" name="username" placeholder="Escriba su correo eléctronico">
+
 						<input type="password" class="form-control" id="lg_password" name="password" placeholder="Escriba su contraseña">
-						<button type="submit" class="btn btn-block btn-primary">Entrar</button>
+
+						<button type="submit" class="btn btn-block btn-primary">
+							Entrar
+						</button>
 					</form>		
 				</div>
-				{% else %}
+			{% else %}
 				<div class="comments card-3">
 					<div class="header text-center">
 						<h4>Escribe un comentario</h4>
 					</div>
-					<form method="post" action="">
+					<form method="post" action="{# url 'frontend:comment' #}">
 						{% csrf_token %}
 						<input type="text" class="form-control" id="lg_username" name="username" placeholder="Escriba su correo eléctronico">
+
 						<input type="text" class="hidden" value="{{post.content_type}}" name="content_type">
+
 						<input type="text" class="hidden" value="{{post.object_id}}" name="object_id">
+
 						<input type="text" class="hidden" value="" name="">
-						<textarea class="form-control" rows="3" class="form-control" value="" placeholder="Escriba su comentario" name="content"></textarea>
-						<button type="submit" class="btn btn-block btn-primary">Entrar</button>
+
+						<textarea class="form-control" rows="3" class="form-control" placeholder="Escriba su comentario" name="content">
+						</textarea>
+						<button type="submit" class="btn btn-block btn-primary">
+							Entrar
+						</button>
 					</form>		
 				</div>
 			{% endif %}
@@ -118,9 +149,18 @@
 		</div>
 	</div>
 </div>
+<div id="fb-root"></div>
 
 
 {% endblock %}
 
 {% block js %}
+  <script>(function(d, s, id) {
+    var js, fjs = d.getElementsByTagName(s)[0];
+    if (d.getElementById(id)) return;
+    js = d.createElement(s); js.id = id;
+    js.src = "//connect.facebook.net/en_US/sdk.js#xfbml=1";
+    fjs.parentNode.insertBefore(js, fjs);
+  }(document, 'script', 'facebook-jssdk'));
+  </script>
 {% endblock %}

@@ -3,12 +3,12 @@
 
 {% block css %}
 <style media="screen">
-    .blog-post {background-color: #F5F5F5;margin-bottom: 25px;}
+    .blog-post {background-color: #FFF;margin-bottom: 25px;}
     .blog-post .blog-post-pub-date {
         position: absolute;;
         height: 100px;
         width: 100px;
-        background-color: #F3F3F3;
+        background-color: #FFF;
         left: -90px;
     }
     .blog-post .blog-post-pub-date h4 {position: absolute;top:1px;left: 10px;}
@@ -23,7 +23,7 @@
     .blog-post .blog-post-footer p {display: inline-block;}
     .blog-post .blog-post-footer p span .left {position: absolute;right: 0}
     .blog-post .blog-post-footer p span .right {position: absolute;left: 0}
-    .blog-aside {background-color:#F3F3F3;min-height:10px;margin-bottom: 25px;}
+    .blog-aside {background-color:#FFF;min-height:10px;margin-bottom: 25px;}
     .blog-aside-header {background-color: #FEFEFE; height: 70px;padding: 20px;}
     /*.blog-aside-header p {font-size: 1.35em;}*/
     .blog-aside-body {padding: 20px;}
@@ -48,109 +48,109 @@
 {% endblock %}
 
 {% block content %}
-<div class="row">
-    <div class="container">
-        <div class="col-xs-12 col-sm-8">
-            {% if news_list %}
-            {% for news in news_list %}
-            <div class="blog-post material-shadow">
-                <div class="blog-post-pub-date material-shadow hidden-xs">
-                    <h4>{{news.timestamp|date:"D d M Y"}}</h4>
-                </div>
-                <div class="blog-post-img">
-                    <img src="{% if news.image != '' %}{{news.image.url}}{% else %}https://static.pexels.com/photos/325288/pexels-photo-325288.jpeg{% endif %}" alt="">
-                    <h2><a href="{{news.get_absolute_url}}">{{news.title}}</a></h2>
-                </div>
-                <div class="blog-post-content">
-                    {{news.content|safe|truncatewords_html:20}}
-                </div>
-                <div class="blog-post-footer">
-                    <p>
-                        <span class="left glyphicon glyphicon-user"> {% if news.user.first_name %}{{news.user.first_name}}{% endif %} {% if news.user.last_name %}{{news.user.last_name}}{% endif %}</span>
-                    </p>
-                    <br>
-                    {% if news.category %}
-                        <p>
-                            <a href="{{news.get_category_url}}">{{news.category}}</a>
-                        </p>
-                    {% endif %}
-                    <br>
-                    {% if news.related %}<p><a href="">{{news.related.id}}</a></p>{% endif %}
-                </div>
-                <div  id="{{news.id}}Modal" class="modal" tabindex="-1" role="dialog">
-                    <div class="modal-dialog modal-lg" role="document">
-                        <div class="modal-content">
-                            <div class="modal-body">
-                               <img src="{% if news.image != '' %}{{news.image.url}}{% else %}https://static.pexels.com/photos/325288/pexels-photo-325288.jpeg{% endif %}" alt="">
-                               <h1>{{news.title}}</h1>
-                               {{news.content|safe}}
+    <div class="row">
+        <div class="container">
+            <div class="col-xs-12 col-sm-8">
+                {% if news_list %}
+                    {% for news in news_list %}
+                        <div class="blog-post material-shadow">
+                            <div class="blog-post-pub-date material-shadow hidden-xs hidden-sm hidden-md hidden-mg hidden-lg">
+                                <h4>{{news.timestamp|date:"D d M Y"}}</h4>
+                            </div>
+                            <div class="blog-post-img">
+                                <img src="{% if news.image != '' %}{{news.image.url}}{% else %}https://static.pexels.com/photos/325288/pexels-photo-325288.jpeg{% endif %}" alt="">
+                                <h2><a href="{{news.get_absolute_url}}">{{news.title}}</a></h2>
+                            </div>
+                            <div class="blog-post-content">
+                                {{news.content|safe|truncatewords_html:20}}
+                            </div>
+                            <div class="blog-post-footer">
+                                <p>
+                                    <span class="left glyphicon glyphicon-user"> {% if news.user.first_name %}{{news.user.first_name}}{% endif %} {% if news.user.last_name %}{{news.user.last_name}}{% endif %}</span>
+                                </p>
+                                <br>
+                                {% if news.category %}
+                                    <p>
+                                        <a href="{{news.get_category_url}}">{{news.category}}</a>
+                                    </p>
+                                {% endif %}
+                                <br>
+                                {% if news.related %}<p><a href="">{{news.related.id}}</a></p>{% endif %}
+                            </div>
+                            <div  id="{{news.id}}Modal" class="modal" tabindex="-1" role="dialog">
+                                <div class="modal-dialog modal-lg" role="document">
+                                    <div class="modal-content">
+                                        <div class="modal-body">
+                                           <img src="{% if news.image != '' %}{{news.image.url}}{% else %}https://static.pexels.com/photos/325288/pexels-photo-325288.jpeg{% endif %}" alt="">
+                                           <h1>{{news.title}}</h1>
+                                           {{news.content|safe}}
+                                        </div>
+                                    </div>
+                                </div>
                             </div>
                         </div>
-                    </div>
-                </div>
-            </div>
-            {% endfor %}
-            {% endif %}
-            <!-- Paginator -->
-            <nav aria-label="...">
-                {% if news_list.has_other_pages %}
-                <ul class="pagination">
-                    {% if news_list.has_previous %}
-                    <li>
-                        <a href="?page={{ news_list.previous_page_number }}" aria-label="Previous">
-                            <span aria-hidden="true">&laquo;</span>
-                        </a>
-                    </li>
-                    {% else %}
-                    <li class="disabled">
-                        <a href="#" aria-label="Previous">
-                            <span aria-hidden="true">&laquo;</span>
-                        </a>
-                    </li>
-                    {% endif %}
-                        {% for i in news_list.paginator.page_range %}
-                            {% if news_list.number == i %}
-                                <li class="active"><span>{{ i }} <span class="sr-only">(current)</span></span></li>
-                            {% else %}
-                                <li><a href="?page={{ i }}">{{ i }}</a></li>
-                            {% endif %}
-                        {% endfor %}
-                    {% if news_list.has_next %}
-                    <li>
-                        <a href="?page={{ users.next_page_number }}" aria-label="Next">
-                            <span aria-hidden="true">&raquo;</span>
-                        </a>
-                    </li>
-                    {% else %}
-                        <li class="disabled"><span>&raquo;</span></li>
-                    {% endif %}
-                </ul>
+                    {% endfor %}
                 {% endif %}
-            </nav>
-
-        </div>
-        <div class="col-sm-4 hidden-xs">
-            {% if site_categories %}
-                <div class="blog-aside material-shadow" id="blogCategoriesAside">
-                    <div class="blog-aside-header">
-                        <p>Categorías</p>
-                    </div>
-                    <div class="blog-aside-body">
-                        <ul class="" id="">
-                                {% for category in site_categories %}
-                                <li class="" id="">
-                                    <a href="{% url 'frontend:Blog_category' category.id %}" class="" id="">
-                                        {{category.name}}
-                                    </a>
-                                </li>
+                <!-- Paginator -->
+                <nav aria-label="...">
+                    {% if news_list.has_other_pages %}
+                    <ul class="pagination">
+                        {% if news_list.has_previous %}
+                        <li>
+                            <a href="?page={{ news_list.previous_page_number }}" aria-label="Previous">
+                                <span aria-hidden="true">&laquo;</span>
+                            </a>
+                        </li>
+                        {% else %}
+                        <li class="disabled">
+                            <a href="#" aria-label="Previous">
+                                <span aria-hidden="true">&laquo;</span>
+                            </a>
+                        </li>
+                        {% endif %}
+                            {% for i in news_list.paginator.page_range %}
+                                {% if news_list.number == i %}
+                                    <li class="active"><span>{{ i }} <span class="sr-only">(current)</span></span></li>
+                                {% else %}
+                                    <li><a href="?page={{ i }}">{{ i }}</a></li>
+                                {% endif %}
                             {% endfor %}
-                        </ul>
+                        {% if news_list.has_next %}
+                        <li>
+                            <a href="?page={{ news_list.next_page_number }}" aria-label="Next">
+                                <span aria-hidden="true">&raquo;</span>
+                            </a>
+                        </li>
+                        {% else %}
+                            <li class="disabled"><span>&raquo;</span></li>
+                        {% endif %}
+                    </ul>
+                    {% endif %}
+                </nav>
+
+            </div>
+            <div class="col-sm-4 hidden-xs">
+                {% if site_categories %}
+                    <div class="blog-aside material-shadow" id="blogCategoriesAside">
+                        <div class="blog-aside-header">
+                            <p>Categorías</p>
+                        </div>
+                        <div class="blog-aside-body">
+                            <ul class="" id="">
+                                    {% for category in site_categories %}
+                                    <li class="" id="">
+                                        <a href="{% url 'frontend:Blog_category' category.id %}" class="" id="">
+                                            {{category.name}}
+                                        </a>
+                                    </li>
+                                {% endfor %}
+                            </ul>
+                        </div>
                     </div>
-                </div>
-            {% endif %}
+                {% endif %}
+            </div>
         </div>
     </div>
-</div>
 {% endblock %}
 
 {% block js %}

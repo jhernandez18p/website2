@@ -4,9 +4,11 @@
 {% block css %}
 <style media="screen">
     .project {height: 320px;}
-    .group-container{margin-bottom: 15px;}
-    .group-image{height: 350px;}
-    .group-image img{max-height: 250px; width: 250px;padding-top: 50px;}
+    .group-container{margin-bottom: 15px; background-color: #665656;background-color: #FFF;overflow: hidden; width: 100%;padding:10px 20px; }
+    .group-container a{background-color: rgba(64,64,64,.3);}
+    .group-container a:hover{text-decoration: none;}
+    /*.group-image{height: 350px;}*/
+    .group-image img{max-height: 250px; max-width: 250px;}
 
 </style>
 {% endblock %}
@@ -15,43 +17,40 @@
 <!-- Projects -->
 <div class="container">
     <!-- Our projects -->
-    {% if groups %}
-    <div class="row">
-        <div class="col-xs-12 text-center">
-            <h3>Proyectos</h3>
-        </div>
-    </div>
-    {% for group in groups %}
         <div class="row">
             <div class="groups-container">
-                <div class="col-xs-12 col-sm-offset-2 col-sm-4">
-                    <div class="group-content">
-                        <h3>{{group.title}}</h3>
-                        {{group.description|safe|truncatewords_html:20}}
-                        <p><a href="{{group.get_absolute_url}}">Ver más</a></p>
+                {% if groups %}
+                    <div class="col-xs-12 {% if not event %} col-sm-offset-2 {% endif %} col-sm-8">
+                        {% for group in groups %}
+                            <div class="group-container card-3">
+                                <div class="col-xs-12 col-sm-8">
+                                    <div class="group-content">
+                                        <h3>{{group.title}}</h3>
+                                        {{group.description|safe|truncatewords_html:20}}
+                                        <p><a class="btn btn-link" href="{{group.get_absolute_url}}">Ver más</a></p>
+                                    </div>
+                                </div>
+                                <div class="col-xs-12 col-sm-4">
+                                    <div class="group-image text-center">
+                                        <img src="{% if group.image.url %}{{group.image.url}}{% else %}{% endif %}" alt="" style="background-size: 300px;background-repeat: no-repeat">
+                                    </div>
+                                </div>
+                            </div>
+                        {% endfor %}
                     </div>
-                </div>
-                <div class="col-xs-12 col-sm-4">
-                    <div class="group-image pull-left">
-                        <img src="{% if group.image.url %}{{group.image.url}}{% else %}{% endif %}" alt="" style="background-size: 300px;background-repeat: no-repeat">
+                {% endif %}
+                {% if event %}
+                    <div class="col-xs-12 col-sm-4">
+                        <div class="banner-home card-3">
+                            <a href="{{event.get_absolute_url}}">
+                                <img src="{% if event.banner_vertical %}{{event.banner_vertical.url}}{% else %}{{event.image.url}}{% endif %}" alt="{{event.title}}">
+                            </a>
+                        </div>
                     </div>
-                </div>
+                {% endif %}
             </div>
         </div>
-    {% endfor %}
-    {% endif %}
-    {% if projects %}
-    {% for project in projects %}
-    <div class="row">
-        <div class="col-xs-12 text-center">
-            <h3></h3>
-        </div>
-    </div>
-    <div class="row">
-        
-    </div>
-    {% endfor %}
-    {% endif %}
+    <!-- Our Projects -->
 </div>
 {% endblock %}
 

@@ -1,5 +1,4 @@
-{% load staticfiles %}
-<div id="footerRow1" class="row footer-row ident-color">
+<div id="footerRow1" class="row footer-row ident-color">{% load staticfiles %}
     <div class="container hidden-xs">
         <div class="col-xs-12 col-md-3 hidden-sm">
             <div class="img-logo-footer">
@@ -28,7 +27,7 @@
             </ul>
             <br>
             <div class="text-center">
-                <a href="https://www.facebook.com/IglesiaUniversalPanama/" type="button" class="btn footer-sm-facebook btn-circle btn-lg">
+                <a href="{% url 'social:begin' 'facebook' %}" type="button" class="btn footer-sm-facebook btn-circle btn-lg" target="_blank">
                     <i class="fa fa-facebook footer-sm text-white" aria-hidden="true"></i>
                 </a>
                 <a type="button" class="btn footer-sm-youtube btn-circle btn-lg" href="https://www.youtube.com/channel/UCxDrDoFOgKPbgSwq_A4ptAQ">
@@ -46,7 +45,7 @@
                 <li class="text-center" id="">Redes sociales</li>
             </ul>
             <div class="text-center">
-                <a href="https://www.facebook.com/IglesiaUniversalPanama/" type="button" class="btn footer-sm-facebook btn-circle btn-lg">
+                <a href="{% url 'social:begin' 'facebook' %}" type="button" class="btn footer-sm-facebook btn-circle btn-lg" target="_blank">
                     <i class="fa fa-facebook footer-sm text-white" aria-hidden="true"></i>
                 </a>
                 <a type="button" class="btn footer-sm-youtube btn-circle btn-lg" href="https://www.youtube.com/channel/UCxDrDoFOgKPbgSwq_A4ptAQ">

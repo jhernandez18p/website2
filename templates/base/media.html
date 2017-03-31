@@ -10,61 +10,55 @@
 {% block content %}
 <div class="row">
     {% if newspapers %}
-    <div class="container">
-        <div class="col-xs-12 text-center">
-            <h2>Descarga nuestro periódico</h2>
-        </div>
-        {% for newspapper in newspaper_list %}
-            <div class="col-xs-12 col-sm-4">
-                <div class="panel panel-default">
-                    <div class="panel-heading"><h3>{{newspapper.title}}</h3></div>
-                    <div class="panel-body">{{newspapper.description|safe}}</div>
-                    <div class="panel-footer">
-                        <a class="" href="{% if newspapper.newspapper_file %}{{newspapper.newspapper_file}}{% endif %}"><img src="{% static 'base/images/pdf-icon.png' %}" width="55" alt="{{newspapper.title}}"></a>
+        <div class="container">
+            {% for newspapper in newspaper_list %}
+                <div class="col-xs-12 col-sm-4">
+                    <div class="panel panel-default">
+                        <div class="panel-heading"><h3>{{newspapper.title}}</h3></div>
+                        <div class="panel-body">{{newspapper.description|safe}}</div>
+                        <div class="panel-footer">
+                            <a class="" href="{% if newspapper.newspapper_file %}{{newspapper.newspapper_file}}{% endif %}"><img src="{% static 'base/images/pdf-icon.png' %}" width="55" alt="{{newspapper.title}}"></a>
+                        </div>
                     </div>
                 </div>
-            </div>
-        {% endfor %}
-    </div>
+            {% endfor %}
+        </div>
     {% endif %}
 </div>
 
 <div class="row testimonios">
     {% if video_list %}
-    <div class="container">
-    	<div class="col-xs-12">
-    		<h2 class="text-center">Videos agregados recientemente</h2>
-    	</div>
-        {% for video in video_list %}
-        <div class="col-xs-12 col-sm-4 testimonial-block">
-            <div class="testimonial-post material-shadow">
-                <div class="testimonial-post-header">
-                    <a data-toggle="modal" data-target="#{{video.id}}Modal">
-                        <img id="" src="{% if video.image != '' %}{{video.image.url}}{% else %}https://static.pexels.com/photos/325288/pexels-photo-325288.jpeg{% endif %}" alt="">
-                    </a>
-                    <h3>{{video.title}}</h3>
-                </div>
-                <div class="testimonial-post-footer text-right">
-                    <p>
-                        <span class="">
-                            Publicado {{video.timestamp|date:"D d M Y"}}
-                        </span>
-                    </p>
-                </div>
-            </div>
-        </div>
-        <div  id="{{video.id}}Modal" class="modal" tabindex="-1" role="dialog">
-            <div class="modal-dialog modal-lg" role="document">
-                <div class="modal-content">
-                    <div class="modal-body">
-                        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true"><h5>&times;</h5></span></button>
-                        <iframe src="https://www.youtube.com/embed/{{video.video_url}}" frameborder="0"></iframe>
+        <div class="container">
+            {% for video in video_list %}
+                <div class="col-xs-12 col-sm-4 testimonial-block">
+                    <div class="testimonial-post material-shadow">
+                        <div class="testimonial-post-header">
+                            <a data-toggle="modal" data-target="#{{video.id}}Modal">
+                                <img id="" src="{% if video.image != '' %}{{video.image.url}}{% else %}https://static.pexels.com/photos/325288/pexels-photo-325288.jpeg{% endif %}" alt="">
+                            </a>
+                            <h3>{{video.title}}</h3>
+                        </div>
+                        <div class="testimonial-post-footer text-right">
+                            <p>
+                                <span class="">
+                                    Publicado {{video.timestamp|date:"D d M Y"}}
+                                </span>
+                            </p>
+                        </div>
                     </div>
                 </div>
-            </div>
-        </div>        
-        {% endfor %}
-    </div>
+                <div  id="{{video.id}}Modal" class="modal" tabindex="-1" role="dialog">
+                    <div class="modal-dialog modal-lg" role="document">
+                        <div class="modal-content">
+                            <div class="modal-body">
+                                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true"><h5>&times;</h5></span></button>
+                                <iframe src="https://www.youtube.com/embed/{{video.video_url}}" frameborder="0"></iframe>
+                            </div>
+                        </div>
+                    </div>
+                </div>        
+            {% endfor %}
+        </div>
     {% endif %}
 </div>
 {% endblock %}

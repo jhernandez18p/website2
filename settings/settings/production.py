@@ -16,7 +16,6 @@ DATABASES = {
 }
 
 """ Email Conf.             """
-
 EMAIL_HOST = config("EMAIL_HOST",)
 EMAIL_PORT = config("EMAIL_PORT", cast=int)
 EMAIL_HOST_USER = config("EMAIL_HOST_USER",)

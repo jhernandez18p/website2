@@ -12,12 +12,14 @@
         opacity: 0.799;
     }
     .quote-image .container h4 {position: relative;max-width: 35vw;margin:10% auto;text-align: center;font-size: 2.8em;}
-    .box{padding: 25px;background-color: #EfEfEf; margin-top: 25px; }
+    .box{padding: 25px;background-color: #FFF; margin-top: 25px; }
+
+    .navbar {margin-bottom: 0px;}
 </style>
 {% endblock %}
 
 {% block content %}
-<div class="row hidden-xs vh50">
+<div class="row hidden-xs vh50  imge-parallax">
     <div id="fullWidthImage1" class="quote-image">
         <div class="container">
             <h4>{{project.title}}</h4>
@@ -39,30 +41,15 @@
                 <p><a href="{{project.url}}">Sitio oficial</a></p>
             </div>
         </div>
-        <div class="hidden-xs col-sm-4">
-            {% if articles %}
-            <h4>Articulos relacionados</h4>
-                {% for article in articles %}
-                    <div class="card-3 box">
-                        <div class="article-image">
-                            <img src="" alt="">
-                        </div>
-                        <p><a href="{{article.get_absolute_url}}">{{article.title}}</a></p>
-                    </div>
-                {% endfor %}
-            {% endif %}
-            {% if events %}
-                <h4>Articulos relacionados</h4>
-                {% for event in events %}
-                    <div class="card-3 box">
-                        <div class="article-image">
-                            <img src="" alt="">
-                        </div>
-                        <p><a href="{{event.get_absolute_url}}">{{event.title}}</a></p>
-                    </div>
-                {% endfor %}
-            {% endif %}
-        </div>
+        {% if event %}
+            <div class="col-xs-12 col-sm-4">
+                <div class="banner-home card-3">
+                    <a href="{{event.get_absolute_url}}">
+                        <img src="{% if event.banner_vertical %}{{event.banner_vertical.url}}{% else %}{{event.image.url}}{% endif %}" alt="{{event.title}}">
+                    </a>
+                </div>
+            </div>
+        {% endif %}
     </div>
 </div>
 
