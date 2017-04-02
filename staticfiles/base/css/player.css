@@ -36,7 +36,7 @@
     cursor: default;
 }
 
-.player ul{list-style: none;}
+.player ul{list-style: none;margin-left: 50%}
 
 .player ul li{display: inline-block;}
 
@@ -44,13 +44,13 @@
 
 .cover img{height: 185px;width: 50%;}
 
-.info h1{margin-top: 15px;margin-left: 160px;line-height: 0;}
+.info h1{margin-top: 15px;line-height: 0;}
 
-.info h4{margin-left: 160px;line-height: 20px;color: #636367;}
+.info h4{line-height: 20px;color: #636367;}
 
-.info h2{margin-top:-5px ;margin-left: 160px;}
+.info h2{margin-top:-5px ;}
 
-.button-items{margin-left: 160px;}
+.button-items{}
 
 #slider{
     width: 50%;
@@ -70,11 +70,10 @@
     color: #494B4E;
     line-height: 0;
     font-size: 9pt;
-    float: right;
-    font-family: Arial, Sans-Serif;
+    float: right;;
 }
 
-.controls{margin-top: 20px;}
+.controls{}
 
 .controls svg:nth-child(2){
 margin-left: 5px;
@@ -117,3 +116,7 @@ margin-right: 5px;
 .expend{padding: 0.5px;cursor: pointer;}
 
 .expend svg:hover g polygon{fill: #242843;}
+
+@media (max-width: 580px) {
+    
+}

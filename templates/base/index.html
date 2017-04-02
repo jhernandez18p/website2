@@ -203,7 +203,9 @@
                             {% if groups %}
                                 {% for group in groups %}
                                     <div class="swiper-slide">
-                                        <img src="{{group.image.url}}" alt="{{group.title}}">
+                                        <a href="{{group.get_absolute_url}}">
+                                            <img src="{{group.image.url}}" alt="{{group.title}}">
+                                        </a>
                                     </div>
                                 {% endfor %}
                             {% else %}
@@ -242,7 +244,7 @@
                         </a>
                     </div>
                     {% if groups %}
-                        <div class="groups-carousel card-3 hidden-sm">    
+                        <div class="groups-carousel card-3 hidden-xs hidden-sm">    
                             <div class="swiper-container">
                                 <div class="swiper-wrapper">
                                     {% for group in groups %}
