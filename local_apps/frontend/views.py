@@ -330,13 +330,17 @@ def contact(request):
 			else:
 				print('No enviar correo')
 			context['messages'] = True
-			send_mail(
-		            'Mensaje contacto Pagina web \"Iglesia Universal del Reino de Dios\"',
-		            '%s, %s, %s, %s' % (str(name),str(email),str(phone),str(description)) ,
-		            config("EMAIL_HOST_USER",),
-		            [config("EMAIL_HOST_USER",)],
-		            fail_silently=False,
-		        )
+			try:
+				send_mail(
+			            'Mensaje contacto Pagina web \"Iglesia Universal del Reino de Dios\"',
+			            '%s, %s, %s, %s' % (str(name),str(email),str(phone),str(description)) ,
+			            config("EMAIL_HOST_USER",'iurd@universal.org.pa'),
+			            [config("EMAIL_HOST_USER",'iurd@universal.org.pa')],
+			            fail_silently=False,
+			        )
+			except Exception as e:
+				raise e
+			
 			return render(request, template, context)
 
 		else:
