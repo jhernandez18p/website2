@@ -249,7 +249,9 @@
                                 <div class="swiper-wrapper">
                                     {% for group in groups %}
                                         <div class="swiper-slide">
-                                            <img src="{{group.image.url}}" alt="{{group.title}}">
+                                            <a href="{{group.get_absolute_url}}">
+                                                <img src="{{group.image.url}}" alt="{{group.title}}">
+                                            </a>
                                         </div>
                                     {% endfor %}
                                 </div>

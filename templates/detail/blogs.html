@@ -17,12 +17,11 @@
 	.banner-home{height: auto !important; margin-bottom: 25px;}
 	.banner-home img{height: 100% !important;}
 </style>
-
-  <meta property="og:type"          content="website" />
-  <meta property="og:title"         content="{{post.title}}" />
-  <meta property="og:description"   content="{{post.content | safe}}" />
-  <meta property="og:image"         content="http://www.universal.org.pa/{{post.image.url}}" />
-</head>
+<meta property="og:url"           content="http://www.universal.org.pa{{post.get_absolute_url}}" />
+<meta property="og:type"          content="website" />
+<meta property="og:title"         content="{{post.title}}" />
+<meta property="og:description"   content="{{post.content | safe}}" />
+<meta property="og:image"         content="http://www.universal.org.pa/{{post.image.url}}" />
 {% endblock %}
 
 {% block content %}
@@ -51,6 +50,16 @@
 				<div class="post-content">
 					{{post.content | safe}}
 				</div>
+				<div id="fb-root"></div>
+				<script>
+					(function(d, s, id) {
+						var js, fjs = d.getElementsByTagName(s)[0];
+						if (d.getElementById(id)) return;
+						js = d.createElement(s); js.id = id;
+						js.src = "//connect.facebook.net/en_US/sdk.js#xfbml=1";
+						fjs.parentNode.insertBefore(js, fjs);
+					}(document, 'script', 'facebook-jssdk'));
+				</script>
 				<div class="fb-share-button" 
 					data-href="http://www.universal.org.pa/" 
 					data-layout="button_count">
@@ -151,18 +160,10 @@
 		</div>
 	</div>
 </div>
-<div id="fb-root"></div>
 
 
 {% endblock %}
 
 {% block js %}
-  <script>(function(d, s, id) {
-    var js, fjs = d.getElementsByTagName(s)[0];
-    if (d.getElementById(id)) return;
-    js = d.createElement(s); js.id = id;
-    js.src = "//connect.facebook.net/en_US/sdk.js#xfbml=1";
-    fjs.parentNode.insertBefore(js, fjs);
-  }(document, 'script', 'facebook-jssdk'));
-  </script>
+
 {% endblock %}
