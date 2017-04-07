@@ -332,7 +332,7 @@ def contact(request):
 			context['messages'] = True
 			try:
 				send_mail(
-			            'Mensaje contacto Página web \"Iglesia Universal del Reino de Dios\"',
+			            'Mensaje contacto Página web, Iglesia Universal',
 			            '%s, %s, %s, %s' % (
 			            	str(name),
 			            	str(email),
@@ -340,7 +340,7 @@ def contact(request):
 			            	str(description)
 		            	),
 			            email,
-			            ['iurd@universal.org.pa'],
+			            ['iurd@universal.org.pa',],
 			            fail_silently=False,
 			        )
 			except Exception as e:
