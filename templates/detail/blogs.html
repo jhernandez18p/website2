@@ -98,6 +98,7 @@
 				<div class="header text-center">
 					<h4>Ultimos comentarios</h4>
 				</div>
+				<div class="fb-comments" data-href="http://www.universal.org.pa{{blog_detail.get_absolute_url}}" data-numposts="10"></div>
 				{% if comments %}
 					{% for comment in comments %}
 						<div class="comment">
@@ -110,9 +111,9 @@
 						</div>
 					{% endfor %}
 					{% else %}
-						<div class="comment">
+						<!-- <div class="comment">
 							<p>Aún no hay comentario</p>
-						</div>
+						</div> -->
 				{% endif %}
 			</div>
 			{% if user.is_anonymous %}
