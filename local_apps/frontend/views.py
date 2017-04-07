@@ -332,10 +332,15 @@ def contact(request):
 			context['messages'] = True
 			try:
 				send_mail(
-			            'Mensaje contacto Pagina web \"Iglesia Universal del Reino de Dios\"',
-			            '%s, %s, %s, %s' % (str(name),str(email),str(phone),str(description)) ,
+			            'Mensaje contacto Página web \"Iglesia Universal del Reino de Dios\"',
+			            '%s, %s, %s, %s' % (
+			            	str(name),
+			            	str(email),
+			            	str(phone),
+			            	str(description)
+		            	),
 			            email,
-			            [config("EMAIL_HOST_USER",'iurd@universal.org.pa')],
+			            ['iurd@universal.org.pa'],
 			            fail_silently=False,
 			        )
 			except Exception as e:
