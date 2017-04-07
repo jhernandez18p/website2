@@ -4,7 +4,7 @@
 	.go-back{margin-top: 25px;}
 	#fullWidthImage1 {
         height: 50vh;
-        background-image: url("{{post.image.url}}");
+        background-image: url("{{blog_detail.image.url}}");
     }
     .quote-image::before {
         opacity: 0.799;
@@ -17,11 +17,11 @@
 	.banner-home{height: auto !important; margin-bottom: 25px;}
 	.banner-home img{height: 100% !important;}
 </style>
-<meta property="og:url"           content="http://www.universal.org.pa{{post.get_absolute_url}}" />
+<meta property="og:url"           content="http://www.universal.org.pa{{blog_detail.get_absolute_url}}" />
 <meta property="og:type"          content="website" />
-<meta property="og:title"         content="{{post.title}}" />
-<meta property="og:description"   content="{{post.content | safe}}" />
-<meta property="og:image"         content="http://www.universal.org.pa/{{post.image.url}}" />
+<meta property="og:title"         content="{{blog_detail.title}}" />
+<meta property="og:description"   content="{{blog_detail.content | safe}}" />
+<meta property="og:image"         content="http://www.universal.org.pa/{{blog_detail.image.url}}" />
 {% endblock %}
 
 {% block content %}
@@ -29,7 +29,7 @@
 	<div class="row">
 		<div id="fullWidthImage1" class="quote-image">
 			<div class="container">
-	            <h4>{{post.title}}</h4>
+	            <h4>{{blog_detail.title}}</h4>
 	        </div>
 		</div>
 	</div>
@@ -48,7 +48,7 @@
 					
 				</div>
 				<div class="post-content">
-					{{post.content | safe}}
+					{{blog_detail.content | safe}}
 				</div>
 				<div id="fb-root"></div>
 				<script>
@@ -61,17 +61,17 @@
 					}(document, 'script', 'facebook-jssdk'));
 				</script>
 				<div class="fb-share-button" 
-					data-href="http://www.universal.org.pa/" 
+					data-href="http://www.universal.org.pa{{blog_detail.get_absolute_url}}" 
 					data-layout="button_count">
 				</div>
 			</div>
 		</div>
 		<div class="col-sm-4">
-			{% if post.related.all %}
+			{% if blog_detail.related.all %}
 				<div class="related">
 					<h3>Artículos relacionados</h3>
 					<ul>
-						{% for related in post.related.all %}
+						{% for related in blog_detail.related.all %}
 							<li>
 								<a href="{{related.get_absolute_url}}">
 									{{related}}
@@ -142,9 +142,9 @@
 						{% csrf_token %}
 						<input type="text" class="form-control" id="lg_username" name="username" placeholder="Escriba su correo eléctronico">
 
-						<input type="text" class="hidden" value="{{post.content_type}}" name="content_type">
+						<input type="text" class="hidden" value="{{blog_detail.content_type}}" name="content_type">
 
-						<input type="text" class="hidden" value="{{post.object_id}}" name="object_id">
+						<input type="text" class="hidden" value="{{blog_detail.object_id}}" name="object_id">
 
 						<input type="text" class="hidden" value="" name="">
 

@@ -379,10 +379,10 @@ def susbcribe(request):
 """
 def blog_detail(request, slug):
 	template = 'detail/blogs.html'
-	new = get_object_or_404(Post, slug=slug)
-	title = (new.title)
+	blog_detail = get_object_or_404(Post, slug=slug)
+	title = (blog_detail.title)
 	try:
-		comments = Comment.objects.all().filter(content_type=new.get_content_type, object_id=new.id)
+		comments = Comment.objects.all().filter(content_type=blog_detail.get_content_type, object_id=blog_detail.id)
 		print(comments)
 	except Exception as e:
 		print(e)
@@ -391,7 +391,7 @@ def blog_detail(request, slug):
 	context = {
 		'pg_title':'blog',
 		'title':'Detalles {}'.format(str(title)),
-		'post':new,
+		'blog_detail':blog_detail,
 		'comments':comments,
 	}
 
