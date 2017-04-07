@@ -9,7 +9,7 @@ from settings.settings.serializers import (
 	GroupSerializer,
 	ChurchSerializer
 )
-from django.core.mail import send_mail
+from django.core.mail import send_mail, BadHeaderError
 from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
 import random
 
@@ -334,7 +334,7 @@ def contact(request):
 				send_mail(
 			            'Mensaje contacto Pagina web \"Iglesia Universal del Reino de Dios\"',
 			            '%s, %s, %s, %s' % (str(name),str(email),str(phone),str(description)) ,
-			            config("EMAIL_HOST_USER",'iurd@universal.org.pa'),
+			            email,
 			            [config("EMAIL_HOST_USER",'iurd@universal.org.pa')],
 			            fail_silently=False,
 			        )
