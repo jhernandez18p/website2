@@ -47,7 +47,7 @@ def home(request):
 		print('No hay blogs amigos aún' + e)
 
 	try:
-		video = Video.objects.all().filter(active=True)[:1]
+		video = Video.objects.all().filter(active=True).first()
 		context['videos'] = video
 	except Exception as e:
 		print('No hay videos aún' + e)
@@ -339,7 +339,7 @@ def contact(request):
 			            	str(phone),
 			            	str(description)
 		            	),
-			            email,
+			            'iurd@universal.org.pa',
 			            ['iurd@universal.org.pa',],
 			            fail_silently=False,
 			        )
@@ -525,6 +525,7 @@ class GroupViewSet(viewsets.ModelViewSet):
     """
     queryset = Group.objects.all()
     serializer_class = GroupSerializer
+
 
 class ChurchViewSet(viewsets.ModelViewSet):
     """

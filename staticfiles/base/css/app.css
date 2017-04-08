@@ -98,6 +98,7 @@ video,audio {width: 100%;}
 .dailyimage {position: relative;height: 425px;width: 100%;}
 .dailyimage img {height: 95%; width: 100%;}
 .our-groups {padding-bottom: 20px;}
+.tv video{width: 100%; height: 400px;}
 .tv iframe{width: 100%; height: 400px;}
 /*
 	About

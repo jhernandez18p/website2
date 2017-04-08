@@ -40,6 +40,7 @@
     }
     .blog .swiper-slide p{position: absolute;top: 100%}
 </style>
+<meta name="description" content=""/>
 {% endblock %}
 
 {% block content %}
@@ -47,31 +48,31 @@
     <div class="container">
         <div class="row">
             {% if last_news %}
-            <div class="col-xs-12 col-sm-12 col-md-5">
-                <div id="" class="gray lastnew card-3">
-                    <img src="{% if last_news.image %}{{last_news.image.url}}{% endif %}" alt="{{last_news.title}}">
-                    <div class="footer">
-                        <h3>
-                            <a href="{{last_news.get_absolute_url}}">{{last_news.title}}</a>
-                        </h3>
-                    </div>
-                </div>
-            </div>
-            {% endif %}
-            <div class="col-xs-12 col-sm-12 col-md-3">
-                <div class="head-latest-news card-3 white">
-                    <h3 class="text-center">
-                        Últimos artículos
-                    </h3>
-                    {% for new in news %}
-                        <div class="head-latest-news-item card-3">
+                <div class="col-xs-12 col-sm-12 col-md-5">
+                    <div id="" class="gray lastnew card-3">
+                        <img src="{% if last_news.image %}{{last_news.image.url}}{% endif %}" alt="{{last_news.title}}">
+                        <div class="footer">
                             <h3>
-                                <a href="{{new.get_absolute_url}}">{{new.title}}</a>
+                                <a href="{{last_news.get_absolute_url}}">{{last_news.title}}</a>
                             </h3>
                         </div>
-                    {% endfor %}
+                    </div>
                 </div>
-            </div>
+            {% endif %}
+                <div class="col-xs-12 col-sm-12 col-md-3">
+                    <div class="head-latest-news card-3 white">
+                        <h3 class="text-center">
+                            Últimos artículos
+                        </h3>
+                        {% for new in news %}
+                            <div class="head-latest-news-item card-3">
+                                <h3>
+                                    <a href="{{new.get_absolute_url}}">{{new.title}}</a>
+                                </h3>
+                            </div>
+                        {% endfor %}
+                    </div>
+                </div>
             {% if feeds %}
                 <div class="col-md-4 hidden-xs hidden-sm">
                     <div id="friendsFeeds" class="friendsfeeds card-3 white">
@@ -93,22 +94,20 @@
     <div class="container multimedia">
         <div class="row">
             {% if videos %}
-            <div class="col-xs-12 col-md-7 ">
-                <div class="tv">
-                    {% for video in videos %}
-                        {% if video.video_url != '' %}
-                            <iframe class="card-3" src="https://www.youtube.com/embed/{{video.video_url}}" width="540" height="370" frameborder="0" style="background-image: url("https://i.ytimg.com/vi_webp/{{video.video_url}}/maxresdefault.webp");"></iframe>
+                <div class="col-xs-12 col-md-7 ">
+                    <div class="tv">
+                        {% if videos.video_file != '' %}
+                            <video controls='false'>
+                                <source src="{{videos.video_file.url}}" type="video/mp4">
+                                <source src="#" type="video/ogg">
+                                <p>Su navegador web no soporta éste video.<br>Le recomendamos actualizar a una nueva versión.</p>
+                            </video>
+                        {% elif videos.video_file %}
+                            <iframe class="card-3" src="https://www.youtube.com/embed/{{videos.video_url}}" width="540" height="370" frameborder="0" style="background-image: url("https://i.ytimg.com/vi_webp/{{videos.video_url}}/maxresdefault.webp");">
+                            </iframe>
                         {% endif %}
-                        {% if video.video_file != '' %}
-                        <video controls='false'>
-                            <source src="http://latinstatic.edgesuite.net/iurd/" type="video/mp4">
-                            <source src="#" type="video/ogg">
-                            <p>Su navegador web no soporta éste video.<br>Le recomendamos actualizar a una nueva versión.</p>
-                        </video>
-                        {% endif %}
-                    {% endfor %}
+                    </div>
                 </div>
-            </div>
             {% endif %}
             <div class="col-xs-12 col-md-5">
                 <div class="head-latest-news card-3 white">
