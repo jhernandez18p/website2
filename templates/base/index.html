@@ -102,7 +102,7 @@
                                 <source src="#" type="video/ogg">
                                 <p>Su navegador web no soporta éste video.<br>Le recomendamos actualizar a una nueva versión.</p>
                             </video>
-                        {% elif videos.video_file %}
+                        {% elif videos.video_url %}
                             <iframe class="card-3" src="https://www.youtube.com/embed/{{videos.video_url}}" width="540" height="370" frameborder="0" style="background-image: url("https://i.ytimg.com/vi_webp/{{videos.video_url}}/maxresdefault.webp");">
                             </iframe>
                         {% endif %}
