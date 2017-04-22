@@ -388,7 +388,7 @@ video,audio {width: 100%;}
 }
 
 .groups-item{margin:10px;}
-.head-latest-news{padding: 10px;}
+.head-latest-news{padding: 10px;height: 400px}
 .head-latest-news-item{margin-top: 15px; background-color: #EEE;padding: 1px 5px 2px 6px;}
 .head-latest-news-item h3 {margin: 5px;}
 .head-latest-news-item h3 a{font-size: 0.75em; margin: 0px;}
@@ -396,7 +396,7 @@ video,audio {width: 100%;}
 .white{background-color: #FFF}
 .multimedia{margin-top: 25px; margin-bottom:25px; }
 .newspaper, .tv-online{
-    height: 185px;
+    /*height: 185px;*/
     width: 100%;
     background-color: #1E2125;
     -webkit-touch-callout: none;
@@ -407,7 +407,7 @@ video,audio {width: 100%;}
     margin-bottom: 10px;
 }
 .newspaper img, .tv-online img{
-    height: 185px;
+    /*height: 185px;*/
     min-width: 100%;
     max-width: 100%;
 }
