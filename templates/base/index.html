@@ -432,13 +432,15 @@
         $("#pause").css("display","initial");
     });
     
-    var swiper = new Swiper('.social-carousel .swiper-container', {
+    var swiper;
+    swipper = new Swiper('.social-carousel .swiper-container', {
         pagination: '.social-carousel .swiper-pagination',
         nextButton: '.social-carousel .swiper-button-next',
         prevButton: '.social-carousel .swiper-button-prev',
         paginationClickable: true
     });
-     var swiper = new Swiper('.groups-carousel .swiper-container', {
+    
+    swiper = new Swiper('.groups-carousel .swiper-container', {
         pagination: '.groups-carousel .swiper-pagination',
         // slidesPerView: 3,
         nextButton: '.groups-carousel .swiper-button-next',
@@ -447,14 +449,16 @@
         spaceBetween: 30,
         // freeMode: true
     });
-    var swiper = new Swiper('.blog .swiper-container', {
+    
+    swiper = new Swiper('.blog .swiper-container', {
         pagination: '.blog .swiper-pagination',
         slidesPerView: 'auto',
         paginationClickable: true,
         spaceBetween: 30,
         freeMode: true
     });
-        var swiper = new Swiper('.blog-lg .swiper-container', {
+    
+    swiper = new Swiper('.blog-lg .swiper-container', {
         pagination: '.blog-lg .swiper-pagination',
         slidesPerView: 'auto',
         paginationClickable: true,
