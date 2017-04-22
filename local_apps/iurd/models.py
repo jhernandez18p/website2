@@ -165,7 +165,7 @@ class Feed(models.Model):
 		return self.name
 
 	class Meta:
-		ordering = ['-time_stamp','-updated']
+		ordering = ['name','-time_stamp','-updated']
 		verbose_name = ('Nuevo Blog amigo')
 		verbose_name_plural = ('Blogs amigos')
 		permissions = (
