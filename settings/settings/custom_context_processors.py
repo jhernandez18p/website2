@@ -10,7 +10,7 @@ from local_apps.testimonials.models import *
 def cookies(request):
     site = {
         'name':'Iglesia Universal del Reino de Dios',
-        'keywords':'iglesia universal panama, universal panama, iglesia universal, pare de sufrir, iurd, iurd panama,iglesias cristianas en panama, fuerza jover, jesuscristo es el señor',
+        'keywords':'iglesia universal panama pare de sufrir iurd iglesias cristianas fuerza jover jesuscristo',
         'description':'Iglesia Universal Panama, Sufre con problemas, ha intentado de todo y no sabe que más puede hacer. Visítenos en cualquier de nuestras Iglesias en todo el País ó escuche nuestra radio las 24 horas donde lo atenderemos.',
         'author':'Dev2tech',
     }
