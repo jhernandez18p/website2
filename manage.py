@@ -7,11 +7,13 @@ if __name__ == "__main__":
 
     DEBUG = str(config('DEBUG'))
     if DEBUG == 'True':
-        os.environ.setdefault("DJANGO_SETTINGS_MODULE", "settings.settings.base")
-        print('Se está usando el servidor local')
+        os.environ.setdefault(
+            "DJANGO_SETTINGS_MODULE", "settings.settings.base"
+        )
     elif DEBUG == 'False':
-        print('Se está usando el servidor producción')
-        os.environ.setdefault("DJANGO_SETTINGS_MODULE", "settings.settings.production")
+        os.environ.setdefault(
+            "DJANGO_SETTINGS_MODULE", "settings.settings.production"
+        )
 
     try:
         from django.core.management import execute_from_command_line

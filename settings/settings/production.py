@@ -2,7 +2,7 @@ from settings.settings.base import *
 from decouple import config
 
 
-ALLOWED_HOSTS = ['universal.org.pa','www.universal.org.pa','universalpanama.com','www.universalpanama.com']
+ALLOWED_HOSTS = ['universal.org.pa','www.universal.org.pa']
 
 DATABASES = {
     'default': {
@@ -14,5 +14,4 @@ DATABASES = {
         'PORT': '',
     }
 }
-
 

@@ -8,10 +8,15 @@ from local_apps.testimonials.models import *
 
 
 def cookies(request):
-
+    site = {
+        'name':'Iglesia Universal del Reino de Dios',
+        'keywords':'Universal, Universal Panama, Iglesia, Iglesia universal, pare de sufrir, iurd, iurd panama, fuerza jover, Jesuscristo es el señor',
+        'author':'Dev2tech',
+    }
     now = datetime.datetime.now()
     context = {
         'time':now,
+        'site':site,
     }
 
     return context

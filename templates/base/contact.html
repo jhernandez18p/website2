@@ -12,13 +12,13 @@
     .alert {margin-bottom: 0;position: fixed;top: 80%;right: 0%;}
 
     #map {
-        height: 125vh;margin-top: 25px;
+        height: 100vh;margin-top: 25px;
     }
 
     .swiper-container {
         width: 100%;
         height: 180px;
-        margin: 50px auto 0 auto;
+        margin: 80vh auto 0 auto;
     }
 
     .swiper-slide {
@@ -166,91 +166,14 @@
 {% block js %}
 <script type="text/javascript">
     var initZoom = 10;
-    var styleArray =[
-            {
-                "featureType":"administrative",
-                "elementType":"labels.text.fill",
-                "stylers":[
-                    {
-                        "color":"#444444"
-                    }
-                ]
-            },
-            {
-                "featureType":"landscape",
-                "elementType":"all",
-                "stylers":[
-                    {
-                        "color":"#f2f2f2"
-                    }
-                ]
-            },
-            {
-                "featureType":"poi",
-                "elementType":"all",
-                "stylers":[
-                    {
-                        "visibility":"off"
-                    }
-                ]
-            },
-            {
-                "featureType":"road",
-                "elementType":"all",
-                "stylers":[
-                    {
-                        "saturation":-100
-                    },
-                    {
-                        "lightness":45
-                    }
-                ]
-            },
-            {
-                "featureType":"road.highway",
-                "elementType":"all",
-                "stylers":[
-                    {
-                        "visibility":"simplified"
-                    }
-                ]
-            },
-            {
-                "featureType":"road.arterial",
-                "elementType":"labels.icon",
-                "stylers":[
-                    {
-                        "visibility":"off"
-                    }
-                ]
-            },
-            {
-                "featureType":"transit",
-                "elementType":"all",
-                "stylers":[
-                    {
-                        "visibility":"off"
-                    }
-                ]
-            },
-            {
-                "featureType":"water",
-                "elementType":"all",
-                "stylers":[
-                    {
-                        "color":"#1b495c"
-                    },
-                    {
-                        "visibility":"on"
-                    }
-                ]
-            }
-        ];
+    var prev_infowindow =false; 
+    var styleArray;
+    styleArray =[{"featureType":"administrative","elementType":"labels.text.fill","stylers":[{"color":"#444444"}]},{"featureType":"landscape","elementType":"all","stylers":[{"color":"#f2f2f2"}]},{"featureType":"poi","elementType":"all","stylers":[{"visibility":"off"}]},{"featureType":"road","elementType":"all","stylers":[{"saturation":-100},{"lightness":45}]},{"featureType":"road.highway","elementType":"all","stylers":[{"visibility":"simplified"}]},{"featureType":"road.arterial","elementType":"labels.icon","stylers":[{"visibility":"off"}]},{"featureType":"transit","elementType":"all","stylers":[{"visibility":"off"}]},{"featureType":"water","elementType":"all","stylers":[{"color":"#1b495c"},{"visibility":"on"}]}];
     
     var sedeLat = {lat:9.022568, lng: -79.4882987};
     
     function initMap() {
-        
+        var bounds = new google.maps.LatLngBounds();
         var image = {
             url: '{% static "favicon/favicon-16x16.png" %}',
             // This marker is 20 pixels wide by 32 pixels high.
@@ -301,6 +224,7 @@
         {% if churchs %}
             {% for church in churchs %}
                 var mapDiv{{church.id}}, Lat{{church.id}}, Lng{{church.id}}, mapTitle{{church.id}}, infowindow{{church.id}}, mapContent{{church.id}};
+                var position{{church.id}} = new google.maps.LatLng({{church.lat|unlocalize}}, {{church.lng|unlocalize}});
 
                 Lat{{church.id}} = {{church.lat|unlocalize}};
                 Lng{{church.id}} = {{church.lng|unlocalize}};
@@ -308,7 +232,7 @@
                 mapContent{{church.id}} = '{{church.description|safe}}';
 
                 mapDiv{{church.id}} = document.getElementById('map{{church.id}}Div');
-
+                bounds.extend(position{{church.id}});
                 marker{{church.id}} = new google.maps.Marker({
                     position: new google.maps.LatLng(
                         Lat{{church.id}},
@@ -327,8 +251,8 @@
                     );
                     initZoom++;
                     map.setZoom(initZoom);
+                        showInfowindow(map, marker{{church.id}}, mapTitle{{church.id}}, mapContent{{church.id}});
                         if (initZoom>17) {
-                            showInfowindow(map, marker{{church.id}}, mapTitle{{church.id}}, mapContent{{church.id}});
                             // console.log(map);
                         }
                     }
@@ -353,18 +277,20 @@
                         );
                         initZoom++;
                         map.setZoom(initZoom);
+                        showInfowindow(map, marker{{church.id}}, mapTitle{{church.id}}, mapContent{{church.id}});
                         if (initZoom>17) {
-                            showInfowindow(map, marker{{church.id}}, mapTitle{{church.id}}, mapContent{{church.id}});
                             // console.log(map);
                         }
                     }
                 );
-
+                map.fitBounds(bounds);
             {% endfor %}
         {% endif %}
 
         function showInfowindow(map, marker, mapTitle, mapContent) {
-
+            if( prev_infowindow ) {
+                prev_infowindow.close();
+            }
             var contentString = '<div id="content">'+
                 '<div id="siteNotice">'+
                 '</div>'+
@@ -376,9 +302,9 @@
               var infowindow = new google.maps.InfoWindow({
                 content: contentString
             });
-            
+            prev_infowindow = infowindow;
             infowindow.open(map, marker);
-            console.log(infowindow);
+            // console.log(infowindow);
 
         }
 

@@ -3,7 +3,7 @@
 {% block css %}{% endblock %}
 
 {% block content %}
-<form method="post" action="{% url 'Register' %}">
+<form method="post" action="{% url 'auth:Register' %}">
 	{% csrf_token %}
 	<input type="text" class="form-control" id="lg_username" name="username" placeholder="Escriba su nombre de usuario">
 	<input type="password" class="form-control" id="lg_password" name="password1" placeholder="Escriba su contraseña">
