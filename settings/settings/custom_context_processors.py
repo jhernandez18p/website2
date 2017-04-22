@@ -11,6 +11,7 @@ def cookies(request):
     site = {
         'name':'Iglesia Universal del Reino de Dios',
         'keywords':'Universal, Universal Panama, Iglesia, Iglesia universal, pare de sufrir, iurd, iurd panama, fuerza jover, Jesuscristo es el señor',
+        'description':'Sufre con problemas, ha intentado de todo y no sabe que más puede hacer. Visítenos en cualquier de nuestras Iglesias en todo el País ó escuche nuestra radio las 24 horas donde lo atenderemos.',
         'author':'Dev2tech',
     }
     now = datetime.datetime.now()
