@@ -1,6 +1,5 @@
 # -*- coding: utf-8 -*-
-import operator
-import random,datetime
+import operator,random,datetime
 from local_apps.iurd.models import *
 from local_apps.medias.models import *
 from local_apps.news.models import *

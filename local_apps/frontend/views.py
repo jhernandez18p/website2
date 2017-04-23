@@ -47,7 +47,7 @@ def home(request):
 		print('No hay blogs amigos aún' + e)
 
 	try:
-		video = Video.objects.all().filter(active=True).first()
+		video = Video.objects.all().filter(active=True)[:3]
 		context['videos'] = video
 	except Exception as e:
 		print('No hay videos aún' + e)

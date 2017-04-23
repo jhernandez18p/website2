@@ -18,7 +18,7 @@
     }
     .blog-post .blog-post-pub-date h4 {position: absolute;top:1px;left: 10px;}
     .blog-post .blog-post-pub-date h4 span {position: absolute;bottom: 0;left: 0px;top: 35px; font-family: 'Old Standard TT', serif;}
-    .blog-post .blog-post-img {height: 270px; width: 100%;}
+    .blog-post .blog-post-img {width: 100%;}
     .blog-post .blog-post-img h2 {width: 100%; background-color: rgba(64,69,69,0.5);color:#e9e5e5;position: relative;z-index: 3;margin-top: -50px;height: 50px;padding-top: 5px;padding-left: 15px; overflow: hidden;}
     .blog-post .blog-post-img h2 a{font-size: 18px !important;font-family: 'Old Standard TT', serif;color: #FFF}
     .blog-post .blog-post-img img{height: 100%; width: 100%}
@@ -59,7 +59,7 @@
                 {% if news_list %}
                     {% for news in news_list %}
                         <div class="blog-post material-shadow">
-                            <div class="blog-post-pub-date material-shadow hidden-xs hidden-sm hidden-md hidden-mg hidden-lg">
+                            <div class="blog-post-pub-date material-shadow hidden-xs hidden-sm hidden-md hidden-md hidden-lg">
                                 <h4>{{news.timestamp|date:"D d M Y"}}</h4>
                             </div>
                             <div class="blog-post-img">

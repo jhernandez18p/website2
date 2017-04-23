@@ -25,8 +25,9 @@ def upload_location(instance, filename):
 		_id = 0
 	new_id = _id + 1
 	"""
-    instance.__class__ gets the model Post. We must use this method because the model is defined below.
-    Then create a queryset ordered by the "id"s of each object, 
+    instance.__class__ gets the model Post. We must use this
+	method because the model is defined below.
+    Then create a queryset ordered by the "id"s of each object,
     Then we get the last object in the queryset with `.last()`
     Which will give us the most recently created Model instance
     We add 1 to it, so we get what should be the same id as the the post we are creating.
@@ -61,23 +62,23 @@ class Church(models.Model):
 	phone_regex = RegexValidator(regex=r'^\+?507?\d{8,15}$', message="Numero de telefono debe seguir este formato: '+999999999'.")
 	telephone_number = models.CharField(validators=[phone_regex], blank=True, max_length=15)
 	image = models.ImageField(
-		upload_to=upload_location, 
-        null=True, 
-        blank=True, 
-        width_field="width_field", 
-        height_field="height_field"
+            upload_to=upload_location,
+            null=True,
+            blank=True,
+            width_field="width_field",
+            height_field="height_field"
     )
 	height_field = models.IntegerField(default=0)
 	width_field = models.IntegerField(default=0)
 	lat = models.DecimalField(
-		max_digits=10,
-		decimal_places=8,
-		default=9.022568
+            max_digits=10,
+            decimal_places=8,
+            default=9.022568
 	)
 	lng = models.DecimalField(
-		max_digits=11,
-		decimal_places=8,
-		default=-79.4882987
+            max_digits=11,
+            decimal_places=8,
+            default=-79.4882987,
 	)
 	description = RichTextField()
 	created = models.DateTimeField(auto_now=True,auto_now_add=False)

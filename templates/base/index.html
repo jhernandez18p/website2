@@ -78,6 +78,52 @@
     }
     .margin-top-25{margin-top:25px;}
     .margin-bottom-25{margin-bottom:25px;}
+    .tv .swiper-container {
+        width: 100%;
+        /*height: 150px;*/
+        /*margin: 20px auto;*/
+    }
+    .tv .swiper-slide {
+        text-align: center;
+        font-size: 18px;
+        background: rgba(255,255,255,0);
+        /*height: 100px; width: 100px;*/
+        
+        /* Center slide text vertically */
+        display: -webkit-box;
+        display: -ms-flexbox;
+        display: -webkit-flex;
+        display: flex;
+        -webkit-box-pack: center;
+        -ms-flex-pack: center;
+        -webkit-justify-content: center;
+        justify-content: center;
+        -webkit-box-align: center;
+        -ms-flex-align: center;
+        -webkit-align-items: center;
+        align-items: center;
+    }
+    .tv .swiper-slide img{
+        min-width:100%;
+        max-width:100%;
+        min-height:100%;
+        max-height:100%;
+    }
+    .tv .swiper-pagination {
+        bottom: 30px !important;
+    }
+    .tv .swiper-slide p{position: absolute;top: 100%;}
+    video::-internal-media-controls-download-button {
+        display:none !important;
+    }
+
+    video::-webkit-media-controls-enclosure {
+        overflow:hidden;
+    }
+
+    video::-webkit-media-controls-panel {
+        width: calc(100% + 30px);
+    }
 </style>
 <meta name="description" content=""/>
 {% endblock %}
@@ -143,24 +189,9 @@
     {% endif %}
 <!-- Feeds -->
 <!-- Multimedia -->
+    <!-- Testimonials -->
     <div class="container multimedia">
         <div class="row">
-            {% if videos %}
-                <div class="col-xs-12 col-md-7 ">
-                    <div class="tv">
-                        {% if videos.video_file != '' %}
-                            <video controls='false'>
-                                <source src="{{videos.video_file.url}}" type="video/mp4">
-                                <source src="#" type="video/ogg">
-                                <p>Su navegador web no soporta éste video.<br>Le recomendamos actualizar a una nueva versión.</p>
-                            </video>
-                        {% elif videos.video_url %}
-                            <iframe class="card-3" src="https://www.youtube.com/embed/{{videos.video_url}}" width="540" height="370" frameborder="0" style="background-image: url("https://i.ytimg.com/vi_webp/{{videos.video_url}}/maxresdefault.webp");">
-                            </iframe>
-                        {% endif %}
-                    </div>
-                </div>
-            {% endif %}
             <div class="col-xs-12 col-md-5">
                 <div class="head-latest-news card-3 white">
                     <h3 class="text-center">
@@ -175,148 +206,6 @@
                     {% endfor %}
                 </div>
             </div>
-        </div>
-    </div>
-    <div class="container multimedia">
-        <div class="row">
-            {% if tv %}
-                <div class="col-xs-12 col-sm-6 col-md-4">
-                    <div class="tv-online card-3">
-                        <a href="{{tv.video_url}}" target="_blank-">
-                            <img src="{{tv.image.url}}" alt="Tv Universal">
-                        </a>
-                    </div>
-                </div>
-            {% else %}
-                <div class="col-xs-12 col-sm-6 col-md-4">
-                    <div class="tv-online card-3">
-                        <a href="#">
-                            <img src="{% static 'base/images/tvonline.jpg' %}" alt="Tv Universal">
-                        </a>
-                    </div>
-                </div>
-            {% endif %}
-            {% if newspaper %}
-                <div class="col-xs-12 col-sm-6 col-md-4">
-                    <div class="newspaper card-3">
-                        <a href="{{newspaper.newspaper_url}}" target="_blank">
-                            <img src="{{newspaper.image.url}}" alt="Tv Universal">
-                        </a>
-                    </div>
-                </div>
-            {% else %}
-                <div class="col-xs-12 col-sm-6 col-md-4">
-                    <div class="newspaper card-3">
-                        <a href="#">
-                            <img src="{% static 'base/images/periodico.jpg' %}" alt="Tv Universal">
-                        </a>
-                    </div>
-                </div>
-            {% endif %}
-            <div class="col-xs-12 col-sm-6 col-md-4">
-                <div class="player card-3">
-                    <ul>
-                        <li class="cover">
-                            <a href="http://red-aleluya.universal.org.pa" target="_blank">
-                                <img src="{% static 'base/images/radio.jpg' %}"/>
-                            </a>
-                        </li>
-                        <li class="info">
-                            <h1>Red aleluya</h1>
-                            <h4>Panamá</h4>
-                            <h2>Radio on-line</h2>
-                            <div class="button-items">
-                                <audio id="music">
-                                    {% if audio %}
-                                        <source src="{{audio.audio_url}}" type="audio/mp3">
-                                        <source src="{{audio.audio_url}}" type="audio/ogg">
-                                    {% else %}
-                                        <source src="http://streamall.alsolnet.com:443/redaleluya" type="audio/mpeg" type="audio/mp3">
-                                        <source src="http://streamall.alsolnet.com:443/redaleluya" type="audio/mpeg" type="audio/ogg">
-                                    {% endif %}
-                                </audio>
-                                <div class="controls">
-                                    <button id="play" >
-                                        <i class="fa fa-play-circle" aria-hidden="true"></i>
-                                    </button>
-                                    <button id="pause" >
-                                        <i class="fa fa-pause-circle" aria-hidden="true"></i>
-                                    </button>
-                                </div>
-                            </div>
-                        </li>
-                    </ul>
-                </div>
-            </div>
-            <div class="col-xs-12 col-sm-6 hidden-md hidden-lg sm">
-                    <div class="groups-carousel card-3">    
-                        <div class="swiper-container">
-                            <div class="swiper-wrapper">
-                            {% if groups %}
-                                {% for group in groups %}
-                                    <div class="swiper-slide">
-                                        <a href="{{group.get_absolute_url}}">
-                                            <img src="{{group.image.url}}" alt="{{group.title}}">
-                                        </a>
-                                    </div>
-                                {% endfor %}
-                            {% else %}
-                                <div class="swiper-slide">
-                                    <img src="{% static 'base/images/660x420px' %}" alt="Disponible">
-                                </div>
-                            {% endif %}
-                            </div>
-                            <!-- Add Pagination -->
-                            <div class="swiper-pagination"></div>
-                            <!-- Add Arrows -->
-                            <div class="swiper-button-next"></div>
-                            <div class="swiper-button-prev"></div>
-                        </div>
-                    </div>
-            </div>
-        </div>
-        <div class="row">
-            <!-- Groups photo carousel -->
-                <div class="col-xs-12 col-sm-12 col-md-5">
-                    <div class="social-media">
-                        <a href="https://www.facebook.com/IglesiaUniversalPanama/" type="button" target="_blank">
-                            <div class="social-media-item card-3 facebook">
-                                <p><span class="fa fa-facebook footer-sm" aria-hidden="true"></span></p>
-                            </div>
-                        </a>
-                        <a type="button" href="https://www.instagram.com/iurdpanama/" target="_blank">
-                            <div class="social-media-item card-3 instagram">
-                                <p><span class="fa fa-instagram footer-sm" aria-hidden="true"></span></p>
-                            </div>
-                        </a>
-                        <a type="button" href="https://www.youtube.com/channel/UCxDrDoFOgKPbgSwq_A4ptAQ" target="_blank">
-                            <div class="social-media-item card-3 youtube">
-                                <p><span class="fa fa-youtube footer-sm" aria-hidden="true"></span></p>
-                            </div>
-                        </a>
-                    </div>
-                    {% if groups %}
-                        <div class="groups-carousel card-3 hidden-xs hidden-sm">    
-                            <div class="swiper-container">
-                                <div class="swiper-wrapper">
-                                    {% for group in groups %}
-                                        <div class="swiper-slide">
-                                            <a href="{{group.get_absolute_url}}">
-                                                <img src="{{group.image.url}}" alt="{{group.title}}">
-                                            </a>
-                                        </div>
-                                    {% endfor %}
-                                </div>
-                                <!-- Add Pagination -->
-                                <div class="swiper-pagination"></div>
-                                <!-- Add Arrows -->
-                                <div class="swiper-button-next"></div>
-                                <div class="swiper-button-prev"></div>
-                            </div>
-                        </div>
-                    {% endif %}
-                </div>
-            <!-- Groups photo carousel -->
             <!-- Social photo carousel  -->
                 <div class="col-xs-12 col-sm-12 col-md-7">
                     <div class="social-carousel card-3">    
@@ -345,7 +234,165 @@
             <!-- Social photo carousel  -->
         </div>
     </div>
+    <!-- Testimonials -->
+    <!--Radio Tv -->
+        <div class="container multimedia">
+            <div class="row">
+                <div class="col-xs-12 col-sm-6 col-md-4">
+                    <div class="player card-3">
+                        <ul>
+                            <li class="cover">
+                                <a href="http://red-aleluya.universal.org.pa" target="_blank">
+                                    <img src="{% static 'base/images/radio.jpg' %}"/>
+                                </a>
+                            </li>
+                            <li class="info">
+                                <h1>Red aleluya</h1>
+                                <h4>Panamá</h4>
+                                <h2>Radio on-line</h2>
+                                <div class="button-items">
+                                    <audio id="music">
+                                        {% if audio %}
+                                            <source src="{{audio.audio_url}}" type="audio/mp3">
+                                            <source src="{{audio.audio_url}}" type="audio/ogg">
+                                        {% else %}
+                                            <source src="http://streamall.alsolnet.com:443/redaleluya" type="audio/mpeg" type="audio/mp3">
+                                            <source src="http://streamall.alsolnet.com:443/redaleluya" type="audio/mpeg" type="audio/ogg">
+                                        {% endif %}
+                                    </audio>
+                                    <div class="controls">
+                                        <button id="play" >
+                                            <i class="fa fa-play-circle" aria-hidden="true"></i>
+                                        </button>
+                                        <button id="pause" >
+                                            <i class="fa fa-pause-circle" aria-hidden="true"></i>
+                                        </button>
+                                    </div>
+                                </div>
+                            </li>
+                        </ul>
+                    </div>
+                    <!-- TV -->
+                        {% if tv %}
+                                <div class="tv-online card-3">
+                                    <a href="{{tv.video_url}}" target="_blank-">
+                                        <img src="{{tv.image.url}}" alt="Tv Universal">
+                                    </a>
+                                </div>
+                        {% else %}
+                                <div class="tv-online card-3">
+                                    <a href="#">
+                                        <img src="{% static 'base/images/tvonline.jpg' %}" alt="Tv Universal">
+                                    </a>
+                                </div>
+                        {% endif %}
+                    <!-- TV -->
+                </div>
+            <!-- Newspaper -->
+                {% if newspaper %}
+                    <div class="col-xs-12 col-sm-6 col-md-4">
+                        <div class="newspaper card-3">
+                            <a href="{{newspaper.newspaper_url}}" target="_blank">
+                                <img src="{{newspaper.image.url}}" alt="Tv Universal">
+                            </a>
+                        </div>
+                    </div>
+                {% else %}
+                    <div class="col-xs-12 col-sm-6 col-md-4">
+                        <div class="newspaper card-3">
+                            <a href="#">
+                                <img src="{% static 'base/images/periodico.jpg' %}" alt="Tv Universal">
+                            </a>
+                        </div>
+                    </div>
+                {% endif %}
+            <!-- Newspaper-->
+                <div class="col-xs-12 col-sm-12 col-md-4 sm">
+                    <div class="groups-carousel card-3">    
+                        <div class="swiper-container">
+                            <div class="swiper-wrapper">
+                                {% if groups %}
+                                    {% for group in groups %}
+                                        <div class="swiper-slide">
+                                            <a href="{{group.get_absolute_url}}">
+                                                <img src="{{group.image.url}}" alt="{{group.title}}">
+                                            </a>
+                                        </div>
+                                    {% endfor %}
+                                {% else %}
+                                    <div class="swiper-slide">
+                                        <img src="{% static 'base/images/660x420px' %}" alt="Disponible">
+                                    </div>
+                                {% endif %}
+                            </div>
+                            <!-- Add Pagination -->
+                            <div class="swiper-pagination"></div>
+                            <!-- Add Arrows -->
+                            <div class="swiper-button-next"></div>
+                            <div class="swiper-button-prev"></div>
+                        </div>
+                    </div>
+                </div>
+            <!-- Groups photo carousel -->
+                <div class="col-xs-12 col-sm-12 col-md-4">
+                    <div class="social-media">
+                        <a href="https://www.facebook.com/IglesiaUniversalPanama/" type="button" target="_blank">
+                            <div class="social-media-item card-3 facebook">
+                                <p><span class="fa fa-facebook footer-sm" aria-hidden="true"></span></p>
+                            </div>
+                        </a>
+                        <a type="button" href="https://www.instagram.com/iurdpanama/" target="_blank">
+                            <div class="social-media-item card-3 instagram">
+                                <p><span class="fa fa-instagram footer-sm" aria-hidden="true"></span></p>
+                            </div>
+                        </a>
+                        <a type="button" href="https://www.youtube.com/channel/UCxDrDoFOgKPbgSwq_A4ptAQ" target="_blank">
+                            <div class="social-media-item card-3 youtube">
+                                <p><span class="fa fa-youtube footer-sm" aria-hidden="true"></span></p>
+                            </div>
+                        </a>
+                    </div>
+                </div>
+            <!-- Groups photo carousel -->
+        </div>
+    </div>
 <!-- Multimedia -->
+<!-- TV o Video -->
+    <div class="row">
+        <div class="container">
+            {% if videos %}
+                <div class="col-xs-12 col-md-10 col-md-offset-1 ">
+                    <div class="tv">
+                        <div class="swiper-container">
+                            <div class="swiper-wrapper">
+                                {% for video in videos %}
+                                    <div class="swiper-slide">
+                                        {% if video.video_file != '' %}
+                                            <video controls='false' controlsList="nodownload">
+                                                <source src="{{video.video_file.url}}" type="video/mp4">
+                                                <source src="{{video.video_file.url}}" type="video/ogg">
+                                                <p>Su navegador web no soporta éste video.<br>Le recomendamos actualizar a una nueva versión.</p>
+                                            </video>
+                                        {% elif video.video_url %}
+                                            <iframe class="card-3" src="https://www.youtube.com/embed/{{video.video_url}}" width="540" height="370" frameborder="0" style="background-image: url("https://i.ytimg.com/vi_webp/{{videos.video_url}}/maxresdefault.webp");">
+                                            </iframe>
+                                        {% endif %}
+                                    </div>
+                                {% endfor %}
+                            </div>
+                            <div class="swiper-pagination"></div>
+                        </div>
+                        <!-- Add Pagination -->
+                        <!-- Add Arrows -->
+                        <div class="swiper-button-next"></div>
+                        <div class="swiper-button-prev"></div>
+                    </div>
+                </div>
+            {% endif %}
+        </div>
+    </div>
+            
+<!-- TV o Video -->
 <!-- big Banner -->
     {% if event %}
         <div class="row">
@@ -400,63 +447,4 @@
 {% endblock %}
 
 {% block js %}
-<script>
-    var music = $("#music");
-    var playButton = $("#play");
-    var pauseButton = $("#pause");
-    var playhead = $("#elapsed");
-    var timeline = $("#slider");
-    var timer = $("#timer");
-    var duration;
-
-    $("#pause").css("display","none");
-
-    $("#pause").click( "click", function pause() {
-        console.log( "stop audio" );
-        document.getElementById('music').pause();
-        $("#play").css("display","initial");
-        $("#pause").css("display","none");
-    });
-
-    $("#play").click( "click", function play() {
-        console.log( "play audio" );
-        document.getElementById('music').play();
-        $("#play").css("display","none");
-        $("#pause").css("display","initial");
-    });
-    
-    var swiper;
-    swipper = new Swiper('.social-carousel .swiper-container', {
-        pagination: '.social-carousel .swiper-pagination',
-        nextButton: '.social-carousel .swiper-button-next',
-        prevButton: '.social-carousel .swiper-button-prev',
-        paginationClickable: true
-    });
-    
-    swiper = new Swiper('.groups-carousel .swiper-container', {
-        pagination: '.groups-carousel .swiper-pagination',
-        // slidesPerView: 3,
-        nextButton: '.groups-carousel .swiper-button-next',
-        prevButton: '.groups-carousel .swiper-button-prev',
-        paginationClickable: true,
-        spaceBetween: 30,
-        // freeMode: true
-    });
-    
-    swiper = new Swiper('.blog .swiper-container', {
-        pagination: '.blog .swiper-pagination',
-        slidesPerView: 'auto',
-        paginationClickable: true,
-        spaceBetween: 30,
-        freeMode: true
-    });
-    
-    swiper = new Swiper('.blog-lg .swiper-container', {
-        pagination: '.blog-lg .swiper-pagination',
-        slidesPerView: 'auto',
-        paginationClickable: true,
-        spaceBetween: 30,
-        freeMode: true
-    });
-</script>
 {% endblock %}
