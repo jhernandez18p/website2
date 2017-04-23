@@ -421,7 +421,7 @@ video,audio {width: 100%;}
     max-width: 100%;
 }
 
-.social-carousel{width: 100%; background-color: #4f4f4f; height: 400px; margin-bottom: 10px;}
+.social-carousel{width: 100%; background-color: #4f4f4f; height: 320px; margin-bottom: 10px;}
 .groups-carousel{width: 100%; background-color: #4f4f4f; height: 255px; margin-bottom: 10px;}
 
 
@@ -516,7 +516,7 @@ video,audio {width: 100%;}
 .padding0{padding: 0}
 
 #logoShort{    
-	width: 252px;
+	width: 180px;
 	position: absolute;
 	left: 0;
 	right: 0;
