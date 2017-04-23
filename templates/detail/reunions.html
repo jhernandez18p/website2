@@ -39,7 +39,7 @@
                 <p><a href="{% url 'frontend:Reunions' %}"><span class="glyphicon glyphicon-menu-left"></span> Ver todas las reuniones</a></p>
             </div>
         </div>
-        <div class="col-xs-12 {% if not event %} col-sm-offset-2 {% endif %} col-sm-8">
+        <div class="col-xs-12 {% if not events %} col-sm-offset-2 {% endif %} col-sm-8">
             <div class="card-3 box">
                 <h2>{{object.title}}</h2>
                 {{object.description| safe}}
@@ -47,7 +47,7 @@
 
             </div>
         </div>
-        {% if event %}
+        {% if events %}
             <div class="col-xs-12 col-sm-4">
                 <div class="banner-home card-3">
                     <a href="{{event.get_absolute_url}}">

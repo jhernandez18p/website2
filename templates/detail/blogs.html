@@ -80,7 +80,7 @@
 					</ul>
 				</div>
 			{% endif %}
-			{% if event %}
+			{% if events %}
                 <div class="banner-home card-3">
                     <a href="{{event.get_absolute_url}}">
                         <img src="{% if event.banner_vertical %}{{event.banner_vertical.url}}{% else %}{{event.image.url}}{% endif %}" alt="{{event.title}}">
