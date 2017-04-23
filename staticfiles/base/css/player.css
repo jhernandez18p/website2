@@ -118,7 +118,5 @@ margin-right: 5px;
 .expend svg:hover g polygon{fill: #242843;}
 
 @media (max-width: 580px) {
-    .tv iframe ,
-    .tv video{height: 250px;}
     .player ul{list-style: none;margin-left: 45%}
 }
