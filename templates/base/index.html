@@ -110,7 +110,9 @@
         max-height:100%;
     }
     .tv .swiper-pagination {
-        bottom: 30px !important;
+        bottom: 3px !important;
+        left: 0;
+        right: 0;
     }
     .tv .swiper-slide p{position: absolute;top: 100%;}
     video::-internal-media-controls-download-button {
@@ -192,35 +194,30 @@
 <!-- TV o Video -->
     <div class="row">
         <div class="container">
-            {% if videos %}
-                <div class="col-xs-12 col-md-10 col-md-offset-1 ">
-                    <div class="tv">
+            <div class="col-xs-12 col-sm-10 col-sm-offset-1 col-md-offset-2 col-md-8">
+                    <div class="social-carousel card-3">    
                         <div class="swiper-container">
                             <div class="swiper-wrapper">
-                                {% for video in videos %}
+                                {% if imagens %}
+                                    {% for imagen in imagens %}
+                                        <div class="swiper-slide">
+                                            <img src="{{imagen.image.url}}" alt="{{imagen.title}}">
+                                        </div>
+                                    {% endfor %}
+                                {% else %}
                                     <div class="swiper-slide">
-                                        {% if video.video_file != '' %}
-                                            <video controls='false' controlsList="nodownload">
-                                                <source src="{{video.video_file.url}}" type="video/mp4">
-                                                <source src="{{video.video_file.url}}" type="video/ogg">
-                                                <p>Su navegador web no soporta éste video.<br>Le recomendamos actualizar a una nueva versión.</p>
-                                            </video>
-                                        {% elif video.video_url %}
-                                            <iframe class="card-3" src="https://www.youtube.com/embed/{{video.video_url}}" width="540" height="370" frameborder="0" style="background-image: url("https://i.ytimg.com/vi_webp/{{videos.video_url}}/maxresdefault.webp");">
-                                            </iframe>
-                                        {% endif %}
-                                    </div>
-                                {% endfor %}
+                                        <img src="{% static 'base/images/660x420px' %}" alt="Disponible">
+                                    </div>  
+                                {% endif %}
                             </div>
-                            <div class="swiper-pagination"></div>
                         </div>
                         <!-- Add Pagination -->
+                        <div class="swiper-pagination"></div>
                         <!-- Add Arrows -->
                         <div class="swiper-button-next"></div>
                         <div class="swiper-button-prev"></div>
                     </div>
                 </div>
-            {% endif %}
         </div>
     </div>
             
@@ -243,21 +240,26 @@
                 </div>
             </div>
             <!-- Social photo carousel  -->
-                <div class="col-xs-12 col-sm-12 col-md-7">
-                    <div class="social-carousel card-3">    
-                        <div class="swiper-container">
-                            <div class="swiper-wrapper">
-                                {% if imagens %}
-                                    {% for imagen in imagens %}
+                {% if videos %}
+                    <div class="col-xs-12 col-sm-7 ">
+                        <div class="tv card-3">
+                            <div class="swiper-container">
+                                <div class="swiper-wrapper">
+                                    {% for video in videos %}
                                         <div class="swiper-slide">
-                                            <img src="{{imagen.image.url}}" alt="{{imagen.title}}">
+                                            {% if video.video_file != '' %}
+                                                <video controls='false' controlsList="nodownload">
+                                                    <source src="{{video.video_file.url}}" type="video/mp4">
+                                                    <source src="{{video.video_file.url}}" type="video/ogg">
+                                                    <p>Su navegador web no soporta éste video.<br>Le recomendamos actualizar a una nueva versión.</p>
+                                                </video>
+                                            {% elif video.video_url %}
+                                                <iframe class="card-3" src="https://www.youtube.com/embed/{{video.video_url}}" width="540" height="370" frameborder="0" style="background-image: url("https://i.ytimg.com/vi_webp/{{videos.video_url}}/maxresdefault.webp");">
+                                                </iframe>
+                                            {% endif %}
                                         </div>
                                     {% endfor %}
-                                {% else %}
-                                    <div class="swiper-slide">
-                                        <img src="{% static 'base/images/660x420px' %}" alt="Disponible">
-                                    </div>  
-                                {% endif %}
+                                </div>
                             </div>
                             <!-- Add Pagination -->
                             <div class="swiper-pagination"></div>
@@ -266,7 +268,7 @@
                             <div class="swiper-button-prev"></div>
                         </div>
                     </div>
-                </div>
+                {% endif %}
             <!-- Social photo carousel  -->
         </div>
     </div>
