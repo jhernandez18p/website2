@@ -218,6 +218,12 @@ pip-log.txt
 
 
 .json
+*.rar
+*.zip
+*.mp4
+*/*.mp4
+*/*/*.mp4
+*/*/*/*.mp4
 
 .env
 /media/*
