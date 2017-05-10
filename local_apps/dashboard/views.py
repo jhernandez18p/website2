@@ -17,8 +17,6 @@ from local_apps.testimonials.models import *
 from local_apps.iurd.forms import (ChurchForm,EventForm,FeedForm,ProjectForm,ScheduleForm,ReunionForm)
 
 
-
-
 # Create your views here.
 @login_required
 def home(request):

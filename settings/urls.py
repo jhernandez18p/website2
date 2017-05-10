@@ -27,7 +27,6 @@ urlpatterns = [
     url(r'^', include(router.urls)),
     url(r'^iurd/admin/', admin.site.urls),
     url(r'^api/', include('rest_framework.urls', namespace='rest_framework')),
-    
 ]
 if settings.DEBUG:
     urlpatterns += static(settings.STATIC_URL, document_root=settings.STATICFILES_DIRS)

@@ -187,7 +187,7 @@ class Project(models.Model):
 
 	name = models.CharField(max_length=144)
 	title = models.CharField(max_length=144)
-	slug = models.CharField(max_length=144)
+	slug = models.SlugField(max_length=140, blank=True)
 	url = models.CharField(max_length=144)
 	description = RichTextField()
 	created = models.DateTimeField(auto_now=True,auto_now_add=False)
@@ -208,11 +208,25 @@ class Project(models.Model):
 	background_height_field = models.IntegerField(default=0)
 	background_width_field = models.IntegerField(default=0)
 	project_type = models.CharField(max_length=10, choices=CATEGORIES)
-	category = models.ForeignKey(Category, null=True, blank=True)
+	category = models.ForeignKey(Category, blank=True)
 	parentId = models.ForeignKey("self", null=True, blank=True)
 
 	def __str__(self):
-		return self.name
+		return self.slug
+
+	def _get_unique_slug(self):
+		slug = slugify(self.title)
+		unique_slug = slug
+		num = 1
+		while Project.objects.filter(slug=unique_slug).exists():
+			unique_slug = '{}-{}'.format(slug, num)
+			num += 1
+		return unique_slug
+ 
+	def save(self, *args, **kwargs):
+		if not self.slug:
+			self.slug = self._get_unique_slug()
+		super().save()
 
 	class Meta:
 		ordering = ['-time_stamp','-updated']
@@ -272,6 +286,7 @@ class Reunion(models.Model):
 
 	name = models.CharField(max_length=144)
 	title = models.CharField(max_length=144)
+	slug = models.SlugField(max_length=140, blank=True)
 	description = RichTextField()
 	created = models.DateTimeField(auto_now=True,auto_now_add=False)
 	time_stamp = models.DateTimeField(auto_now=False,auto_now_add=True)
@@ -296,7 +311,21 @@ class Reunion(models.Model):
 
 
 	def __str__(self):
-		return self.name
+		return self.slug
+
+	def _get_unique_slug(self):
+		slug = slugify(self.title)
+		unique_slug = slug
+		num = 1
+		while Reunion.objects.filter(slug=unique_slug).exists():
+			unique_slug = '{}-{}'.format(slug, num)
+			num += 1
+		return unique_slug
+ 
+	def save(self, *args, **kwargs):
+		if not self.slug:
+			self.slug = self._get_unique_slug()
+		super().save()
 
 	class Meta:
 		ordering = ['-time_stamp','-updated']
@@ -308,7 +337,7 @@ class Reunion(models.Model):
 			("can_update_reunions", "Puede editar reuniones"),
 		)
 	def get_absolute_url(self):
-		return reverse("frontend:Reunions_detail", kwargs={"pk": self.id})
+		return reverse("frontend:Reunions_detail", kwargs={"pk": self.slug})
 
 
 class Subscriber(models.Model):
@@ -331,4 +360,25 @@ class Subscriber(models.Model):
 			("can_create_subscribers", "Puede crear suscriptores"),
 			("can_delete_subscribers", "Puede eliminar suscriptores"),
 			("can_update_subscribers", "Puede editar suscriptores"),
+		)
+
+
+class Site(models.Model):
+	"""# Iurd Site model class"""
+	name = models.CharField(max_length = 144)
+	description = RichTextField(blank = True)
+	created = models.DateTimeField(auto_now=True,auto_now_add=False)
+	time_stamp = models.DateTimeField(auto_now=False,auto_now_add=True)
+	updated = models.DateTimeField(auto_now=True, auto_now_add=False)
+	
+	def __str__(self):
+		return self.name
+
+	class Meta:
+		verbose_name = ('Configuración del Sitio')
+		verbose_name_plural = ('Configuración del Sitio')
+		permissions = (
+			("can_create_site", "Puede crear sitio"),
+			("can_delete_site", "Puede eliminar sitio"),
+			("can_update_site", "Puede editar sitio"),
 		)

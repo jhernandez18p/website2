@@ -2,6 +2,7 @@ from django.db import models
 from django.core.validators import URLValidator
 from django.contrib.contenttypes.models import ContentType
 from django.core.urlresolvers import reverse
+from django.utils.text import slugify
 
 from local_apps.iurd.models import Category
 from ckeditor.fields import RichTextField
@@ -29,6 +30,7 @@ def upload_location(instance, filename):
 
 class Testimonial(models.Model):
 	title = models.CharField(max_length=144)
+	slug = models.SlugField(max_length=140, blank=True)
 	publisher = models.CharField(max_length=144, default='User')
 	description = RichTextField()
 	image = models.ImageField(upload_to=upload_location, 
@@ -47,7 +49,21 @@ class Testimonial(models.Model):
 	category = models.ForeignKey(Category, null=True, blank=True)
 
 	def __str__(self):
-		return self.title
+		return self.slug
+
+	def _get_unique_slug(self):
+		slug = slugify(self.title)
+		unique_slug = slug
+		num = 1
+		while Testimonial.objects.filter(slug=unique_slug).exists():
+			unique_slug = '{}-{}'.format(slug, num)
+			num += 1
+		return unique_slug
+ 
+	def save(self, *args, **kwargs):
+		if not self.slug:
+			self.slug = self._get_unique_slug()
+		super().save()
 
 	class Meta:
 		ordering = ["-timestamp", "-updated"]
@@ -60,4 +76,4 @@ class Testimonial(models.Model):
 	)
 
 	def get_absolute_url(self):
-		return reverse("frontend:Testimonial_detail", kwargs={"pk": self.id})
+		return reverse("frontend:Testimonial_detail", kwargs={"pk": self.slug})

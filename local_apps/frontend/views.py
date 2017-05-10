@@ -42,7 +42,7 @@ def home(request):
 
 	try:
 		feeds = Feed.objects.all()
-		context['feeds'] = feeds[:6]
+		context['feeds'] = feeds
 	except Exception as e:
 		print('No hay blogs amigos aún' + e)
 
@@ -115,14 +115,6 @@ def projects(request):
 		'pg_title':'project',
 		'title':'Proyectos universal',
 	}
-
-	try:
-		groups = Project.objects.all().filter(project_type='Groups')
-		# if len(groups)>0:
-		# 	print(groups[0].category)
-		context['groups'] = groups
-	except Exception as e:
-		print('No hay grupos aún' + e)
 
 	try:
 		groups = Project.objects.all().filter(project_type='Groups')
@@ -353,9 +345,6 @@ def contact(request):
 			return HttpResponseRedirect(url)
 
 
-"""
-	Rouge for pray
-"""
 def susbcribe(request):
 	if request.method == 'GET':
 
@@ -383,9 +372,6 @@ def susbcribe(request):
 			return HttpResponseRedirect(url)
 
 
-"""
-	Details
-"""
 def blog_detail(request, slug):
 	template = 'detail/blogs.html'
 	blog_detail = get_object_or_404(Post, slug=slug)
@@ -439,22 +425,38 @@ def blog_filter(request, category):
 def projects_detail(request, name):
 	template = 'detail/projects.html'
 	project = get_object_or_404(Project, slug=name)
-	# print(project)
 	title = project.title
-	
 	context = {
 		'pg_title':'project',
 		'title':'Detalles {}'.format(str(title)),
 		'project':project,
 	}
-
+	# print(project.category)
+	if str(project.category) == 'iurd.Category.None':
+		context['has_news'] = False
+	else:
+		context['has_news'] = True
+		try:
+			cat = get_object_or_404(Category,name=project.category)
+			_news = Post.objects.all()[:6]#.filter(category__all = cat.name)
+			news = _news
+			context['news'] = news
+		except Exception as e:
+			print(e)
+			print('No hay noticias aún' + e)
+			
+	try:
+		imagen = Image.objects.all().filter(active=True,for_home=True)[:5] 
+		context['imagens'] = imagen
+	except Exception as e:
+		print('No hay imgen aún' + e)
 
 	return render(request, template, context)
 
 
 def reunions_detail(request, pk):
 	template = 'detail/reunions.html'
-	reunions = get_object_or_404(Reunion,id=pk)
+	reunions = get_object_or_404(Reunion,slug=pk)
 	title = ''
 	
 	context = {
@@ -469,7 +471,7 @@ def reunions_detail(request, pk):
 
 def testimonials_detail(request, pk):
 	template = 'detail/testimonials.html'
-	testimonial = get_object_or_404(Testimonial,id=pk)
+	testimonial = get_object_or_404(Testimonial,slug=pk)
 	title = testimonial.title
 	
 	context = {

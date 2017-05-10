@@ -16,7 +16,7 @@
         <div class="col-xs-12 col-sm-6 testimonial-block">
             <div class="testimonial-post material-shadow">
                 <div class="testimonial-post-header">
-                    <a href="{% url 'frontend:Testimonial_detail' testimonial.id %}">
+                    <a href="{{ testimonial.get_absolute_url }}">
                         <img id="" src="{% if testimonial.image != '' %}{{testimonial.image.url}}{% else %}https://static.pexels.com/photos/325288/pexels-photo-325288.jpeg{% endif %}" alt="" height="250" width="540">
                     </a>
                     <h3>{{testimonial.title}}</h3>

@@ -10,10 +10,10 @@
     <meta name="robots" content="index, follow">
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
     {% if site %}
-    <title>{{title}} | {{site.name}}</title>
-    <meta name="description" content="{{site.description}}">
-    <meta name="keywords" content="{{site.keywords}}">
-    <meta name="author" content="{{site.author}}">
+        <title>{{title}} | {{site.name}}</title>
+        <meta name="description" content="{{site.description}}">
+        <meta name="keywords" content="{{site.keywords}}">
+        <meta name="author" content="{{site.author}}">
         {% if pg_title != 'blog' %}
             <meta property="og:url"           content="http://www.universal.org.pa/" />
             <meta property="og:type"          content="website" />
@@ -22,12 +22,15 @@
             <meta property="og:image"         content="{% static 'base/images/logo.png' %}" />
         {% endif %}
     {% else %}
-    <title>{{title}} | Iglesia Universal Del Reino de Dios</title>
+        <title>{{title}} | Iglesia Universal Del Reino de Dios</title>
     {% endif %}
+    <style>.async-hide { opacity: 0 !important} </style>
+    <script>(function(a,s,y,n,c,h,i,d,e){s.className+=' '+y;h.start=1*new Date;
+    h.end=i=function(){s.className=s.className.replace(RegExp(' ?'+y),'')};
+    (a[n]=a[n]||[]).hide=h;setTimeout(function(){i();h.end=null},c);h.timeout=c;
+    })(window,document.documentElement,'async-hide','dataLayer',4000,
+    {'GTM-5LPFSMM':true});</script>
     {% include 'head.html' %}
-    <noscript>
-        <iframe src="https://www.googletagmanager.com/ns.html?id=GTM-WTVZH7M" height="0" width="0" style="display:none;visibility:hidden"></iframe>
-    </noscript>
     {% block css %}{% endblock %}
     <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
     <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
@@ -37,58 +40,14 @@
     <![endif]-->
 </head>
 <body>
+    <noscript>
+        <iframe src="https://www.googletagmanager.com/ns.html?id=GTM-WTVZH7M" height="0" width="0" style="display:none;visibility:hidden"></iframe>
+    </noscript>
     {% include 'header.html' %}
     <section>{% block content %}{% endblock %}</section>
     <footer>
         {% include 'footer.html' %}
     </footer>
-    {% if user_rouge_for_pray == True %}
-        <div  id="prayModal" class="modal fade" tabindex="-1" role="dialog">
-            <div class="modal-dialog modal-lg" role="document">
-                <div class="modal-content">
-                    <div class="modal-header">
-                        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true"><h5>&times;</h5></span></button>
-                        <h5 class="modal-title text-center" id="exampleModalLabel">
-                            Hola, Nos gustaría hacer una oración a su nombre
-                        </h5>
-                    </div>
-                    <form class="inline-form" action="{% url 'frontend:Pray' %}" method="post">
-                        {% csrf_token %}
-                        <div class="modal-body">
-                            <div class="form-group">
-                                <label for="recipient-name" class="control-label">
-                                    <h5>¿Cual es su nombre?</h5>
-                                </label>
-                                <input type="text" class="form-control" name="name" id="recipient-name">
-                                <input type="text" class="hidden" name="url" id="recipient-name" value="{{ request.get_full_path }}">
-                            </div>
-                            <div class="form-group">
-                                <label for="recipient-name" class="control-label">
-                                    <h5>¿Cuál es su correo electrónico?</h5>
-                                </label>
-                                <input type="text" class="form-control" name="email" id="recipient-name">
-                            </div>
-                            <div class="form-group">
-                                <label for="message-text" class="control-label">
-                                    <h5>¿Por qué o quien quiere que oremos?</h5>
-                                </label>
-                                <textarea class="form-control" name="description" id="message-text"></textarea>
-                            </div>
-                        </div>
-                        <div class="modal-footer">
-                            <button type="submit" class="btn btn-link" name="submit" value="False">
-                                <h5>Por ahora no</h5>
-                            </button>
-                            <button type="submit" class="btn btn-link" name="submit" value="True">
-                                <h5>Enviar</h5>
-                            </button>
-                        </div>
-                    </form>
-                </div>
-            </div>
-        </div>
-    {% endif %}
-
     <script src="{% static 'base/js/bootstrap.min.js' %}" charset="utf-8"></script>
     <script src="{% static 'base/js/app.js' %}" charset="utf-8"></script>
     <script src="{% static 'base/js/swiper.min.js' %}" charset="utf-8"></script>

@@ -3,7 +3,8 @@ from django.core.urlresolvers import reverse
 from django.core.validators import MaxValueValidator
 from django.core.validators import URLValidator
 
-from local_apps.iurd.models import Category
+from local_apps.iurd.models import Category,Project
+from local_apps.news.models import Post
 from ckeditor.fields import RichTextField
 
 
@@ -191,6 +192,8 @@ class Image(models.Model):
 	updated = models.DateTimeField(auto_now=True, auto_now_add=False)
 	timestamp = models.DateTimeField(auto_now=False, auto_now_add=True)
 	category = models.ForeignKey(Category, null=True, blank=True)
+	project_related = models.ForeignKey(Project, related_name='+', blank=True, null=True)
+	post_related = models.ForeignKey(Post, related_name='+', blank=True, null=True)
 
 	def __str__(self):
 		return self.title
@@ -204,6 +207,8 @@ class Image(models.Model):
 			("can_delete_image", "Puede eliminar imagenes"),
 			("can_update_image", "Puede editar imagenes"),
 		)
+	
+
 
 
 class Radio(models.Model):

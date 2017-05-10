@@ -1,6 +1,6 @@
 from django.contrib import admin
 
-from .models import (Church, Event, Feed, Project, Schedule, Reunion, Subscriber, Category)
+from .models import (Church, Event, Feed, Project, Schedule, Reunion, Subscriber, Category, Site)
 # Register your models here.
 
 @admin.register(Church)
@@ -45,7 +45,7 @@ class ProjectAdmin(admin.ModelAdmin):
 	list_display_links = ["updated"]
 	list_editable = ["name"]
 	list_filter = ["category", "name"]
-	search_fields = ["name", "description"]
+	search_fields = ["name", "slug"]
 	
 	class Meta:
 		model = Project
@@ -89,6 +89,17 @@ class SubscriberAdmin(admin.ModelAdmin):
 
 @admin.register(Category)
 class CategoryAdmin(admin.ModelAdmin):
+	list_display = ["name", "updated",]
+	list_display_links = ["updated"]
+	list_editable = ["name"]
+	list_filter = ["description", "name"]
+	search_fields = ["name", "description"]
+	
+	class Meta: 
+		model = Category
+
+@admin.register(Site)
+class SiteAdmin(admin.ModelAdmin):
 	list_display = ["name", "updated",]
 	list_display_links = ["updated"]
 	list_editable = ["name"]

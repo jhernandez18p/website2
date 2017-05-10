@@ -8,8 +8,8 @@
 {% endblock %}
 
 {% block content %}
-<div class="row">
-    {% if newspapers %}
+{% if newspaper %}
+    <div class="row">
         <div class="container">
             {% for newspapper in newspaper_list %}
                 <div class="col-xs-12 col-sm-4">
@@ -23,8 +23,8 @@
                 </div>
             {% endfor %}
         </div>
-    {% endif %}
-</div>
+    </div>
+{% endif %}
 
 <div class="row testimonios">
     {% if video_list %}

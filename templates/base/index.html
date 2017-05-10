@@ -76,6 +76,12 @@
         width: 100%;
         padding: 5px;
     }
+    .blog-lg .swiper-button-prev{
+        left: -20px;
+    }
+    .blog-lg .swiper-button-next{
+        right: -20px;
+    }
     .margin-top-25{margin-top:25px;}
     .margin-bottom-25{margin-bottom:25px;}
     .tv .swiper-container {
@@ -127,11 +133,10 @@
         width: calc(100% + 30px);
     }
 </style>
-<meta name="description" content=""/>
 {% endblock %}
 
 {% block content %}
-<!-- Under Nav -->
+{# Under Nav #}
     <div class="container">
         <div class="row">
             {% if last_news %}
@@ -164,8 +169,221 @@
             {% endif %}
         </div>
     </div>
-<!-- Under Nav -->
-<!-- Feeds -->
+{# Under Nav #}
+{# Carrusel trabajo social #}
+    {% if imagens %}
+        <div class="row">
+            <div class="container">
+                <div class="col-xs-12 col-sm-10 col-sm-offset-1 col-md-offset-2 col-md-8">
+                        <div class="social-carousel card-3">    
+                            <div class="swiper-container">
+                                <div class="swiper-wrapper">
+                                    {% for imagen in imagens %}
+                                        <div class="swiper-slide">
+                                            {% if imagen.project_related != None %}
+                                                <a href="{% url 'frontend:Project_detail' imagen.project_related %}" class="">
+                                            {% else %}
+                                                <a href="{% url 'frontend:Blog_details' imagen.post_related %}" class="">
+                                            {% endif %}
+                                                    <img src="{{imagen.image.url}}" alt="{{imagen.title}}">
+                                                </a>
+                                        </div>
+                                    {% endfor %}
+                                </div>
+                            </div>
+                            {# Add Pagination #}
+                            <div class="swiper-pagination"></div>
+                            {# Add Arrows #}
+                            <div class="swiper-button-next"></div>
+                            <div class="swiper-button-prev"></div>
+                        </div>
+                    </div>
+            </div>
+        </div>
+    {% endif %}   
+{# Carrusel trabajo social #}
+{# Testimonials #}
+    <div class="container multimedia">
+        <div class="row">
+            {# Testimonials list #}
+            <div class="col-xs-12 col-md-5">
+                <div class="head-latest-news card-3 white">
+                    <h3 class="text-center">
+                        Testimonios
+                    </h3>
+                    {% for testimonial in testimonials %}
+                        <div class="head-latest-news-item card-3">
+                            <h3>
+                                <a href="{{testimonial.get_absolute_url}}">{{testimonial.title}}</a>
+                            </h3>
+                        </div>
+                    {% endfor %}
+                </div>
+            </div>
+            {# Testimonials list #}
+            {# Testimonials carousel  #}
+                {% if testimonials %}
+                    <div class="col-xs-12 col-sm-7 ">
+                        <div class="tv card-3">
+                            <div class="swiper-container">
+                                <div class="swiper-wrapper">
+                                    {% for video in testimonials %}
+                                        <div class="swiper-slide">
+                                            {% if video.video_file != '' %}
+                                                <video controls='false' controlsList="nodownload">
+                                                    <source src="{{video.video_file.url}}" type="video/mp4">
+                                                    <source src="{{video.video_file.url}}" type="video/ogg">
+                                                    <p>Su navegador web no soporta éste video.<br>Le recomendamos actualizar a una nueva versión.</p>
+                                                </video>
+                                            {% elif video.video_url %}
+                                                <iframe class="card-3" src="https://www.youtube.com/embed/{{video.video_url}}" width="540" height="370" frameborder="0" style="background-image: url("https://i.ytimg.com/vi_webp/{{videos.video_url}}/maxresdefault.webp");">
+                                                </iframe>
+                                            {% endif %}
+                                        </div>
+                                    {% endfor %}
+                                </div>
+                            </div>
+                            {# Add Pagination #}
+                            <div class="swiper-pagination"></div>
+                            {# Add Arrows #}
+                            <div class="swiper-button-next"></div>
+                            <div class="swiper-button-prev"></div>
+                        </div>
+                    </div>
+                {% endif %}
+            {# Testimonials carousel  #}
+        </div>
+    </div>
+{# Testimonials #}
+{# Multimedia #}
+        <div class="container multimedia">
+            <div class="row">
+                {# Radio Tv #}
+                    <div class="col-xs-12 col-sm-6 col-md-4">
+                        {# Radio #}
+                            <div class="player card-3">
+                                <ul>
+                                    <li class="cover">
+                                        <a href="http://red-aleluya.universal.org.pa" target="_blank">
+                                            <img src="{% static 'base/images/radio.jpg' %}"/>
+                                        </a>
+                                    </li>
+                                    <li class="info">
+                                        <h1>Red aleluya</h1>
+                                        <h4>Panamá</h4>
+                                        <h2>Radio on-line</h2>
+                                        <div class="button-items">
+                                            <audio id="music" autoplay=true>
+                                                {% if audio %}
+                                                    <source src="{{audio.audio_url}}" type="audio/mp3">
+                                                    <source src="{{audio.audio_url}}" type="audio/ogg">
+                                                {% else %}
+                                                    <source src="http://streamall.alsolnet.com:443/redaleluya" type="audio/mpeg" type="audio/mp3">
+                                                    <source src="http://streamall.alsolnet.com:443/redaleluya" type="audio/mpeg" type="audio/ogg">
+                                                {% endif %}
+                                            </audio>
+                                            <div class="controls">
+                                                <button id="play" >
+                                                    <i class="fa fa-play-circle" aria-hidden="true"></i>
+                                                </button>
+                                                <button id="pause" >
+                                                    <i class="fa fa-pause-circle" aria-hidden="true"></i>
+                                                </button>
+                                            </div>
+                                        </div>
+                                    </li>
+                                </ul>
+                            </div>
+                        {# Radio #}
+                        {# TV #}
+                            {% if tv %}
+                                    <div class="tv-online card-3">
+                                        <a href="{{tv.video_url}}" target="_blank-">
+                                            <img src="{{tv.image.url}}" alt="Tv Universal">
+                                        </a>
+                                    </div>
+                            {% else %}
+                                    <div class="tv-online card-3">
+                                        <a href="#">
+                                            <img src="{% static 'base/images/tvonline.jpg' %}" alt="Tv Universal">
+                                        </a>
+                                    </div>
+                            {% endif %}
+                        {# TV #}
+                    </div>
+                {# Radio TV #}
+                {# Newspaper #}
+                    {% if newspaper %}
+                        <div class="col-xs-12 col-sm-6 col-md-4">
+                            <div class="newspaper card-3">
+                                <a href="{{newspaper.newspaper_url}}" target="_blank">
+                                    <img src="{{newspaper.image.url}}" alt="Tv Universal">
+                                </a>
+                            </div>
+                        </div>
+                    {% else %}
+                        <div class="col-xs-12 col-sm-6 col-md-4">
+                            <div class="newspaper card-3">
+                                <a href="#">
+                                    <img src="{% static 'base/images/periodico.jpg' %}" alt="Tv Universal">
+                                </a>
+                            </div>
+                        </div>
+                    {% endif %}
+                {# Newspaper #}
+                {# Groups #}
+                    <div class="col-xs-12 col-sm-12 col-md-4 sm">
+                        <div class="groups-carousel card-3">    
+                            <div class="swiper-container">
+                                <div class="swiper-wrapper">
+                                    {% if groups %}
+                                        {% for group in groups %}
+                                            <div class="swiper-slide">
+                                                <a href="{{group.get_absolute_url}}">
+                                                    <img src="{{group.image.url}}" alt="{{group.title}}">
+                                                </a>
+                                            </div>
+                                        {% endfor %}
+                                    {% else %}
+                                        <div class="swiper-slide">
+                                            <img src="{% static 'base/images/660x420px' %}" alt="Disponible">
+                                        </div>
+                                    {% endif %}
+                                </div>
+                                {# Add Pagination #}
+                                <div class="swiper-pagination"></div>
+                                {# Add Arrows #}
+                                <div class="swiper-button-next"></div>
+                                <div class="swiper-button-prev"></div>
+                            </div>
+                        </div>
+                    </div>
+                {# Groups #}
+                {# Groups photo carousel #}
+                    <div class="col-xs-12 col-sm-12 col-md-4">
+                        <div class="social-media">
+                            <a href="https://www.facebook.com/IglesiaUniversalPanama/" type="button" target="_blank">
+                                <div class="social-media-item card-3 facebook">
+                                    <p><span class="fa fa-facebook footer-sm" aria-hidden="true"></span></p>
+                                </div>
+                            </a>
+                            <a type="button" href="https://www.instagram.com/iurdpanama/" target="_blank">
+                                <div class="social-media-item card-3 instagram">
+                                    <p><span class="fa fa-instagram footer-sm" aria-hidden="true"></span></p>
+                                </div>
+                            </a>
+                            <a type="button" href="https://www.youtube.com/channel/UCxDrDoFOgKPbgSwq_A4ptAQ" target="_blank">
+                                <div class="social-media-item card-3 youtube">
+                                    <p><span class="fa fa-youtube footer-sm" aria-hidden="true"></span></p>
+                                </div>
+                            </a>
+                        </div>
+                    </div>
+                {# Groups photo carousel #}
+            </div>
+        </div>
+{# Multimedia #}
+{# Feeds #}
     {% if feeds %}
         <div class="row gray margin-top-25 margin-bottom-25">
             <div class="hidden-xs hidden-sm container">
@@ -185,217 +403,15 @@
                             {% endfor %}
                         </div>
                     </div>
+                    {# Add Arrows #}
+                    <div class="swiper-button-next"></div>
+                    <div class="swiper-button-prev"></div>
                 </div>
             </div>
         </div>
     {% endif %}
-<!-- Feeds -->
-<!-- Multimedia -->
-<!-- TV o Video -->
-    <div class="row">
-        <div class="container">
-            <div class="col-xs-12 col-sm-10 col-sm-offset-1 col-md-offset-2 col-md-8">
-                    <div class="social-carousel card-3">    
-                        <div class="swiper-container">
-                            <div class="swiper-wrapper">
-                                {% if imagens %}
-                                    {% for imagen in imagens %}
-                                        <div class="swiper-slide">
-                                            <img src="{{imagen.image.url}}" alt="{{imagen.title}}">
-                                        </div>
-                                    {% endfor %}
-                                {% else %}
-                                    <div class="swiper-slide">
-                                        <img src="{% static 'base/images/660x420px' %}" alt="Disponible">
-                                    </div>  
-                                {% endif %}
-                            </div>
-                        </div>
-                        <!-- Add Pagination -->
-                        <div class="swiper-pagination"></div>
-                        <!-- Add Arrows -->
-                        <div class="swiper-button-next"></div>
-                        <div class="swiper-button-prev"></div>
-                    </div>
-                </div>
-        </div>
-    </div>
-            
-<!-- TV o Video -->
-    <!-- Testimonials -->
-    <div class="container multimedia">
-        <div class="row">
-            <div class="col-xs-12 col-md-5">
-                <div class="head-latest-news card-3 white">
-                    <h3 class="text-center">
-                        Testimonios
-                    </h3>
-                    {% for testimonial in testimonials %}
-                        <div class="head-latest-news-item card-3">
-                            <h3>
-                                <a href="{{testimonial.get_absolute_url}}">{{testimonial.title}}</a>
-                            </h3>
-                        </div>
-                    {% endfor %}
-                </div>
-            </div>
-            <!-- Social photo carousel  -->
-                {% if videos %}
-                    <div class="col-xs-12 col-sm-7 ">
-                        <div class="tv card-3">
-                            <div class="swiper-container">
-                                <div class="swiper-wrapper">
-                                    {% for video in videos %}
-                                        <div class="swiper-slide">
-                                            {% if video.video_file != '' %}
-                                                <video controls='false' controlsList="nodownload">
-                                                    <source src="{{video.video_file.url}}" type="video/mp4">
-                                                    <source src="{{video.video_file.url}}" type="video/ogg">
-                                                    <p>Su navegador web no soporta éste video.<br>Le recomendamos actualizar a una nueva versión.</p>
-                                                </video>
-                                            {% elif video.video_url %}
-                                                <iframe class="card-3" src="https://www.youtube.com/embed/{{video.video_url}}" width="540" height="370" frameborder="0" style="background-image: url("https://i.ytimg.com/vi_webp/{{videos.video_url}}/maxresdefault.webp");">
-                                                </iframe>
-                                            {% endif %}
-                                        </div>
-                                    {% endfor %}
-                                </div>
-                            </div>
-                            <!-- Add Pagination -->
-                            <div class="swiper-pagination"></div>
-                            <!-- Add Arrows -->
-                            <div class="swiper-button-next"></div>
-                            <div class="swiper-button-prev"></div>
-                        </div>
-                    </div>
-                {% endif %}
-            <!-- Social photo carousel  -->
-        </div>
-    </div>
-    <!-- Testimonials -->
-    <!--Radio Tv -->
-        <div class="container multimedia">
-            <div class="row">
-                <div class="col-xs-12 col-sm-6 col-md-4">
-                    <div class="player card-3">
-                        <ul>
-                            <li class="cover">
-                                <a href="http://red-aleluya.universal.org.pa" target="_blank">
-                                    <img src="{% static 'base/images/radio.jpg' %}"/>
-                                </a>
-                            </li>
-                            <li class="info">
-                                <h1>Red aleluya</h1>
-                                <h4>Panamá</h4>
-                                <h2>Radio on-line</h2>
-                                <div class="button-items">
-                                    <audio id="music">
-                                        {% if audio %}
-                                            <source src="{{audio.audio_url}}" type="audio/mp3">
-                                            <source src="{{audio.audio_url}}" type="audio/ogg">
-                                        {% else %}
-                                            <source src="http://streamall.alsolnet.com:443/redaleluya" type="audio/mpeg" type="audio/mp3">
-                                            <source src="http://streamall.alsolnet.com:443/redaleluya" type="audio/mpeg" type="audio/ogg">
-                                        {% endif %}
-                                    </audio>
-                                    <div class="controls">
-                                        <button id="play" >
-                                            <i class="fa fa-play-circle" aria-hidden="true"></i>
-                                        </button>
-                                        <button id="pause" >
-                                            <i class="fa fa-pause-circle" aria-hidden="true"></i>
-                                        </button>
-                                    </div>
-                                </div>
-                            </li>
-                        </ul>
-                    </div>
-                    <!-- TV -->
-                        {% if tv %}
-                                <div class="tv-online card-3">
-                                    <a href="{{tv.video_url}}" target="_blank-">
-                                        <img src="{{tv.image.url}}" alt="Tv Universal">
-                                    </a>
-                                </div>
-                        {% else %}
-                                <div class="tv-online card-3">
-                                    <a href="#">
-                                        <img src="{% static 'base/images/tvonline.jpg' %}" alt="Tv Universal">
-                                    </a>
-                                </div>
-                        {% endif %}
-                    <!-- TV -->
-                </div>
-            <!-- Newspaper -->
-                {% if newspaper %}
-                    <div class="col-xs-12 col-sm-6 col-md-4">
-                        <div class="newspaper card-3">
-                            <a href="{{newspaper.newspaper_url}}" target="_blank">
-                                <img src="{{newspaper.image.url}}" alt="Tv Universal">
-                            </a>
-                        </div>
-                    </div>
-                {% else %}
-                    <div class="col-xs-12 col-sm-6 col-md-4">
-                        <div class="newspaper card-3">
-                            <a href="#">
-                                <img src="{% static 'base/images/periodico.jpg' %}" alt="Tv Universal">
-                            </a>
-                        </div>
-                    </div>
-                {% endif %}
-            <!-- Newspaper-->
-                <div class="col-xs-12 col-sm-12 col-md-4 sm">
-                    <div class="groups-carousel card-3">    
-                        <div class="swiper-container">
-                            <div class="swiper-wrapper">
-                                {% if groups %}
-                                    {% for group in groups %}
-                                        <div class="swiper-slide">
-                                            <a href="{{group.get_absolute_url}}">
-                                                <img src="{{group.image.url}}" alt="{{group.title}}">
-                                            </a>
-                                        </div>
-                                    {% endfor %}
-                                {% else %}
-                                    <div class="swiper-slide">
-                                        <img src="{% static 'base/images/660x420px' %}" alt="Disponible">
-                                    </div>
-                                {% endif %}
-                            </div>
-                            <!-- Add Pagination -->
-                            <div class="swiper-pagination"></div>
-                            <!-- Add Arrows -->
-                            <div class="swiper-button-next"></div>
-                            <div class="swiper-button-prev"></div>
-                        </div>
-                    </div>
-                </div>
-            <!-- Groups photo carousel -->
-                <div class="col-xs-12 col-sm-12 col-md-4">
-                    <div class="social-media">
-                        <a href="https://www.facebook.com/IglesiaUniversalPanama/" type="button" target="_blank">
-                            <div class="social-media-item card-3 facebook">
-                                <p><span class="fa fa-facebook footer-sm" aria-hidden="true"></span></p>
-                            </div>
-                        </a>
-                        <a type="button" href="https://www.instagram.com/iurdpanama/" target="_blank">
-                            <div class="social-media-item card-3 instagram">
-                                <p><span class="fa fa-instagram footer-sm" aria-hidden="true"></span></p>
-                            </div>
-                        </a>
-                        <a type="button" href="https://www.youtube.com/channel/UCxDrDoFOgKPbgSwq_A4ptAQ" target="_blank">
-                            <div class="social-media-item card-3 youtube">
-                                <p><span class="fa fa-youtube footer-sm" aria-hidden="true"></span></p>
-                            </div>
-                        </a>
-                    </div>
-                </div>
-            <!-- Groups photo carousel -->
-        </div>
-    </div>
-<!-- Multimedia -->
-<!-- big Banner -->
+{# Feeds #}
+{# big Banner #}
     {% if event %}
         <div class="row">
             <div class="container">
@@ -423,8 +439,8 @@
             </div>
         </div>
     {% endif %}
-<!-- big Banner -->
-<!-- Blogs amigos -->
+{# big Banner #}
+{# Blogs amigos #}
     {% if feeds %}
         <div class="row gray">
             <div class="hidden-md hidden-lg container-fluid">
@@ -445,7 +461,7 @@
             </div>
         </div>
     {% endif %}
-<!-- Blogs amigos -->
+{# Blogs amigos #}
 {% endblock %}
 
 {% block js %}
@@ -457,7 +473,7 @@
     var timeline = $("#slider");
     var timer = $("#timer");
     var duration;
-    $("#pause").css("display","none");
+    $("#play").css("display","none");
     $("#pause").click( "click", function pause() {
         console.log( "stop audio" );
         document.getElementById('music').pause();
@@ -507,7 +523,9 @@
             slidesPerView: 'auto',
             paginationClickable: true,
             spaceBetween: 30,
-            freeMode: true
+            freeMode: true,
+            nextButton: '.blog-lg .swiper-button-next',
+            prevButton: '.blog-lg .swiper-button-prev',
         }
     );
 
