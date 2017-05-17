@@ -140,7 +140,9 @@
                                 <div class="swiper-wrapper">
                                     {% for imagen in imagens %}
                                         <div class="swiper-slide">
-                                            <img src="{{imagen.image.url}}" alt="{{imagen.title}}">
+                                            <a>
+                                                <img src="{{imagen.image.url}}" alt="{{imagen.title}}">
+                                            </a>
                                         </div>
                                     {% endfor %}
                                 </div>
