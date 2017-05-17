@@ -75,7 +75,7 @@
 
 <div class="container">
     <div class="row">
-        <div class="col-xs-12">
+        <div class="col-xs-12 col-sm-offset-1 col-sm-10">
             <div class="go-back">
                 <p><a href="{% url 'frontend:Projects' %}"><span class="glyphicon glyphicon-menu-left"></span> Ver todos los grupos</a></p>
             </div>
@@ -106,9 +106,9 @@
     </div>
 </div>
 
-<br><br>
 
 {% if has_news %}
+    <br><br>
     <div class="row gray margin-top-25 margin-bottom-25">
         <div class="hidden-xs hidden-sm container">
             <div class="col-xs-12 blog-lg">
@@ -129,10 +129,9 @@
     </div>
 {% endif %}
 
-<br><br>
-
 <!-- Carrusel trabajo social -->
     {% if imagens %}
+        <br><br>
         <div class="row">
             <div class="container">
                 <div class="col-xs-12 col-sm-10 col-sm-offset-1">

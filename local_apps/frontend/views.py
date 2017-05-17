@@ -335,7 +335,9 @@ def contact(request):
 			            ['iurd@universal.org.pa',],
 			            fail_silently=False,
 			        )
+				print('mensaje enviado')
 			except Exception as e:
+				print(e)
 				raise e
 			
 			return render(request, template, context)
@@ -364,6 +366,24 @@ def susbcribe(request):
 			print(' %s\n %s\n %s\n' %(name,email,description))
 			new = Subscriber.objects.create(name=name,email=email,description=description)
 			new.save()
+			try:
+				send_mail(
+			            'Mensaje contacto Página web, Iglesia Universal',
+			            '%s, %s, %s, %s' % (
+			            	str(name),
+			            	str(email),
+			            	str(phone),
+			            	str(description)
+		            	),
+			            'iurd@universal.org.pa',
+			            ['iurd@universal.org.pa',],
+			            fail_silently=False,
+			        )
+				print('mensaje enviado')
+			except Exception as e:
+				print(e)
+				raise e
+				
 			return HttpResponseRedirect(url)
 
 		else:
@@ -431,22 +451,19 @@ def projects_detail(request, name):
 		'title':'Detalles {}'.format(str(title)),
 		'project':project,
 	}
-	# print(project.category)
-	if str(project.category) == 'iurd.Category.None':
-		context['has_news'] = False
-	else:
-		context['has_news'] = True
-		try:
-			cat = get_object_or_404(Category,name=project.category)
-			_news = Post.objects.all()[:6]#.filter(category__all = cat.name)
-			news = _news
-			context['news'] = news
-		except Exception as e:
-			print(e)
-			print('No hay noticias aún' + e)
-			
+	
 	try:
-		imagen = Image.objects.all().filter(active=True,for_home=True)[:5] 
+		post = Post.objects.all().filter(category=project.category)[:6]
+		if len(post) > 0:
+			context['has_news'] = True
+		else:
+			context['has_news'] = False
+		context['news'] = post
+	except Exception as e:
+		print('No hay Posts aún' + e)
+
+	try:
+		imagen = Image.objects.all().filter(project_related=project.id)[:5] 
 		context['imagens'] = imagen
 	except Exception as e:
 		print('No hay imgen aún' + e)

@@ -29,6 +29,7 @@ LOCAL_APPS = [
     'local_apps.news',
     'local_apps.profiles',
     'local_apps.testimonials',
+    'local_apps.widgets',
 ]
 
 THIRD_PARTY_APPS = [
@@ -189,6 +190,7 @@ EMAIL_PORT = config("EMAIL_PORT", cast=int)
 EMAIL_HOST_USER = config("EMAIL_HOST_USER",)
 EMAIL_HOST_PASSWORD = config("EMAIL_HOST_PASSWORD",)
 EMAIL_USE_SSL = config("EMAIL_USE_SSL", cast=bool)
+
 
 """
     Rest API

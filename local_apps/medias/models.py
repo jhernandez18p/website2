@@ -172,8 +172,9 @@ class Audio(models.Model):
 
 class Image(models.Model):
 	title = models.CharField(max_length=144)
-	description = RichTextField()
-	image = models.ImageField(upload_to=upload_location, 
+	description = RichTextField(blank=True)
+	image = models.ImageField(
+		upload_to=upload_location, 
 		null=True, 
 		blank=True, 
 		width_field="width_field", 
@@ -192,8 +193,8 @@ class Image(models.Model):
 	updated = models.DateTimeField(auto_now=True, auto_now_add=False)
 	timestamp = models.DateTimeField(auto_now=False, auto_now_add=True)
 	category = models.ForeignKey(Category, null=True, blank=True)
-	project_related = models.ForeignKey(Project, related_name='+', blank=True, null=True)
-	post_related = models.ForeignKey(Post, related_name='+', blank=True, null=True)
+	project_related = models.ForeignKey(Project, related_name='image_project_related', blank=True, null=True)
+	post_related = models.ForeignKey(Post, related_name='image_post_related', blank=True, null=True)
 
 	def __str__(self):
 		return self.title
