@@ -509,6 +509,8 @@ video,audio {width: 100%;}
 	.tv iframe ,
     .tv video{height: 250px;}
 	.lastnew{height: 300px}
+	.swiper-button-next, .swiper-container-rtl .swiper-button-prev {right: 1px !important;}
+	.swiper-button-prev, .swiper-container-rtl .swiper-button-next {left: 1px !important;}
 } 
 
 .footer-anchor a{color: #FFF !important;}
