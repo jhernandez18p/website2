@@ -109,6 +109,7 @@
         -webkit-align-items: center;
         align-items: center;
     }
+    .social-carousel .swiper-slide a img,
     .tv .swiper-slide img{
         min-width:100%;
         max-width:100%;
@@ -182,8 +183,10 @@
                                         <div class="swiper-slide">
                                             {% if imagen.project_related != None %}
                                                 <a href="{% url 'frontend:Project_detail' imagen.project_related %}" class="">
-                                            {% else %}
+                                            {% elif imagen.Blog_details != None %}
                                                 <a href="{% url 'frontend:Blog_details' imagen.post_related %}" class="">
+                                            {% else %}
+                                                <a>
                                             {% endif %}
                                                     <img src="{{imagen.image.url}}" alt="{{imagen.title}}">
                                                 </a>
