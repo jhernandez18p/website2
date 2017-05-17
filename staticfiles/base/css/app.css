@@ -447,7 +447,7 @@ video,audio {width: 100%;}
 }
 
 .social-carousel .swiper-slide a img{
-	height: 450px !important;
+	height: 400px !important;
 } 
 .groups-carousel .swiper-slide img{
 	min-width: 100%;
@@ -505,7 +505,7 @@ video,audio {width: 100%;}
 
 	.friendsfeeds .items .footer h3 a {font-size: 0.575em;}
 	.social-carousel{width: 100%; height: 320px; margin-bottom: 10px;}
-	.social-carousel .swiper-slide a img{width: 100%; height: 320px !important;}
+	.social-carousel .swiper-slide a img{width: 100%; height: 270px !important;}
 	.tv iframe ,
     .tv video{height: 250px;}
 	.lastnew{height: 300px}
