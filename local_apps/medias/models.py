@@ -189,6 +189,7 @@ class Image(models.Model):
 	)
 	active = models.BooleanField(default=True)
 	for_home = models.BooleanField(default=True)
+	is_social = models.BooleanField(default=False)
 	publish = models.DateField(auto_now=False, auto_now_add=False)
 	updated = models.DateTimeField(auto_now=True, auto_now_add=False)
 	timestamp = models.DateTimeField(auto_now=False, auto_now_add=True)

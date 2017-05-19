@@ -419,9 +419,10 @@ video,audio {width: 100%;}
     min-width: 100%;
     max-width: 100%;
 }
-.social-carousel{width: 100%; background-color: #FFF; height: 450px; margin-bottom: 10px; padding: 25px}
-.social-carousel .swiper-pagination {left: 0; right: 0;}
-.social-carousel .swiper-pagination-bullet, .tv .swiper-pagination-bullet{margin-left: 5px}
+.social-carousel, .daily-image{width: 100%; background-color: #FFF; height: 450px; margin-bottom: 10px; padding: 25px}
+.social-carousel .swiper-pagination, .daily-image .swiper-pagination {left: 0; right: 0;}
+.social-carousel .swiper-pagination-bullet, .tv .swiper-pagination-bullet,
+.daily-image .swiper-pagination-bullet{margin-left: 5px}
 .groups-carousel{width: 100%; background-color: #4f4f4f; height: 255px; margin-bottom: 10px;}
 .swiper-container {
     width: 100%;
@@ -446,7 +447,8 @@ video,audio {width: 100%;}
     align-items: center;
 }
 
-.social-carousel .swiper-slide a img{
+.social-carousel .swiper-slide a img,
+.daily-image .swiper-slide a img{
 	height: 400px !important;
 } 
 .groups-carousel .swiper-slide img{
@@ -505,7 +507,9 @@ video,audio {width: 100%;}
 
 	.friendsfeeds .items .footer h3 a {font-size: 0.575em;}
 	.social-carousel{width: 100%; height: 320px; margin-bottom: 10px;}
-	.social-carousel .swiper-slide a img{width: 100%; height: 270px !important;}
+	.daily-image{width: 100%; height: 320px; margin-bottom: 10px;}
+	.social-carousel .swiper-slide a img,
+	.daily-image .swiper-slide a img{width: 100%; height: 270px !important;}
 	.tv iframe ,
     .tv video{height: 250px;}
 	.lastnew{height: 300px}

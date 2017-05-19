@@ -171,15 +171,15 @@
         </div>
     </div>
 {# Under Nav #}
-{# Carrusel trabajo social #}
-    {% if imagens %}
+{# Carrusel Imagen del día #}
+    {% if dailyImagens %}
         <div class="row">
             <div class="container">
                 <div class="col-xs-12 col-sm-10 col-sm-offset-1 col-md-offset-2 col-md-8">
-                        <div class="social-carousel card-3">    
+                        <div class="daily-image card-3">    
                             <div class="swiper-container">
                                 <div class="swiper-wrapper">
-                                    {% for imagen in imagens %}
+                                    {% for imagen in dailyImagens %}
                                         <div class="swiper-slide">
                                             {% if imagen.project_related != None %}
                                                 <a href="{% url 'frontend:Project_detail' imagen.project_related %}" class="">
@@ -204,7 +204,7 @@
             </div>
         </div>
     {% endif %}   
-{# Carrusel trabajo social #}
+{# Carrusel Imagen del día #}
 {# Testimonials #}
     <div class="container multimedia">
         <div class="row">
@@ -386,6 +386,40 @@
             </div>
         </div>
 {# Multimedia #}
+{# Carrusel trabajo social #}
+    {% if socialImagens %}
+        <div class="row">
+            <div class="container">
+                <div class="col-xs-12 col-sm-10 col-sm-offset-1 col-md-offset-2 col-md-8">
+                        <div class="social-carousel card-3">    
+                            <div class="swiper-container">
+                                <div class="swiper-wrapper">
+                                    {% for imagen in socialImagens %}
+                                        <div class="swiper-slide">
+                                            {% if imagen.project_related != None %}
+                                                <a href="{% url 'frontend:Project_detail' imagen.project_related %}" class="">
+                                            {% elif imagen.Blog_details != None %}
+                                                <a href="{% url 'frontend:Blog_details' imagen.post_related %}" class="">
+                                            {% else %}
+                                                <a>
+                                            {% endif %}
+                                                    <img src="{{imagen.image.url}}" alt="{{imagen.title}}">
+                                                </a>
+                                        </div>
+                                    {% endfor %}
+                                </div>
+                            </div>
+                            {# Add Pagination #}
+                            <div class="swiper-pagination"></div>
+                            {# Add Arrows #}
+                            <div class="swiper-button-next"></div>
+                            <div class="swiper-button-prev"></div>
+                        </div>
+                    </div>
+            </div>
+        </div>
+    {% endif %}   
+{# Carrusel trabajo social #}
 {# Feeds #}
     {% if feeds %}
         <div class="row gray margin-top-25 margin-bottom-25">
@@ -491,6 +525,15 @@
     });
     
     var swiper;
+    swipper = new Swiper(
+        '.daily-image .swiper-container', {
+            pagination: '.daily-image .swiper-pagination',
+            nextButton: '.daily-image .swiper-button-next',
+            prevButton: '.daily-image .swiper-button-prev',
+            paginationClickable: true
+        }
+    );
+
     swipper = new Swiper(
         '.social-carousel .swiper-container', {
             pagination: '.social-carousel .swiper-pagination',

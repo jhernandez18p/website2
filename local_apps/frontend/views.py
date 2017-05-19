@@ -74,8 +74,14 @@ def home(request):
 		print('No hay tv aún' + e)
 
 	try:
-		imagen = Image.objects.all().filter(active=True,for_home=True)[:5] 
-		context['imagens'] = imagen
+		imagen = Image.objects.all().filter(active=True,for_home=True,is_social=False)[:5] 
+		context['dailyImagens'] = imagen
+	except Exception as e:
+		print('No hay imgen aún' + e)
+
+	try:
+		social_imagen = Image.objects.all().filter(for_home=True,is_social=True)[:7] 
+		context['socialImagens'] = social_imagen
 	except Exception as e:
 		print('No hay imgen aún' + e)
 
