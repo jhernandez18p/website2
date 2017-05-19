@@ -63,9 +63,9 @@ class RadioAdmin(admin.ModelAdmin):
 
 @admin.register(Image)
 class ImageAdmin(admin.ModelAdmin):
-	list_display = ["title"]
+	list_display = ["title", 'active', 'for_home', 'is_social', 'category', 'project_related', 'post_related']
 	list_display_links = []
-	list_editable = []
+	list_editable = ['active', 'for_home', 'is_social', 'category', 'project_related', 'post_related']
 	list_filter = []
 	# search_fields = ["title", "content"]
 	
