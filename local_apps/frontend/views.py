@@ -31,7 +31,7 @@ def home(request):
 	}
 
 	try:
-		news = Post.objects.active()[1:6]
+		news = Post.objects.active().filter(draft=False)[1:6]
 		if len(news)>=1:
 			last_new = Post.objects.first()
 		context['last_news'] = last_new
@@ -253,7 +253,7 @@ def blog(request):
 		print('No hay categorias aún' + e)
 
 	try:
-		news = Post.objects.all()
+		news = Post.objects.all().filter(draft=False)
 		news_list = news
 		context['news'] = news
 	except Exception as e:

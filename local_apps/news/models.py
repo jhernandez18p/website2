@@ -106,7 +106,7 @@ class Post(models.Model):
     """ Post model """
     user = models.ForeignKey(settings.AUTH_USER_MODEL, default=1)
     title = models.CharField(max_length=120)
-    slug = models.SlugField(unique=True)
+    slug = models.SlugField(unique=True, blank=True)
     image = models.ImageField(upload_to=upload_location,
                               null=True,
                               blank=True,
