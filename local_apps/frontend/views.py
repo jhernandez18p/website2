@@ -33,7 +33,7 @@ def home(request):
 	try:
 		news = Post.objects.active().filter(draft=False)[1:6]
 		if len(news)>=1:
-			last_new = Post.objects.first()
+			last_new = Post.objects.filter(draft=False)[0]
 		context['last_news'] = last_new
 		context['news'] = news
 	except Exception as e:

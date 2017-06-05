@@ -54,7 +54,7 @@ def menu(request):
         print('No hay blogs amigos aún' + e)
 
     try:
-        page_news = Post.objects.active()[:6]
+        page_news = Post.objects.active().filter(draft=False)[:6]
         context['page_news'] = page_news
     except Exception as e:
         print(e)
