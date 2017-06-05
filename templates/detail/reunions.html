@@ -113,7 +113,7 @@
                                 <div class="swiper-slide">
                                     <img src="{% if new.image %}{{new.image.url}}{% endif %}" alt="" class="img-responsive">
                                     <p>
-                                        <a href="{{new.url_new}}" target="_blank">{{new.title}}</a>
+                                        <a href="{{new.get_absolute_url}}" target="_blank">{{new.title}}</a>
                                     </p>
                                 </div>
                             {% endfor %}
