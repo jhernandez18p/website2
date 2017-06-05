@@ -487,7 +487,16 @@ def reunions_detail(request, pk):
 		'title':'Detalles {}'.format(str(title)),
 		'object':reunions,
 	}
-
+	
+	try:
+		post = Post.objects.all().filter(reunion=reunions)
+		if len(post) > 0:
+			context['has_news'] = True
+		else:
+			context['has_news'] = False
+		context['news'] = post
+	except Exception as e:
+		print('No hay Posts aún' + e)
 
 	return render(request, template, context)
 

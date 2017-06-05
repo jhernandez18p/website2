@@ -30,42 +30,118 @@
     .navbar {margin-bottom: 0px;}
     .banner-home{height: auto !important; margin-bottom: 25px;}
     .banner-home img{height: 100% !important;}
+    .blog-lg .swiper-container {
+        width: 100%;
+        height: 180px;
+        margin: 20px auto;
+    }
+    .blog-lg .swiper-slide {
+        text-align: center;
+        font-size: 18px;
+        background: #fff;
+        height: 160px; width: 160px;
+        
+        /* Center slide text vertically */
+        display: -webkit-box;
+        display: -ms-flexbox;
+        display: -webkit-flex;
+        display: flex;
+        -webkit-box-pack: center;
+        -ms-flex-pack: center;
+        -webkit-justify-content: center;
+        justify-content: center;
+        -webkit-box-align: center;
+        -ms-flex-align: center;
+        -webkit-align-items: center;
+        align-items: center;
+    }
+    .blog-lg .swiper-slide img{
+        min-width:100%;
+        max-width:100%;
+        min-height:100%;
+        max-height:100%;
+    }
+    .blog-lg .swiper-slide p{
+        position: absolute;top: 100%;    top: 80%;
+        background: rgba(255,255,255,1);
+        width: 100%;
+        padding: 5px;
+    }
 </style>
 {% endblock %}
 
 {% block content %}
-<div class="container">
-    <div class="row">
-        <div class="col-xs-12 col-sm-offset-2 col-sm-8">
-            <div class="go-back">
-                <p><a href="{% url 'frontend:Reunions' %}"><span class="glyphicon glyphicon-menu-left"></span> Ver todas las reuniones</a></p>
+    <div class="container">
+        <div class="row">
+            <div class="col-xs-12 col-sm-offset-2 col-sm-8">
+                <div class="go-back">
+                    <p><a href="{% url 'frontend:Reunions' %}"><span class="glyphicon glyphicon-menu-left"></span> Ver todas las reuniones</a></p>
+                </div>
             </div>
-        </div>
-        <div class="col-xs-12 {% if not events %} col-sm-offset-2 {% endif %} col-sm-8">
-            <div class="card-3 box">
-                <div id="fullWidthImage1" class="quote-image">
-                    <div class="container">
+            <div class="col-xs-12 {% if not events %} col-sm-offset-2 {% endif %} col-sm-8">
+                <div class="card-3 box">
+                    <div id="fullWidthImage1" class="quote-image">
+                        <div class="container">
+                        </div>
+                    </div>
+                    <h2>{{object.title}}</h2>
+                    {{object.description| safe}}
+                    {{object.location| safe}}
+
+                </div>
+            </div>
+            {% if events %}
+                <div class="col-xs-12 col-sm-4">
+                    <div class="banner-home card-3">
+                        <a href="{{event.get_absolute_url}}">
+                            <img src="{% if event.banner_vertical %}{{event.banner_vertical.url}}{% else %}{{event.image.url}}{% endif %}" alt="{{event.title}}">
+                        </a>
                     </div>
                 </div>
-                <h2>{{object.title}}</h2>
-                {{object.description| safe}}
-                {{object.location| safe}}
-
-            </div>
+            {% endif %}
         </div>
-        {% if events %}
-            <div class="col-xs-12 col-sm-4">
-                <div class="banner-home card-3">
-                    <a href="{{event.get_absolute_url}}">
-                        <img src="{% if event.banner_vertical %}{{event.banner_vertical.url}}{% else %}{{event.image.url}}{% endif %}" alt="{{event.title}}">
-                    </a>
+    </div>
+
+    {% if has_news %}
+        <br><br>
+        <div class="row gray margin-top-25 margin-bottom-25">
+            <div class="container">
+                <div class="col-xs-12 blog-lg">
+                    <div class="swiper-container">
+                        <div class="swiper-wrapper">
+                            {% for new in news %}
+                                <div class="swiper-slide">
+                                    <img src="{% if new.image %}{{new.image.url}}{% endif %}" alt="" class="img-responsive">
+                                    <p>
+                                        <a href="{{new.url_new}}" target="_blank">{{new.title}}</a>
+                                    </p>
+                                </div>
+                            {% endfor %}
+                        </div>
+                    </div>
+                    <!-- Add Arrows -->
+                    <div class="swiper-button-next "></div>
+                    <div class="swiper-button-prev "></div>
                 </div>
             </div>
-        {% endif %}
-    </div>
-</div>
+        </div>
+    {% endif %}
 
 {% endblock %}
 
 {% block js %}
+<script>
+    var swiper;
+    swiper = new Swiper(
+        '.blog-lg .swiper-container', {
+            pagination: '.blog-lg .swiper-pagination',
+            nextButton: '.blog-lg .swiper-button-next',
+            prevButton: '.blog-lg .swiper-button-prev',
+            slidesPerView: 'auto',
+            paginationClickable: true,
+            spaceBetween: 30,
+            freeMode: true
+        }
+    );
+</script>
 {% endblock %}

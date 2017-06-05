@@ -12,7 +12,7 @@ from django.utils.text import slugify
 
 from .utils import get_read_time
 from ckeditor.fields import RichTextField
-from local_apps.iurd.models import Category
+from local_apps.iurd.models import (Category,Reunion)
 
 
 class CommentManager(models.Manager):
@@ -126,6 +126,7 @@ class Post(models.Model):
     prev_related = models.ForeignKey('self', related_name='+', blank=True, null=True)
     next_related = models.ForeignKey('self', related_name='+', blank=True, null=True)
     category = models.ManyToManyField(Category, blank="True")
+    reunion = models.ManyToManyField(Reunion, blank="True",default=None)
 
     objects = PostManager()
 
