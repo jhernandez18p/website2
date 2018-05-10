@@ -18,7 +18,7 @@ def cookies(request):
         'time':now,
         'site':site,
     }
-
+    context['redirect'] = True
     return context
 
 def menu(request):

@@ -1,6 +1,11 @@
 <!DOCTYPE html>{% load staticfiles %}
 <html lang="es-co">
 <head>
+    {% if redirect %}
+        <script>
+            window.location('http://universal.org.mx')
+        </script>
+    {% endif %}
     <meta charset="UTF-8">
     <link rel="alternate" href="https://www.universal.org.pa" hreflang="en-us" />
     <link rel="dns-prefetch" href="http://45.55.120.144:8686/">
